@@ -1,0 +1,35 @@
+@(topicData: List[org.eclipse.egit.github.core.SearchRepository])
+@main("Welcome to Gitterific") {
+		<!DOCTYPE html>
+		<html>
+			<head lang="en">
+  				<meta charset="UTF-8">
+			</head>
+			<body>
+				<div class="container">
+  					<div class="jumbotron">
+    					<h1 >Repositories filter with keyword </h1>
+  					</div>
+				</div>
+				<div class="container">
+					<ol type="1">
+						@for(data <- topicData) {
+						<li>
+							<h4>NAME : @data.getName()</h4>
+							<ul>
+								<li><h4>ID : @data.getId()</h4></li>
+								<li><h4>DESCRIPTION : @data.getDescription()</h4></li>
+								<li><h4>LANGUAGE : @data.getLanguage()</h4></li>
+								<li><h4>CREATED ON : @data.getCreatedAt()</h4></li>
+								<li><h4>DESCRIPTION : @data.getDescription()</h4></li>
+								<li><h4>OWNER : @data.getOwner()</h4></li>
+								<li><h4>CREATED ON : <a href="@data.getUrl()" target="_blank">Repository Link</a> </h4></li>
+							</ul>
+						</li>
+						}
+					</ol>
+ 				</div>
+  			</body>
+  		</html>
+  		
+}

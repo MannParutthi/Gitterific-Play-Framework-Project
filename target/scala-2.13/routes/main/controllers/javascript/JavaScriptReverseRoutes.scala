@@ -80,5 +80,25 @@ package controllers.javascript {
   
   }
 
+  // @LINE:14
+  class ReverseTopicDataController(_prefix: => String) {
+
+    def _defaultPrefix: String = {
+      if (_prefix.endsWith("/")) "" else "/"
+    }
+
+  
+    // @LINE:14
+    def getTopicData: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.TopicDataController.getTopicData",
+      """
+        function(topic0) {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "topicData/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("topic", topic0))})
+        }
+      """
+    )
+  
+  }
+
 
 }

@@ -14,28 +14,32 @@ import _root_.play.libs.F
 class Routes(
   override val errorHandler: play.api.http.HttpErrorHandler, 
   // @LINE:6
-  HomeController_1: controllers.HomeController,
+  HomeController_2: controllers.HomeController,
   // @LINE:10
-  Assets_0: controllers.Assets,
+  Assets_1: controllers.Assets,
   // @LINE:13
-  UserDataController_2: controllers.UserDataController,
+  UserDataController_3: controllers.UserDataController,
+  // @LINE:14
+  TopicDataController_0: controllers.TopicDataController,
   val prefix: String
 ) extends GeneratedRouter {
 
    @javax.inject.Inject()
    def this(errorHandler: play.api.http.HttpErrorHandler,
     // @LINE:6
-    HomeController_1: controllers.HomeController,
+    HomeController_2: controllers.HomeController,
     // @LINE:10
-    Assets_0: controllers.Assets,
+    Assets_1: controllers.Assets,
     // @LINE:13
-    UserDataController_2: controllers.UserDataController
-  ) = this(errorHandler, HomeController_1, Assets_0, UserDataController_2, "/")
+    UserDataController_3: controllers.UserDataController,
+    // @LINE:14
+    TopicDataController_0: controllers.TopicDataController
+  ) = this(errorHandler, HomeController_2, Assets_1, UserDataController_3, TopicDataController_0, "/")
 
   def withPrefix(addPrefix: String): Routes = {
     val prefix = play.api.routing.Router.concatPrefix(addPrefix, this.prefix)
     router.RoutesPrefix.setPrefix(prefix)
-    new Routes(errorHandler, HomeController_1, Assets_0, UserDataController_2, prefix)
+    new Routes(errorHandler, HomeController_2, Assets_1, UserDataController_3, TopicDataController_0, prefix)
   }
 
   private[this] val defaultPrefix: String = {
@@ -47,6 +51,7 @@ class Routes(
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """assets/""" + "$" + """file<.+>""", """controllers.Assets.versioned(path:String = "/public", file:Asset)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """git/""" + "$" + """name<[^/]+>""", """controllers.HomeController.getUserProfile(name:String)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """userData/""" + "$" + """userName<[^/]+>""", """controllers.UserDataController.getUserData(userName:String)"""),
+    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """topicData/""" + "$" + """topic<[^/]+>""", """controllers.TopicDataController.getTopicData(topic:String)"""),
     Nil
   ).foldLeft(List.empty[(String,String,String)]) { (s,e) => e.asInstanceOf[Any] match {
     case r @ (_,_,_) => s :+ r.asInstanceOf[(String,String,String)]
@@ -59,7 +64,7 @@ class Routes(
     PathPattern(List(StaticPart(this.prefix)))
   )
   private[this] lazy val controllers_HomeController_index0_invoker = createInvoker(
-    HomeController_1.index,
+    HomeController_2.index,
     play.api.routing.HandlerDef(this.getClass.getClassLoader,
       "router",
       "controllers.HomeController",
@@ -77,7 +82,7 @@ class Routes(
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("assets/"), DynamicPart("file", """.+""",false)))
   )
   private[this] lazy val controllers_Assets_versioned1_invoker = createInvoker(
-    Assets_0.versioned(fakeValue[String], fakeValue[Asset]),
+    Assets_1.versioned(fakeValue[String], fakeValue[Asset]),
     play.api.routing.HandlerDef(this.getClass.getClassLoader,
       "router",
       "controllers.Assets",
@@ -95,7 +100,7 @@ class Routes(
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("git/"), DynamicPart("name", """[^/]+""",true)))
   )
   private[this] lazy val controllers_HomeController_getUserProfile2_invoker = createInvoker(
-    HomeController_1.getUserProfile(fakeValue[String]),
+    HomeController_2.getUserProfile(fakeValue[String]),
     play.api.routing.HandlerDef(this.getClass.getClassLoader,
       "router",
       "controllers.HomeController",
@@ -113,7 +118,7 @@ class Routes(
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("userData/"), DynamicPart("userName", """[^/]+""",true)))
   )
   private[this] lazy val controllers_UserDataController_getUserData3_invoker = createInvoker(
-    UserDataController_2.getUserData(fakeValue[String]),
+    UserDataController_3.getUserData(fakeValue[String]),
     play.api.routing.HandlerDef(this.getClass.getClassLoader,
       "router",
       "controllers.UserDataController",
@@ -126,31 +131,55 @@ class Routes(
     )
   )
 
+  // @LINE:14
+  private[this] lazy val controllers_TopicDataController_getTopicData4_route = Route("GET",
+    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("topicData/"), DynamicPart("topic", """[^/]+""",true)))
+  )
+  private[this] lazy val controllers_TopicDataController_getTopicData4_invoker = createInvoker(
+    TopicDataController_0.getTopicData(fakeValue[String]),
+    play.api.routing.HandlerDef(this.getClass.getClassLoader,
+      "router",
+      "controllers.TopicDataController",
+      "getTopicData",
+      Seq(classOf[String]),
+      "GET",
+      this.prefix + """topicData/""" + "$" + """topic<[^/]+>""",
+      """""",
+      Seq()
+    )
+  )
+
 
   def routes: PartialFunction[RequestHeader, Handler] = {
   
     // @LINE:6
     case controllers_HomeController_index0_route(params@_) =>
       call { 
-        controllers_HomeController_index0_invoker.call(HomeController_1.index)
+        controllers_HomeController_index0_invoker.call(HomeController_2.index)
       }
   
     // @LINE:10
     case controllers_Assets_versioned1_route(params@_) =>
       call(Param[String]("path", Right("/public")), params.fromPath[Asset]("file", None)) { (path, file) =>
-        controllers_Assets_versioned1_invoker.call(Assets_0.versioned(path, file))
+        controllers_Assets_versioned1_invoker.call(Assets_1.versioned(path, file))
       }
   
     // @LINE:11
     case controllers_HomeController_getUserProfile2_route(params@_) =>
       call(params.fromPath[String]("name", None)) { (name) =>
-        controllers_HomeController_getUserProfile2_invoker.call(HomeController_1.getUserProfile(name))
+        controllers_HomeController_getUserProfile2_invoker.call(HomeController_2.getUserProfile(name))
       }
   
     // @LINE:13
     case controllers_UserDataController_getUserData3_route(params@_) =>
       call(params.fromPath[String]("userName", None)) { (userName) =>
-        controllers_UserDataController_getUserData3_invoker.call(UserDataController_2.getUserData(userName))
+        controllers_UserDataController_getUserData3_invoker.call(UserDataController_3.getUserData(userName))
+      }
+  
+    // @LINE:14
+    case controllers_TopicDataController_getTopicData4_route(params@_) =>
+      call(params.fromPath[String]("topic", None)) { (topic) =>
+        controllers_TopicDataController_getTopicData4_invoker.call(TopicDataController_0.getTopicData(topic))
       }
   }
 }

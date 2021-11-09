@@ -61,5 +61,20 @@ package controllers {
   
   }
 
+  // @LINE:14
+  class ReverseTopicDataController(_prefix: => String) {
+    def _defaultPrefix: String = {
+      if (_prefix.endsWith("/")) "" else "/"
+    }
+
+  
+    // @LINE:14
+    def getTopicData(topic:String): Call = {
+      
+      Call("GET", _prefix + { _defaultPrefix } + "topicData/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("topic", topic)))
+    }
+  
+  }
+
 
 }

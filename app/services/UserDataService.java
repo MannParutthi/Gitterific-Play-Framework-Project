@@ -28,10 +28,8 @@ public class UserDataService {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
 			return user;
 		});
 		
 	}
-
 }
