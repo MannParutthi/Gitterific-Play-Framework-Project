@@ -60,8 +60,8 @@ Seq[Any](_display_(/*1.2*/main("Welcome to Gitterific")/*1.31*/ {_display_(Seq[A
               /*
                   -- GENERATED --
                   SOURCE: app/views/index.scala.html
-                  HASH: 453d534096c4f91b600085354e404bd32fd98887
-                  MATRIX: 989->1|1026->30|1065->32|1096->37
+                  HASH: 510992723afa8dc52f689e71215567b3b2ee68d8
+                  MATRIX: 989->1|1026->30|1065->32|1097->38
                   LINES: 32->1|32->1|32->1|33->2
                   -- GENERATED --
               */

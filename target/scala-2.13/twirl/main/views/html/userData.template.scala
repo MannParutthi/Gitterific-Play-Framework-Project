@@ -29,7 +29,8 @@ object userData extends _root_.play.twirl.api.BaseScalaTemplate[play.twirl.api.H
       {
 
 
-Seq[Any](_display_(/*2.2*/main("Welcome to Gitterific")/*2.31*/ {_display_(Seq[Any](format.raw/*2.33*/("""
+Seq[Any](format.raw/*1.43*/("""
+"""),_display_(/*2.2*/main("Welcome to Gitterific")/*2.31*/ {_display_(Seq[Any](format.raw/*2.33*/("""
 		"""),format.raw/*3.3*/("""<!DOCTYPE html>
 		<html>
 			<head lang="en">
@@ -66,9 +67,9 @@ Seq[Any](_display_(/*2.2*/main("Welcome to Gitterific")/*2.31*/ {_display_(Seq[A
               /*
                   -- GENERATED --
                   SOURCE: app/views/userData.scala.html
-                  HASH: 69002653c4ebe29f2aa5b03714ebf7a62fcf045b
-                  MATRIX: 937->1|1072->44|1109->73|1148->75|1177->78|1466->340|1479->344|1508->352|1587->401
-                  LINES: 27->1|32->2|32->2|32->2|33->3|46->16|46->16|46->16|51->21
+                  HASH: 70c179169b1a4d42925d59e7b86d998a2575295f
+                  MATRIX: 937->1|1073->42|1101->45|1138->74|1177->76|1207->80|1509->355|1522->359|1551->367|1635->421
+                  LINES: 27->1|32->1|33->2|33->2|33->2|34->3|47->16|47->16|47->16|52->21
                   -- GENERATED --
               */
           
