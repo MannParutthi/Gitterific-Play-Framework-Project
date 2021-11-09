@@ -33,6 +33,7 @@ public class TopicDataService {
 				e.printStackTrace();
 			}
 			
+			
 			// Sorting Repositories using the Creation Date
 			Collections.sort(repoList, new Comparator<SearchRepository>() {
 				  public int compare(SearchRepository o1, SearchRepository o2) {
@@ -41,6 +42,7 @@ public class TopicDataService {
 				      return o2.getCreatedAt().compareTo(o1.getCreatedAt());
 				  }
 				});
+			
 			
 			// Filtering the first 10 Repositories
 			List<SearchRepository> displayFirstTen = repoList.stream().limit(10).collect(Collectors.toList());
