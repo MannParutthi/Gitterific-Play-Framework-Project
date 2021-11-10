@@ -46,6 +46,21 @@ package controllers {
   
   }
 
+  // @LINE:15
+  class ReverseRepoDataController(_prefix: => String) {
+    def _defaultPrefix: String = {
+      if (_prefix.endsWith("/")) "" else "/"
+    }
+
+  
+    // @LINE:15
+    def getRepoData(userName:String): Call = {
+      
+      Call("GET", _prefix + { _defaultPrefix } + "repoData/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("userName", userName)))
+    }
+  
+  }
+
   // @LINE:13
   class ReverseUserDataController(_prefix: => String) {
     def _defaultPrefix: String = {

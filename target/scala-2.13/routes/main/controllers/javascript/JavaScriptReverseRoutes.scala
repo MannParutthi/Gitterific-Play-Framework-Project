@@ -60,6 +60,26 @@ package controllers.javascript {
   
   }
 
+  // @LINE:15
+  class ReverseRepoDataController(_prefix: => String) {
+
+    def _defaultPrefix: String = {
+      if (_prefix.endsWith("/")) "" else "/"
+    }
+
+  
+    // @LINE:15
+    def getRepoData: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.RepoDataController.getRepoData",
+      """
+        function(userName0) {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "repoData/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("userName", userName0))})
+        }
+      """
+    )
+  
+  }
+
   // @LINE:13
   class ReverseUserDataController(_prefix: => String) {
 
