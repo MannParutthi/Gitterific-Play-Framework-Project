@@ -4,3 +4,6 @@ run
 clean
 compile
 run
+eclipse
+compile
+run
