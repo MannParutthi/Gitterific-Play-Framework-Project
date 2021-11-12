@@ -33,7 +33,6 @@ public class TopicDataService {
 				e.printStackTrace();
 			}
 			
-			
 			// Sorting Repositories using the Creation Date
 			Collections.sort(repoList, new Comparator<SearchRepository>() {
 				  public int compare(SearchRepository o1, SearchRepository o2) {
