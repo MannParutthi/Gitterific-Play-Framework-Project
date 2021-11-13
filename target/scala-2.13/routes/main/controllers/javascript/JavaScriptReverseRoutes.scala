@@ -10,6 +10,26 @@ import _root_.play.libs.F
 // @LINE:6
 package controllers.javascript {
 
+  // @LINE:15
+  class ReverseRepoIssueController(_prefix: => String) {
+
+    def _defaultPrefix: String = {
+      if (_prefix.endsWith("/")) "" else "/"
+    }
+
+  
+    // @LINE:15
+    def getRepoIssues: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.RepoIssueController.getRepoIssues",
+      """
+        function(userName0,repoName1) {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "repoIssues/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("userName", userName0)) + "/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("repoName", repoName1))})
+        }
+      """
+    )
+  
+  }
+
   // @LINE:6
   class ReverseHomeController(_prefix: => String) {
 
