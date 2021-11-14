@@ -21,15 +21,15 @@ import play.data._
 import play.core.j.PlayFormsMagicForJava._
 import scala.jdk.CollectionConverters._
 
-object topicData extends _root_.play.twirl.api.BaseScalaTemplate[play.twirl.api.HtmlFormat.Appendable,_root_.play.twirl.api.Format[play.twirl.api.HtmlFormat.Appendable]](play.twirl.api.HtmlFormat) with _root_.play.twirl.api.Template1[List[org.eclipse.egit.github.core.SearchRepository],play.twirl.api.HtmlFormat.Appendable] {
+object topicData extends _root_.play.twirl.api.BaseScalaTemplate[play.twirl.api.HtmlFormat.Appendable,_root_.play.twirl.api.Format[play.twirl.api.HtmlFormat.Appendable]](play.twirl.api.HtmlFormat) with _root_.play.twirl.api.Template1[List[model.TopicDataModel],play.twirl.api.HtmlFormat.Appendable] {
 
   /**/
-  def apply/*1.2*/(topicData: List[org.eclipse.egit.github.core.SearchRepository]):play.twirl.api.HtmlFormat.Appendable = {
+  def apply/*1.2*/(topicData: List[model.TopicDataModel]):play.twirl.api.HtmlFormat.Appendable = {
     _display_ {
       {
 
 
-Seq[Any](format.raw/*1.66*/("""
+Seq[Any](format.raw/*1.41*/("""
 """),_display_(/*2.2*/main("Welcome to Gitterific")/*2.31*/ {_display_(Seq[Any](format.raw/*2.33*/("""
 		"""),format.raw/*3.3*/("""<!DOCTYPE html>
 		<html>
@@ -68,9 +68,9 @@ Seq[Any](format.raw/*1.66*/("""
     }
   }
 
-  def render(topicData:List[org.eclipse.egit.github.core.SearchRepository]): play.twirl.api.HtmlFormat.Appendable = apply(topicData)
+  def render(topicData:List[model.TopicDataModel]): play.twirl.api.HtmlFormat.Appendable = apply(topicData)
 
-  def f:((List[org.eclipse.egit.github.core.SearchRepository]) => play.twirl.api.HtmlFormat.Appendable) = (topicData) => apply(topicData)
+  def f:((List[model.TopicDataModel]) => play.twirl.api.HtmlFormat.Appendable) = (topicData) => apply(topicData)
 
   def ref: this.type = this
 
@@ -80,8 +80,8 @@ Seq[Any](format.raw/*1.66*/("""
               /*
                   -- GENERATED --
                   SOURCE: app/views/topicData.scala.html
-                  HASH: 9d0eea4f7aee7b94e9f06d0e025c29e8f71f1cb5
-                  MATRIX: 956->1|1115->65|1143->68|1180->97|1219->99|1249->103|1588->416|1626->438|1666->440|1701->448|1753->473|1766->477|1797->487|1866->529|1879->533|1908->541|1975->581|1988->585|2023->599|2092->641|2105->645|2141->660|2211->703|2224->707|2262->724|2326->761|2339->765|2371->776|2453->831|2466->835|2496->844|2610->928|2644->935|2728->989
+                  HASH: 63ac8dc1795762e0f58dec8e99a2b65a8ff2ff73
+                  MATRIX: 931->1|1065->40|1093->43|1130->72|1169->74|1199->78|1538->391|1576->413|1616->415|1651->423|1703->448|1716->452|1747->462|1816->504|1829->508|1858->516|1925->556|1938->560|1973->574|2042->616|2055->620|2091->635|2161->678|2174->682|2212->699|2276->736|2289->740|2321->751|2403->806|2416->810|2446->819|2560->903|2594->910|2678->964
                   LINES: 27->1|32->1|33->2|33->2|33->2|34->3|47->16|47->16|47->16|48->17|49->18|49->18|49->18|51->20|51->20|51->20|52->21|52->21|52->21|53->22|53->22|53->22|54->23|54->23|54->23|55->24|55->24|55->24|56->25|56->25|56->25|59->28|60->29|65->34
                   -- GENERATED --
               */

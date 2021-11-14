@@ -1,3 +1,4 @@
+
 name := """play-java-hello-world-tutorial"""
 organization := "com.example"
 
@@ -9,15 +10,8 @@ scalaVersion := "2.13.6"
 
 libraryDependencies += guice
 
-libraryDependencies += caffeine
-
-libraryDependencies += ehcache
-
 libraryDependencies ++= Seq(
   javaWs,
   "org.eclipse.mylyn.github" % "org.eclipse.egit.github.core" % "2.1.5",
-  "org.mockito" % "mockito-core" % "2.22.0" % "test",
-  "org.springframework" % "spring-web" % "5.3.13",
-  "org.junit.jupiter" % "junit-jupiter-api" % "5.8.1" % "test"
+  "org.mockito" % "mockito-core" % "2.10.0" % "test"
 )
-
