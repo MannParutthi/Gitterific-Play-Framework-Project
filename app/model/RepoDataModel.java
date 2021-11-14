@@ -1,22 +1,24 @@
 package model;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 public class RepoDataModel {
 	private long id;
 	private String description, language, url, cloneUrl, name;
+	private Date createdOn, lastUpdatedOn;
+	private List<RepoContributorModel> contributors;
+	private List<RepoIssueModel> issues;
+	private List<RepoCommitModel> commits;
+	
+	
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
-	private Date createdOn, lastUpdatedOn;
-	private List<RepoContributorModel> contributors;
-	private List<RepoIssueModel> issues;
-	private List<RepoCommitModel> commits;
-	
 	public long getId() {
 		return id;
 	}
@@ -76,5 +78,13 @@ public class RepoDataModel {
 	}
 	public void setCommits(List<RepoCommitModel> commits) {
 		this.commits = commits;
+	}
+	
+	@Override
+	public String toString() {
+		return "RepoDataModel [id=" + id + ", description=" + description + ", language=" + language + ", url=" + url
+				+ ", cloneUrl=" + cloneUrl + ", name=" + name + ", createdOn=" + createdOn + ", lastUpdatedOn="
+				+ lastUpdatedOn + ", contributors=" + contributors + ", issues=" + issues + ", commits=" + commits
+				+ "]";
 	}
 }

@@ -1,0 +1,4 @@
+[0m[[0m[31merror[0m] [0m[0mE:\APP_Project_G7\app\services\SearchForReposService.java:29:1: cannot find symbol[0m
+[0m[[0m[31merror[0m] [0m[0m  symbol:   method toList()[0m
+[0m[[0m[31merror[0m] [0m[0m  location: interface java.util.stream.Stream<org.eclipse.egit.github.core.SearchRepository>[0m
+[0m[[0m[31merror[0m] [0m[0mrepositoryService.searchRepositories(keyword).stream().limit(10).toList[0m

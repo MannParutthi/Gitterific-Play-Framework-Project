@@ -47,11 +47,13 @@ class Routes(
   }
 
   def documentation = List(
-    ("""GET""", this.prefix, """controllers.HomeController.index"""),
+    ("""GET""", this.prefix, """controllers.HomeController.index(request:Request)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """assets/""" + "$" + """file<.+>""", """controllers.Assets.versioned(path:String = "/public", file:Asset)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """git/""" + "$" + """name<[^/]+>""", """controllers.HomeController.getUserProfile(name:String)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """userData/""" + "$" + """userName<[^/]+>""", """controllers.UserDataController.getUserData(userName:String)"""),
-    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """repoData/""" + "$" + """userName<[^/]+>""", """controllers.RepoDataController.getRepoData(userName:String)"""),
+    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """repoData/""" + "$" + """userName<[^/]+>""", """controllers.RepoDataController.getRepoData(request:Request, userName:String)"""),
+    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """github""", """controllers.HomeController.github()"""),
+    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """searchResult""", """controllers.HomeController.getSearchResults(request:Request)"""),
     Nil
   ).foldLeft(List.empty[(String,String,String)]) { (s,e) => e.asInstanceOf[Any] match {
     case r @ (_,_,_) => s :+ r.asInstanceOf[(String,String,String)]
@@ -64,12 +66,14 @@ class Routes(
     PathPattern(List(StaticPart(this.prefix)))
   )
   private[this] lazy val controllers_HomeController_index0_invoker = createInvoker(
-    HomeController_2.index,
+    
+    (req:play.mvc.Http.Request) =>
+      HomeController_2.index(fakeValue[play.mvc.Http.Request]),
     play.api.routing.HandlerDef(this.getClass.getClassLoader,
       "router",
       "controllers.HomeController",
       "index",
-      Nil,
+      Seq(classOf[play.mvc.Http.Request]),
       "GET",
       this.prefix + """""",
       """ An example controller showing a sample home page""",
@@ -136,14 +140,54 @@ class Routes(
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("repoData/"), DynamicPart("userName", """[^/]+""",true)))
   )
   private[this] lazy val controllers_RepoDataController_getRepoData4_invoker = createInvoker(
-    RepoDataController_1.getRepoData(fakeValue[String]),
+    
+    (req:play.mvc.Http.Request) =>
+      RepoDataController_1.getRepoData(fakeValue[play.mvc.Http.Request], fakeValue[String]),
     play.api.routing.HandlerDef(this.getClass.getClassLoader,
       "router",
       "controllers.RepoDataController",
       "getRepoData",
-      Seq(classOf[String]),
+      Seq(classOf[play.mvc.Http.Request], classOf[String]),
       "GET",
       this.prefix + """repoData/""" + "$" + """userName<[^/]+>""",
+      """""",
+      Seq()
+    )
+  )
+
+  // @LINE:17
+  private[this] lazy val controllers_HomeController_github5_route = Route("GET",
+    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("github")))
+  )
+  private[this] lazy val controllers_HomeController_github5_invoker = createInvoker(
+    HomeController_2.github(),
+    play.api.routing.HandlerDef(this.getClass.getClassLoader,
+      "router",
+      "controllers.HomeController",
+      "github",
+      Nil,
+      "GET",
+      this.prefix + """github""",
+      """""",
+      Seq()
+    )
+  )
+
+  // @LINE:18
+  private[this] lazy val controllers_HomeController_getSearchResults6_route = Route("GET",
+    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("searchResult")))
+  )
+  private[this] lazy val controllers_HomeController_getSearchResults6_invoker = createInvoker(
+    
+    (req:play.mvc.Http.Request) =>
+      HomeController_2.getSearchResults(fakeValue[play.mvc.Http.Request]),
+    play.api.routing.HandlerDef(this.getClass.getClassLoader,
+      "router",
+      "controllers.HomeController",
+      "getSearchResults",
+      Seq(classOf[play.mvc.Http.Request]),
+      "GET",
+      this.prefix + """searchResult""",
       """""",
       Seq()
     )
@@ -155,7 +199,8 @@ class Routes(
     // @LINE:6
     case controllers_HomeController_index0_route(params@_) =>
       call { 
-        controllers_HomeController_index0_invoker.call(HomeController_2.index)
+        controllers_HomeController_index0_invoker.call(
+          req => HomeController_2.index(req))
       }
   
     // @LINE:10
@@ -179,7 +224,21 @@ class Routes(
     // @LINE:15
     case controllers_RepoDataController_getRepoData4_route(params@_) =>
       call(params.fromPath[String]("userName", None)) { (userName) =>
-        controllers_RepoDataController_getRepoData4_invoker.call(RepoDataController_1.getRepoData(userName))
+        controllers_RepoDataController_getRepoData4_invoker.call(
+          req => RepoDataController_1.getRepoData(req, userName))
+      }
+  
+    // @LINE:17
+    case controllers_HomeController_github5_route(params@_) =>
+      call { 
+        controllers_HomeController_github5_invoker.call(HomeController_2.github())
+      }
+  
+    // @LINE:18
+    case controllers_HomeController_getSearchResults6_route(params@_) =>
+      call { 
+        controllers_HomeController_getSearchResults6_invoker.call(
+          req => HomeController_2.getSearchResults(req))
       }
   }
 }

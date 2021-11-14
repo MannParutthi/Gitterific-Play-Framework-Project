@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
+import java.util.stream.Collectors;
 
 import org.eclipse.egit.github.core.Contributor;
 import org.eclipse.egit.github.core.Issue;
@@ -19,6 +20,8 @@ import model.RepoCommitModel;
 import model.RepoContributorModel;
 import model.RepoDataModel;
 import model.RepoIssueModel;
+import play.mvc.Http.Session;
+
 
 public class RepoDataService {
 	
@@ -35,7 +38,7 @@ public class RepoDataService {
 	}
 	
 	public CompletionStage<List<RepoDataModel>> getRepoData(String userName) {
-		return CompletableFuture.supplyAsync(() -> {
+		return CompletableFuture.supplyAsync(() -> {		
 			List<RepoDataModel> repoData = new ArrayList<RepoDataModel>();
 			try {
 				List<Repository> repoList = repositoryService.getRepositories(userName);	
@@ -61,7 +64,7 @@ public class RepoDataService {
 					repoDetails.setContributors(repoContributorList);
 					
 					List<RepoIssueModel> repoIssueList = new ArrayList<RepoIssueModel>();
-					List<Issue> issueList = issueService.getIssues(repository, null);
+					List<Issue> issueList = issueService.getIssues(repository, null).stream().limit(20).collect(Collectors.toList());
 					for (Issue issue : issueList) {
 						RepoIssueModel repoIssueDetails = new RepoIssueModel();
 						repoIssueDetails.setTitle(issue.getTitle());

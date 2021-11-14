@@ -38,6 +38,26 @@ package controllers.javascript {
       """
     )
   
+    // @LINE:18
+    def getSearchResults: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.HomeController.getSearchResults",
+      """
+        function() {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "searchResult"})
+        }
+      """
+    )
+  
+    // @LINE:17
+    def github: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.HomeController.github",
+      """
+        function() {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "github"})
+        }
+      """
+    )
+  
   }
 
   // @LINE:10

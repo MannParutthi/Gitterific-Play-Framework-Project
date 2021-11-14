@@ -18,4 +18,9 @@ public class RepoIssueModel {
 	public void setUrl(String url) {
 		this.url = url;
 	}
+
+	@Override
+	public String toString() {
+		return "RepoIssueModel [title=" + title + ", url=" + url + "]";
+	}
 }

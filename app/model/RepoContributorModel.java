@@ -18,4 +18,9 @@ public class RepoContributorModel {
 	public void setUrl(String url) {
 		this.url = url;
 	}
+
+	@Override
+	public String toString() {
+		return "RepoContributorModel [loginName=" + loginName + ", url=" + url + "]";
+	}
 }
