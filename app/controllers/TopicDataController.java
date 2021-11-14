@@ -8,7 +8,6 @@ import javax.inject.Inject;
 
 import play.mvc.Result;
 import services.TopicDataService;
-import services.UserDataService;
 
 
 public class TopicDataController {
@@ -20,9 +19,7 @@ public class TopicDataController {
 	}
 	
 	public CompletionStage<Result> getTopicData(String keyword) {
-		CompletionStage<Result> resultCompletionStage = topicDataService.getRepositoryData(keyword).thenApply(data -> ok(views.html.topicData.render(data)));
+		CompletionStage<Result> resultCompletionStage = topicDataService.getRepositoryData(keyword).thenApply(data -> ok(views.html.topicData.render(data)));		
 		return resultCompletionStage;
-//		User user = new User();
 	}
-	
 }

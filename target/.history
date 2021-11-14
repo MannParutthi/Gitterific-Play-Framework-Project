@@ -7,3 +7,9 @@ run
 eclipse
 sbt run
 run
+stop
+run
+sbt
+run
+sbt
+run
