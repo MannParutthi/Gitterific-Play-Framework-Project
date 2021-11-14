@@ -4,3 +4,11 @@ run
 clean
 compile
 run
+eclipse
+run
+test
+run
+test
+run
+test
+exit

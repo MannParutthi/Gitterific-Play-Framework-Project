@@ -1,4 +1,4 @@
-@(data: org.eclipse.egit.github.core.User)
+@(data: model.UserDetails)
 @main("Welcome to Gitterific") {
 		<!DOCTYPE html>
 		<html>
@@ -13,7 +13,19 @@
 				</div>
 				<div class="container">
 					<p>Id</p>
-					<h1>@data.getId()</h1>
+					<h3>@data.getId()</h3>
+					<p>Email</p>
+					<h3>@data.getEmail()</h3>
+					<p>AvatarUrl</p>
+					<h3>@data.getAvatarUrl()</h3>
+					<p>Blog</p>
+					<h3>@data.getBlog()</h3>
+					<p>Email</p>
+					<h3>@data.getEmail()</h3>
+					<p>AvatarUrl</p>
+					<h3>@data.getAvatarUrl()</h3>
+					<p>Blog</p>
+					<h3>@data.getBlog()</h3>
  				</div>
   			</body>
   		</html>
