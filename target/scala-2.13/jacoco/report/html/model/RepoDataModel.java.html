@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RepoDataModel.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=2;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Jacoco Coverage Report</a> &gt; <a href="index.source.html" class="el_package">model</a> &gt; <span class="el_source">RepoDataModel.java</span></div><h1>RepoDataModel.java</h1><pre class="source lang-java linenums">package model;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+
+<span class="fc" id="L7">public class RepoDataModel {</span>
+	private long id;
+	private String description, language, url, cloneUrl, name;
+	private Date createdOn, lastUpdatedOn;
+	private List&lt;RepoContributorModel&gt; contributors;
+	private List&lt;RepoIssueModel&gt; issues;
+	private List&lt;RepoCommitModel&gt; commits;
+	
+	
+	public String getName() {
+<span class="fc" id="L17">		return name;</span>
+	}
+	public void setName(String name) {
+<span class="fc" id="L20">		this.name = name;</span>
+<span class="fc" id="L21">	}</span>
+	public long getId() {
+<span class="fc" id="L23">		return id;</span>
+	}
+	public void setId(long id) {
+<span class="fc" id="L26">		this.id = id;</span>
+<span class="fc" id="L27">	}</span>
+	public String getDescription() {
+<span class="fc" id="L29">		return description;</span>
+	}
+	public void setDescription(String description) {
+<span class="fc" id="L32">		this.description = description;</span>
+<span class="fc" id="L33">	}</span>
+	public String getLanguage() {
+<span class="fc" id="L35">		return language;</span>
+	}
+	public void setLanguage(String language) {
+<span class="fc" id="L38">		this.language = language;</span>
+<span class="fc" id="L39">	}</span>
+	public String getUrl() {
+<span class="fc" id="L41">		return url;</span>
+	}
+	public void setUrl(String url) {
+<span class="fc" id="L44">		this.url = url;</span>
+<span class="fc" id="L45">	}</span>
+	public String getCloneUrl() {
+<span class="fc" id="L47">		return cloneUrl;</span>
+	}
+	public void setCloneUrl(String cloneUrl) {
+<span class="fc" id="L50">		this.cloneUrl = cloneUrl;</span>
+<span class="fc" id="L51">	}</span>
+	public Date getCreatedOn() {
+<span class="fc" id="L53">		return createdOn;</span>
+	}
+	public void setCreatedOn(Date createdOn) {
+<span class="fc" id="L56">		this.createdOn = createdOn;</span>
+<span class="fc" id="L57">	}</span>
+	public Date getLastUpdatedOn() {
+<span class="fc" id="L59">		return lastUpdatedOn;</span>
+	}
+	public void setLastUpdatedOn(Date lastUpdatedOn) {
+<span class="fc" id="L62">		this.lastUpdatedOn = lastUpdatedOn;</span>
+<span class="fc" id="L63">	}</span>
+	public List&lt;RepoContributorModel&gt; getContributors() {
+<span class="fc" id="L65">		return contributors;</span>
+	}
+	public void setContributors(List&lt;RepoContributorModel&gt; contributors) {
+<span class="fc" id="L68">		this.contributors = contributors;</span>
+<span class="fc" id="L69">	}</span>
+	public List&lt;RepoIssueModel&gt; getIssues() {
+<span class="fc" id="L71">		return issues;</span>
+	}
+	public void setIssues(List&lt;RepoIssueModel&gt; issues) {
+<span class="fc" id="L74">		this.issues = issues;</span>
+<span class="fc" id="L75">	}</span>
+	public List&lt;RepoCommitModel&gt; getCommits() {
+<span class="fc" id="L77">		return commits;</span>
+	}
+	public void setCommits(List&lt;RepoCommitModel&gt; commits) {
+<span class="fc" id="L80">		this.commits = commits;</span>
+<span class="fc" id="L81">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

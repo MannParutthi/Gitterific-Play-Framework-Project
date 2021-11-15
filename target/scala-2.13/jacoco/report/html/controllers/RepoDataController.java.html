@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RepoDataController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=2;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Jacoco Coverage Report</a> &gt; <a href="index.source.html" class="el_package">controllers</a> &gt; <span class="el_source">RepoDataController.java</span></div><h1>RepoDataController.java</h1><pre class="source lang-java linenums">package controllers;
+
+import static play.mvc.Results.ok;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
+
+import javax.inject.Inject;
+
+import model.RepoDataModel;
+import play.mvc.Http;
+import play.mvc.Result;
+import services.RepoDataService;
+
+public class RepoDataController {
+	private final RepoDataService repoDataService;
+	private HashMap&lt;String, List&lt;RepoDataModel&gt;&gt; sessionMapRepoData;
+
+	@Inject
+<span class="fc" id="L24">	RepoDataController(RepoDataService repoDataService) {</span>
+<span class="fc" id="L25">		this.repoDataService = repoDataService;</span>
+<span class="fc" id="L26">		sessionMapRepoData = new HashMap&lt;String, List&lt;RepoDataModel&gt;&gt;();</span>
+<span class="fc" id="L27">	}</span>
+
+	protected String getSaltString() {
+<span class="fc" id="L30">		String SALTCHARS = &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890&quot;;</span>
+<span class="fc" id="L31">		StringBuilder salt = new StringBuilder();</span>
+<span class="fc" id="L32">		Random rnd = new Random();</span>
+<span class="fc bfc" id="L33" title="All 2 branches covered.">		while (salt.length() &lt; 18) { // length of the random string.</span>
+<span class="fc" id="L34">			int index = (int) (rnd.nextFloat() * SALTCHARS.length());</span>
+<span class="fc" id="L35">			salt.append(SALTCHARS.charAt(index));</span>
+<span class="fc" id="L36">		}</span>
+<span class="fc" id="L37">		String saltStr = salt.toString();</span>
+<span class="fc" id="L38">		return saltStr;</span>
+	}
+
+	public CompletionStage&lt;Result&gt; getRepoData(Http.Request request, String userName) {
+<span class="fc" id="L42">		sessionMapRepoData.put(&quot;randomKeyForTesting&quot;, Arrays.asList());</span>
+		CompletionStage&lt;Result&gt; resultCompletionStage;
+<span class="fc bfc" id="L44" title="All 2 branches covered.">		if (request.session().get(userName).isEmpty()) {</span>
+<span class="fc" id="L45">			resultCompletionStage = repoDataService.getRepoData(userName).thenApply(repoList -&gt; {</span>
+<span class="fc" id="L46">				String randomKey = getSaltString();</span>
+<span class="fc" id="L47">				this.sessionMapRepoData.put(randomKey, repoList);</span>
+<span class="fc" id="L48">				return ok(views.html.repoData.render(repoList)).addingToSession(request, userName, randomKey);</span>
+			});
+		} else {
+<span class="fc" id="L51">			String key = request.session().get(userName).get();</span>
+<span class="fc" id="L52">			List&lt;RepoDataModel&gt; repoData = this.sessionMapRepoData.get(key);</span>
+<span class="fc" id="L53">			System.out.println(&quot;inside session ==&gt; &quot; + key);</span>
+<span class="fc" id="L54">			resultCompletionStage = CompletableFuture.supplyAsync(() -&gt; ok(views.html.repoData.render(repoData)));</span>
+		}
+<span class="fc" id="L56">		return resultCompletionStage;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

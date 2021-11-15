@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>HomeController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=2;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Jacoco Coverage Report</a> &gt; <a href="index.source.html" class="el_package">controllers</a> &gt; <span class="el_source">HomeController.java</span></div><h1>HomeController.java</h1><pre class="source lang-java linenums">package controllers;
+
+import javax.inject.Inject;
+import org.eclipse.egit.github.core.SearchRepository;
+import play.mvc.*;
+import views.SearchDTO;
+import play.i18n.MessagesApi;
+import play.data.Form;
+import play.data.FormFactory;
+import play.libs.ws.*;
+import services.SearchForReposService;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
+import static play.mvc.Results.ok;
+
+/**
+ * This controller contains an action to handle HTTP requests to the
+ * application's home page.
+ */
+public class HomeController {
+
+	private final SearchForReposService searchForReposService;
+	private final WSClient ws;
+	private HashMap&lt;String, List&lt;SearchRepository&gt;&gt; sessionMapRepoData;
+
+	@Inject
+	private FormFactory formFactory;
+
+	@Inject
+	private MessagesApi messagesApi;
+
+	@Inject
+<span class="fc" id="L36">	public HomeController(WSClient ws, SearchForReposService searchForReposService) {</span>
+<span class="fc" id="L37">		this.ws = ws;</span>
+<span class="fc" id="L38">		this.searchForReposService = searchForReposService;</span>
+<span class="fc" id="L39">		sessionMapRepoData = new HashMap&lt;String, List&lt;SearchRepository&gt;&gt;();</span>
+<span class="fc" id="L40">	}</span>
+
+	/**
+	 * An action that renders an HTML page with a welcome message. The configuration
+	 * in the &lt;code&gt;routes&lt;/code&gt; file means that this method will be called when
+	 * the application receives a &lt;code&gt;GET&lt;/code&gt; request with a path of
+	 * &lt;code&gt;/&lt;/code&gt;.
+	 */
+	public Result index(Http.Request request) {
+<span class="fc" id="L49">		return Results.ok(views.html.index.render(formFactory.form(SearchDTO.class), messagesApi.preferred(request)));</span>
+	}
+
+	public CompletionStage&lt;Result&gt; getUserProfile(String name) {
+<span class="nc" id="L53">		WSRequest requestUser = ws.url(&quot;https://api.github.com/users/defunkt&quot;);</span>
+<span class="nc" id="L54">		CompletionStage&lt;? extends WSResponse&gt; responsePromise = requestUser.get();</span>
+<span class="nc" id="L55">		return responsePromise.thenApply(response -&gt; Results.ok(response.getBody()));</span>
+	}
+
+	public CompletionStage&lt;Result&gt; getSearchResults(Http.Request request) {
+<span class="nc" id="L59">		Form&lt;SearchDTO&gt; form = formFactory.form(SearchDTO.class).bindFromRequest(request);</span>
+<span class="nc" id="L60">		String searchKeyword = request.queryString(&quot;searchTerm&quot;).get();</span>
+<span class="nc" id="L61">		System.out.println(searchKeyword);</span>
+<span class="nc" id="L62">		System.out.println(&quot;sessions ==&gt; &quot; + request.session().data());</span>
+<span class="nc" id="L63">		System.out.println(&quot;MAP ==&gt; &quot; + this.sessionMapRepoData);</span>
+<span class="nc" id="L64">		System.out.println(&quot;chk session for keyword ==&gt; &quot; + request.session().get(searchKeyword));</span>
+		
+		CompletionStage&lt;Result&gt; resultCompletionStage;
+<span class="nc bnc" id="L67" title="All 2 branches missed.">		if (request.session().get(searchKeyword).isEmpty()) {</span>
+<span class="nc" id="L68">		resultCompletionStage = searchForReposService</span>
+<span class="nc" id="L69">				.getReposWithKeyword(searchKeyword).thenApply(searchRepoList -&gt; {</span>
+<span class="nc" id="L70">					String randomKey = getSaltString();</span>
+<span class="nc" id="L71">					this.sessionMapRepoData.put(randomKey, searchRepoList);</span>
+<span class="nc" id="L72">					return ok(views.html.searchResults.render(searchRepoList));</span>
+				});
+		}
+		else {
+<span class="nc" id="L76">			String key = request.session().get(searchKeyword).get();</span>
+<span class="nc" id="L77">			List&lt;SearchRepository&gt; searchRepoList = this.sessionMapRepoData.get(key);</span>
+<span class="nc" id="L78">			System.out.println(&quot;inside session ==&gt; &quot; + key);</span>
+<span class="nc" id="L79">			resultCompletionStage = CompletableFuture.supplyAsync(() -&gt; ok(views.html.searchResults.render(searchRepoList)));</span>
+		}
+<span class="nc" id="L81">		return resultCompletionStage;</span>
+	}
+
+	protected String getSaltString() {
+<span class="nc" id="L85">		String SALTCHARS = &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890&quot;;</span>
+<span class="nc" id="L86">		StringBuilder salt = new StringBuilder();</span>
+<span class="nc" id="L87">		Random rnd = new Random();</span>
+<span class="nc bnc" id="L88" title="All 2 branches missed.">		while (salt.length() &lt; 18) { // length of the random string.</span>
+<span class="nc" id="L89">			int index = (int) (rnd.nextFloat() * SALTCHARS.length());</span>
+<span class="nc" id="L90">			salt.append(SALTCHARS.charAt(index));</span>
+<span class="nc" id="L91">		}</span>
+<span class="nc" id="L92">		String saltStr = salt.toString();</span>
+<span class="nc" id="L93">		return saltStr;</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

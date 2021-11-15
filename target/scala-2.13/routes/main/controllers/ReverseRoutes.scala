@@ -29,16 +29,10 @@ package controllers {
       Call("GET", _prefix)
     }
   
-    // @LINE:18
+    // @LINE:17
     def getSearchResults(): Call = {
       
       Call("GET", _prefix + { _defaultPrefix } + "searchResult")
-    }
-  
-    // @LINE:17
-    def github(): Call = {
-      
-      Call("GET", _prefix + { _defaultPrefix } + "github")
     }
   
   }

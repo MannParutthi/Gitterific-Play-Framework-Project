@@ -79,12 +79,4 @@ public class RepoDataModel {
 	public void setCommits(List<RepoCommitModel> commits) {
 		this.commits = commits;
 	}
-	
-	@Override
-	public String toString() {
-		return "RepoDataModel [id=" + id + ", description=" + description + ", language=" + language + ", url=" + url
-				+ ", cloneUrl=" + cloneUrl + ", name=" + name + ", createdOn=" + createdOn + ", lastUpdatedOn="
-				+ lastUpdatedOn + ", contributors=" + contributors + ", issues=" + issues + ", commits=" + commits
-				+ "]";
-	}
 }

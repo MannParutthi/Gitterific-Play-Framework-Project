@@ -14,5 +14,4 @@ GET 	/userData/:userName			controllers.UserDataController.getUserData(userName: 
 
 GET		/repoData/:userName			controllers.RepoDataController.getRepoData(request: Request, userName: String)
 
-GET 	/github						controllers.HomeController.github()
 GET		/searchResult				controllers.HomeController.getSearchResults(request: Request)
