@@ -28,7 +28,6 @@ public class UserDataService {
 			User user = null;
 			try {
 				user = userService.getUser(login);
-				userDetails.setCompany(user.getCompany());
 				userDetails.setEmail(user.getEmail());
 				userDetails.setId(user.getId());
 				userDetails.setLocation(user.getLocation());
@@ -37,6 +36,22 @@ public class UserDataService {
 				userDetails.setCollaborators(user.getCollaborators());
 				userDetails.setCompany(user.getCompany());
 				userDetails.setName(user.getName());
+				userDetails.setCreatedAt(user.getCreatedAt());
+				userDetails.setDiskUsage(user.getDiskUsage());
+				userDetails.setFollowers(user.getFollowers());
+				userDetails.setFollowing(user.getFollowing());
+				userDetails.setGravatarId(user.getGravatarId());
+				userDetails.setHireable(user.isHireable());
+				userDetails.setHtmlUrl(user.getHtmlUrl());
+				userDetails.setLogin(user.getLogin());
+				userDetails.setOwnedPrivateRepos(user.getOwnedPrivateRepos());
+				userDetails.setPlan(user.getPlan());
+				userDetails.setPrivateGists(user.getPrivateGists());
+				userDetails.setPublicGists(user.getPublicGists());
+				userDetails.setPublicRepos(user.getPublicRepos());
+				userDetails.setTotalPrivateRepos(user.getTotalPrivateRepos());
+				userDetails.setType(user.getType());
+				userDetails.setUrl(user.getUrl());
 				System.out.println("chk ==> " + user.getId() + user.getEmail() + user.getHtmlUrl() + user.getPublicRepos());
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

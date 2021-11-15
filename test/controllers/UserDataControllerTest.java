@@ -52,6 +52,19 @@ public class UserDataControllerTest {
 		userDetails.setName("test");
 		userDetails.setId(44037806);
 		userDetails.setAvatarUrl("https://avatars.githubusercontent.com/u/44037806?v=4");
+		userDetails.setBlog("http://fabien.potencier.org/");
+		userDetails.setCollaborators(3);
+		userDetails.setCompany("Symfony/Blackfire");
+		userDetails.setFollowers(700);
+		userDetails.setFollowing(20);
+		userDetails.setHireable(false);
+		userDetails.setHtmlUrl("https://github.com/fabpot");
+		userDetails.setPublicRepos(8);
+		userDetails.setPublicGists(10);
+		userDetails.setUrl("https://api.github.com/users/fabpot");
+		userDetails.setType("User");
+		userDetails.setPrivateGists(0);
+		userDetails.setTotalPrivateRepos(0);
 	}
 
 	@Test
@@ -76,6 +89,19 @@ public class UserDataControllerTest {
 		assertEquals("test",ud.getName());
 		assertEquals(44037806,ud.getId());
 		assertEquals("https://avatars.githubusercontent.com/u/44037806?v=4",ud.getAvatarUrl());
+		assertEquals("http://fabien.potencier.org/",ud.getBlog());
+		assertEquals(3,ud.getCollaborators());
+		assertEquals("Symfony/Blackfire",ud.getCompany());
+		assertEquals(700,ud.getFollowers());
+		assertEquals(20,ud.getFollowing());
+		assertEquals(false,ud.isHireable());
+		assertEquals("https://github.com/fabpot",ud.getHtmlUrl());
+		assertEquals(8,ud.getPublicRepos());
+		assertEquals(10,ud.getPublicGists());
+		assertEquals("https://api.github.com/users/fabpot",ud.getUrl());
+		assertEquals("User",ud.getType());
+		assertEquals(0,ud.getPrivateGists());
+		assertEquals(0,ud.getTotalPrivateRepos());
 		assertEquals( HttpStatus.OK_200,a.status());
 
 	}

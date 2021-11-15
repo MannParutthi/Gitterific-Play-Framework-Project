@@ -16,3 +16,6 @@ test
 jacoco
 test
 jacoco
+run
+test
+jacoco
