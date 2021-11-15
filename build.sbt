@@ -12,6 +12,5 @@ libraryDependencies += guice
 libraryDependencies ++= Seq(
   javaWs,
   "org.eclipse.mylyn.github" % "org.eclipse.egit.github.core" % "2.1.5",
-  "org.mockito" % "mockito-core" % "2.2.0" % "test"
+  "org.mockito" % "mockito-core" % "2.22.0" % "test"
 )
-

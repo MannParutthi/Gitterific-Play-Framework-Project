@@ -45,7 +45,7 @@ public class RepoIssuesTest extends WithApplication {
     @Before
     public void init() {
         issueListType = new TypeToken<List<Issue>>() {}.getType();
-        MockitoAnnotations.openMocks(this);
+        MockitoAnnotations.initMocks(this);
         client = mock(GitHubClient.class);
         mockIssueService = mock(IssueService.class);
         mockRepoService = mock(RepositoryService.class);
