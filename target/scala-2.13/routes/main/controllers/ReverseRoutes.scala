@@ -39,9 +39,15 @@ package controllers {
     }
   
     // @LINE:6
-    def index: Call = {
+    def index(): Call = {
       
       Call("GET", _prefix)
+    }
+  
+    // @LINE:17
+    def getSearchResults(): Call = {
+      
+      Call("GET", _prefix + { _defaultPrefix } + "searchResult")
     }
   
   }
@@ -61,6 +67,21 @@ package controllers {
   
   }
 
+  // @LINE:15
+  class ReverseRepoDataController(_prefix: => String) {
+    def _defaultPrefix: String = {
+      if (_prefix.endsWith("/")) "" else "/"
+    }
+
+  
+    // @LINE:15
+    def getRepoData(userName:String): Call = {
+      
+      Call("GET", _prefix + { _defaultPrefix } + "repoData/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("userName", userName)))
+    }
+  
+  }
+
   // @LINE:13
   class ReverseUserDataController(_prefix: => String) {
     def _defaultPrefix: String = {
@@ -72,6 +93,21 @@ package controllers {
     def getUserData(userName:String): Call = {
       
       Call("GET", _prefix + { _defaultPrefix } + "userData/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("userName", userName)))
+    }
+  
+  }
+
+  // @LINE:14
+  class ReverseTopicDataController(_prefix: => String) {
+    def _defaultPrefix: String = {
+      if (_prefix.endsWith("/")) "" else "/"
+    }
+
+  
+    // @LINE:14
+    def getTopicData(topic:String): Call = {
+      
+      Call("GET", _prefix + { _defaultPrefix } + "topicData/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("topic", topic)))
     }
   
   }
