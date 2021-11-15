@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserDataService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=2;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Jacoco Coverage Report</a> &gt; <a href="index.source.html" class="el_package">services</a> &gt; <span class="el_source">UserDataService.java</span></div><h1>UserDataService.java</h1><pre class="source lang-java linenums">package services;
+
+import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
+
+import org.eclipse.egit.github.core.User;
+import org.eclipse.egit.github.core.client.GitHubClient;
+import org.eclipse.egit.github.core.service.UserService;
+
+import model.UserDetails;
+
+public class UserDataService {	
+
+	private UserService userService;
+	private GitHubClient gitHubClient;
+	private UserDetails userDetails;
+	
+<span class="fc" id="L19">	public UserDataService() {</span>
+<span class="fc" id="L20">		gitHubClient = new GitHubClient();</span>
+<span class="fc" id="L21">		this.userService = new UserService(gitHubClient);</span>
+		
+<span class="fc" id="L23">	}</span>
+	
+	public CompletionStage&lt;UserDetails&gt; getUserData(String login) {
+<span class="nc" id="L26">		userDetails = new UserDetails();</span>
+<span class="nc" id="L27">		return CompletableFuture.supplyAsync(() -&gt; {</span>
+<span class="nc" id="L28">			User user = null;</span>
+			try {
+<span class="nc" id="L30">				user = userService.getUser(login);</span>
+<span class="nc" id="L31">				userDetails.setCompany(user.getCompany());</span>
+<span class="nc" id="L32">				userDetails.setEmail(user.getEmail());</span>
+<span class="nc" id="L33">				userDetails.setId(user.getId());</span>
+<span class="nc" id="L34">				userDetails.setLocation(user.getLocation());</span>
+<span class="nc" id="L35">				userDetails.setAvatarUrl(user.getAvatarUrl());</span>
+<span class="nc" id="L36">				userDetails.setBlog(user.getBlog());</span>
+<span class="nc" id="L37">				userDetails.setCollaborators(user.getCollaborators());</span>
+<span class="nc" id="L38">				userDetails.setCompany(user.getCompany());</span>
+<span class="nc" id="L39">				userDetails.setName(user.getName());</span>
+<span class="nc" id="L40">				System.out.println(&quot;chk ==&gt; &quot; + user.getId() + user.getEmail() + user.getHtmlUrl() + user.getPublicRepos());</span>
+<span class="nc" id="L41">			} catch (IOException e) {</span>
+				// TODO Auto-generated catch block
+<span class="nc" id="L43">				e.printStackTrace();</span>
+<span class="nc" id="L44">			}</span>
+			
+<span class="nc" id="L46">			return userDetails;</span>
+		});
+		
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

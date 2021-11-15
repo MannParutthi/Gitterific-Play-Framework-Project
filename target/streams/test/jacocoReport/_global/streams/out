@@ -1,0 +1,12 @@
+[0m[[0m[0minfo[0m] [0m[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m------- Jacoco Coverage Report -------[0m
+[0m[[0m[0minfo[0m] [0m[0m[0m
+[0m[[0m[0minfo[0m] [0m[0mLines: 36.59% (>= required 0.0%) covered, 175 of 276 missed, OK[0m
+[0m[[0m[0minfo[0m] [0m[0mInstructions: 33.64% (>= required 0.0%) covered, 1641 of 2473 missed, OK[0m
+[0m[[0m[0minfo[0m] [0m[0mBranches: 12.5% (>= required 0.0%) covered, 77 of 88 missed, OK[0m
+[0m[[0m[0minfo[0m] [0m[0mMethods: 25.71% (>= required 0.0%) covered, 156 of 210 missed, OK[0m
+[0m[[0m[0minfo[0m] [0m[0mComplexity: 21.65% (>= required 0.0%) covered, 199 of 254 missed, OK[0m
+[0m[[0m[0minfo[0m] [0m[0mClass: 73.91% (>= required 0.0%) covered, 6 of 23 missed, OK[0m
+[0m[[0m[0minfo[0m] [0m[0m[0m
+[0m[[0m[0minfo[0m] [0m[0mCheck D:\SOEN 6441\APP_Project_G7\target\scala-2.13\jacoco\report for detailed report[0m
+[0m[[0m[0minfo[0m] [0m[0m [0m

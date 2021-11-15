@@ -13,6 +13,8 @@ import java.util.concurrent.CompletionStage;
 import java.util.concurrent.ExecutionException;
 
 import static play.mvc.Results.ok;
+
+import org.eclipse.jetty.http.HttpStatus;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -38,7 +40,7 @@ public class UserDataControllerTest {
 	@Mock
 	UserDataService userDataService;
 	
-	@Mock
+//	@Mock
 	static
 	UserDetails userDetails;
 	
@@ -54,32 +56,27 @@ public class UserDataControllerTest {
 
 	@Test
 	public void testGetUser() {
-		
-	//	when(userDataService.getUserData(anyString())).thenReturn(CompletableFuture.supplyAsync(() -> userDetails));
-		CompletionStage<Result> a = null;
-a = userDataController.getUserData("harman8");
-			System.out.println(a);
-//	System.out.println(a.getName());
-//			
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (ExecutionException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		UserDetails u = new UserDetails();
-//		u.setName("Harman");
-//		u.setId(44037806);
-//		u.setAvatarUrl("https://avatars.githubusercontent.com/u/44037806?v=4");
-//		try {
-//			assertEquals( "test",((Object) a));
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (ExecutionException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+
+		when(userDataService.getUserData(anyString())).thenReturn(CompletableFuture.supplyAsync(() -> userDetails));
+		Result a = null;
+		UserDetails ud = null;
+		try {
+			a = userDataController.getUserData("harman8").toCompletableFuture().get();
+			ud = userDataService.getUserData("harman8").toCompletableFuture().get();
+			System.out.println(ud.getName());
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// 
+			e.printStackTrace();
+		}
+		System.out.println(a);
+		assertNotNull(ud);
+		assertEquals("test",ud.getName());
+		assertEquals(44037806,ud.getId());
+		assertEquals("https://avatars.githubusercontent.com/u/44037806?v=4",ud.getAvatarUrl());
+		assertEquals( HttpStatus.OK_200,a.status());
+
 	}
 }
