@@ -38,6 +38,16 @@ package controllers.javascript {
       """
     )
   
+    // @LINE:17
+    def getSearchResults: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.HomeController.getSearchResults",
+      """
+        function() {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "searchResult"})
+        }
+      """
+    )
+  
   }
 
   // @LINE:10
@@ -54,6 +64,26 @@ package controllers.javascript {
       """
         function(file1) {
           return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "assets/" + (""" + implicitly[play.api.mvc.PathBindable[Asset]].javascriptUnbind + """)("file", file1)})
+        }
+      """
+    )
+  
+  }
+
+  // @LINE:15
+  class ReverseRepoDataController(_prefix: => String) {
+
+    def _defaultPrefix: String = {
+      if (_prefix.endsWith("/")) "" else "/"
+    }
+
+  
+    // @LINE:15
+    def getRepoData: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.RepoDataController.getRepoData",
+      """
+        function(userName0) {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "repoData/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("userName", userName0))})
         }
       """
     )

@@ -8,12 +8,16 @@ import org.eclipse.egit.github.core.User;
 import org.eclipse.egit.github.core.client.GitHubClient;
 import org.eclipse.egit.github.core.service.UserService;
 
+<<<<<<< HEAD
 import model.UserDetails;
 
+=======
+>>>>>>> main
 public class UserDataService {	
 
 	private UserService userService;
 	private GitHubClient gitHubClient;
+<<<<<<< HEAD
 	private UserDetails userDetails;
 	
 <span class="fc" id="L19">	public UserDataService() {</span>
@@ -59,6 +63,26 @@ public class UserDataService {
 <span class="nc" id="L59">			}</span>
 			
 <span class="nc" id="L61">			return userDetails;</span>
+=======
+	
+<span class="fc" id="L16">	public UserDataService() {</span>
+<span class="fc" id="L17">		gitHubClient = new GitHubClient();</span>
+<span class="fc" id="L18">		this.userService = new UserService(gitHubClient);</span>
+<span class="fc" id="L19">	}</span>
+	
+	public CompletionStage&lt;User&gt; getUserData(String login) {
+<span class="nc" id="L22">		return CompletableFuture.supplyAsync(() -&gt; {</span>
+<span class="nc" id="L23">			User user = null;</span>
+			try {
+<span class="nc" id="L25">				user = userService.getUser(login);</span>
+<span class="nc" id="L26">				System.out.println(&quot;chk ==&gt; &quot; + user.getId() + user.getEmail() + user.getHtmlUrl() + user.getPublicRepos());</span>
+<span class="nc" id="L27">			} catch (IOException e) {</span>
+				// TODO Auto-generated catch block
+<span class="nc" id="L29">				e.printStackTrace();</span>
+<span class="nc" id="L30">			}</span>
+			
+<span class="nc" id="L32">			return user;</span>
+>>>>>>> main
 		});
 		
 	}

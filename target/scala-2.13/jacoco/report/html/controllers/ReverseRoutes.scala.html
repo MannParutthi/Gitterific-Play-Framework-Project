@@ -13,7 +13,7 @@ package controllers {
   // @LINE:6
 <span class="fc" id="L14">  class ReverseHomeController(_prefix: =&gt; String) {</span>
     def _defaultPrefix: String = {
-<span class="nc bnc" id="L16" title="All 2 branches missed.">      if (_prefix.endsWith(&quot;/&quot;)) &quot;&quot; else &quot;/&quot;</span>
+<span class="pc bpc" id="L16" title="1 of 2 branches missed.">      if (_prefix.endsWith(&quot;/&quot;)) &quot;&quot; else &quot;/&quot;</span>
     }
 
   
@@ -24,43 +24,64 @@ package controllers {
     }
   
     // @LINE:6
-    def index: Call = {
+    def index(): Call = {
       
 <span class="nc" id="L29">      Call(&quot;GET&quot;, _prefix)</span>
+    }
+  
+    // @LINE:17
+    def getSearchResults(): Call = {
+      
+<span class="fc" id="L35">      Call(&quot;GET&quot;, _prefix + { _defaultPrefix } + &quot;searchResult&quot;)</span>
     }
   
   }
 
   // @LINE:10
-<span class="fc" id="L35">  class ReverseAssets(_prefix: =&gt; String) {</span>
+<span class="fc" id="L41">  class ReverseAssets(_prefix: =&gt; String) {</span>
     def _defaultPrefix: String = {
-<span class="pc bpc" id="L37" title="1 of 2 branches missed.">      if (_prefix.endsWith(&quot;/&quot;)) &quot;&quot; else &quot;/&quot;</span>
+<span class="pc bpc" id="L43" title="1 of 2 branches missed.">      if (_prefix.endsWith(&quot;/&quot;)) &quot;&quot; else &quot;/&quot;</span>
     }
 
   
     // @LINE:10
     def versioned(file:Asset): Call = {
-<span class="fc bfc" id="L43" title="All 2 branches covered.">      implicit lazy val _rrc = new play.core.routing.ReverseRouteContext(Map((&quot;path&quot;, &quot;/public&quot;))); _rrc</span>
-<span class="fc" id="L44">      Call(&quot;GET&quot;, _prefix + { _defaultPrefix } + &quot;assets/&quot; + implicitly[play.api.mvc.PathBindable[Asset]].unbind(&quot;file&quot;, file))</span>
+<span class="fc bfc" id="L49" title="All 2 branches covered.">      implicit lazy val _rrc = new play.core.routing.ReverseRouteContext(Map((&quot;path&quot;, &quot;/public&quot;))); _rrc</span>
+<span class="fc" id="L50">      Call(&quot;GET&quot;, _prefix + { _defaultPrefix } + &quot;assets/&quot; + implicitly[play.api.mvc.PathBindable[Asset]].unbind(&quot;file&quot;, file))</span>
+    }
+  
+  }
+
+  // @LINE:15
+<span class="fc" id="L56">  class ReverseRepoDataController(_prefix: =&gt; String) {</span>
+    def _defaultPrefix: String = {
+<span class="nc bnc" id="L58" title="All 2 branches missed.">      if (_prefix.endsWith(&quot;/&quot;)) &quot;&quot; else &quot;/&quot;</span>
+    }
+
+  
+    // @LINE:15
+    def getRepoData(userName:String): Call = {
+      
+<span class="nc" id="L65">      Call(&quot;GET&quot;, _prefix + { _defaultPrefix } + &quot;repoData/&quot; + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind(&quot;userName&quot;, userName)))</span>
     }
   
   }
 
   // @LINE:13
-<span class="fc" id="L50">  class ReverseUserDataController(_prefix: =&gt; String) {</span>
+<span class="fc" id="L71">  class ReverseUserDataController(_prefix: =&gt; String) {</span>
     def _defaultPrefix: String = {
-<span class="nc bnc" id="L52" title="All 2 branches missed.">      if (_prefix.endsWith(&quot;/&quot;)) &quot;&quot; else &quot;/&quot;</span>
+<span class="nc bnc" id="L73" title="All 2 branches missed.">      if (_prefix.endsWith(&quot;/&quot;)) &quot;&quot; else &quot;/&quot;</span>
     }
 
   
     // @LINE:13
     def getUserData(userName:String): Call = {
       
-<span class="nc" id="L59">      Call(&quot;GET&quot;, _prefix + { _defaultPrefix } + &quot;userData/&quot; + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind(&quot;userName&quot;, userName)))</span>
+<span class="nc" id="L80">      Call(&quot;GET&quot;, _prefix + { _defaultPrefix } + &quot;userData/&quot; + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind(&quot;userName&quot;, userName)))</span>
     }
   
   }
 
 
-<span class="fc" id="L65">}</span>
+<span class="fc" id="L86">}</span>
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

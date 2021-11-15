@@ -21,8 +21,13 @@ public class UserDataController {
 <span class="fc" id="L21">	}</span>
 	
 	public CompletionStage&lt;Result&gt; getUserData(String userName) {
+<<<<<<< HEAD
 <span class="fc" id="L24">		CompletionStage&lt;Result&gt; resultCompletionStage = userDataService.getUserData(userName).thenApply(data -&gt; ok(views.html.userData.render(data)));</span>
 <span class="fc" id="L25">		return resultCompletionStage;</span>
+=======
+<span class="nc" id="L24">		CompletionStage&lt;Result&gt; resultCompletionStage = userDataService.getUserData(userName).thenApply(data -&gt; ok(views.html.userData.render(data)));</span>
+<span class="nc" id="L25">		return resultCompletionStage;</span>
+>>>>>>> main
 	}
 	
 }

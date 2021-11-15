@@ -24,9 +24,15 @@ package controllers {
     }
   
     // @LINE:6
-    def index: Call = {
+    def index(): Call = {
       
       Call("GET", _prefix)
+    }
+  
+    // @LINE:17
+    def getSearchResults(): Call = {
+      
+      Call("GET", _prefix + { _defaultPrefix } + "searchResult")
     }
   
   }
@@ -42,6 +48,21 @@ package controllers {
     def versioned(file:Asset): Call = {
       implicit lazy val _rrc = new play.core.routing.ReverseRouteContext(Map(("path", "/public"))); _rrc
       Call("GET", _prefix + { _defaultPrefix } + "assets/" + implicitly[play.api.mvc.PathBindable[Asset]].unbind("file", file))
+    }
+  
+  }
+
+  // @LINE:15
+  class ReverseRepoDataController(_prefix: => String) {
+    def _defaultPrefix: String = {
+      if (_prefix.endsWith("/")) "" else "/"
+    }
+
+  
+    // @LINE:15
+    def getRepoData(userName:String): Call = {
+      
+      Call("GET", _prefix + { _defaultPrefix } + "repoData/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("userName", userName)))
     }
   
   }
