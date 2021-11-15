@@ -1,0 +1,5 @@
+<<<<<<< HEAD
+["sbt.Task[scala.collection.immutable.Map[java.lang.String, scala.collection.Seq[scala.Tuple2[java.nio.file.Path, sbt.nio.FileStamp]]]]",{"2.13.6":{"hashes":[["D:\\SOEN 6441\\APP_Project_G7\\test\\controllers\\HomeControllerTest.java","8dfe932580532b74058f6a18c8cf5339dab0b879"],["D:\\SOEN 6441\\APP_Project_G7\\test\\controllers\\UserDataControllerTest.java","2dfc7983e343fa623476b63e197f58872ff0e254"]],"lastModifiedTimes":[]}}]
+=======
+["sbt.Task[scala.collection.immutable.Map[java.lang.String, scala.collection.Seq[scala.Tuple2[java.nio.file.Path, sbt.nio.FileStamp]]]]",{"2.13.6":{"hashes":[["E:\\APP_Project_G7\\test\\controllers\\HomeControllerTest.java","8dfe932580532b74058f6a18c8cf5339dab0b879"],["E:\\APP_Project_G7\\test\\controllers\\RepoDataControllerTest.java","9fbb57b361e4c19f9763f4e695b83bd6e3b02cac"]],"lastModifiedTimes":[]}}]
+>>>>>>> main

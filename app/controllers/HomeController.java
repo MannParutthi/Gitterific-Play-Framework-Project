@@ -1,76 +1,96 @@
 package controllers;
 
-//import java.io.File;
-//import java.io.InputStream;
-//import java.nio.ByteBuffer;
-//import java.time.Duration;
-//import java.time.temporal.ChronoUnit;
-//import java.util.concurrent.CompletionStage;
-//import java.util.function.Supplier;
-//
-//import javax.inject.Inject;
-//
-//import akka.stream.scaladsl.Source;
-//import akka.util.ByteString;
-//import play.api.libs.json.JsValue;
-//import play.api.libs.ws.*;
-//import play.api.mvc.MultipartFormData.Part;
-//import play.mvc.*;
-//import scala.xml.Elem;
-//import scala.xml.NodeBuffer;
-
 import javax.inject.Inject;
-import javax.naming.directory.SearchResult;
-
-//import org.eclipse.egit.github.core.Issue;
-
 import org.eclipse.egit.github.core.SearchRepository;
 import play.mvc.*;
-//import services.GitHubService;
+import views.SearchDTO;
+import play.i18n.MessagesApi;
+import play.data.Form;
+import play.data.FormFactory;
 import play.libs.ws.*;
-import utils.SessionHelper;
-import views.html.index;
-
+import services.SearchForReposService;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
-import static java.util.stream.Collectors.toList;
+import static play.mvc.Results.ok;
 
 /**
- * This controller contains an action to handle HTTP requests
- * to the application's home page.
+ * This controller contains an action to handle HTTP requests to the
+ * application's home page.
  */
 public class HomeController {
 
-	
-	 private final WSClient ws;
+	private final SearchForReposService searchForReposService;
+	private final WSClient ws;
+	private HashMap<String, List<SearchRepository>> sessionMapRepoData;
 
-	  @Inject
-	  public HomeController(WSClient ws) {
-	    this.ws = ws;
-	  }
+	@Inject
+	private FormFactory formFactory;
 
-    /**
-     * An action that renders an HTML page with a welcome message.
-     * The configuration in the <code>routes</code> file means that
-     * this method will be called when the application receives a
-     * <code>GET</code> request with a path of <code>/</code>.
-     */
-    public Result index(Http.Request request) {
-        // Session Usage
-        if (!SessionHelper.isSessionExist(request)) {
-            return Results.ok(index.render()).addingToSession(request, SessionHelper.getSessionKey(), SessionHelper.getUserAgentNameFromRequest(request));
-        }
-        return Results.ok(views.html.index.render());
-    }
-    
-    public CompletionStage<Result> getUserProfile(String name) {
-    	WSRequest requestUser = ws.url("https://api.github.com/users/defunkt");
-    	CompletionStage<? extends WSResponse> responsePromise = requestUser.get();
-        return responsePromise.thenApply(response -> Results.ok(response.getBody()));
-    }
-    
+	@Inject
+	private MessagesApi messagesApi;
+
+	@Inject
+	public HomeController(WSClient ws, SearchForReposService searchForReposService) {
+		this.ws = ws;
+		this.searchForReposService = searchForReposService;
+		sessionMapRepoData = new HashMap<String, List<SearchRepository>>();
+	}
+
+	/**
+	 * An action that renders an HTML page with a welcome message. The configuration
+	 * in the <code>routes</code> file means that this method will be called when
+	 * the application receives a <code>GET</code> request with a path of
+	 * <code>/</code>.
+	 */
+	public Result index(Http.Request request) {
+		return Results.ok(views.html.index.render(formFactory.form(SearchDTO.class), messagesApi.preferred(request)));
+	}
+
+	public CompletionStage<Result> getUserProfile(String name) {
+		WSRequest requestUser = ws.url("https://api.github.com/users/defunkt");
+		CompletionStage<? extends WSResponse> responsePromise = requestUser.get();
+		return responsePromise.thenApply(response -> Results.ok(response.getBody()));
+	}
+
+	public CompletionStage<Result> getSearchResults(Http.Request request) {
+		Form<SearchDTO> form = formFactory.form(SearchDTO.class).bindFromRequest(request);
+		String searchKeyword = request.queryString("searchTerm").get();
+		System.out.println(searchKeyword);
+		System.out.println("sessions ==> " + request.session().data());
+		System.out.println("MAP ==> " + this.sessionMapRepoData);
+		System.out.println("chk session for keyword ==> " + request.session().get(searchKeyword));
+		
+		CompletionStage<Result> resultCompletionStage;
+		if (request.session().get(searchKeyword).isEmpty()) {
+		resultCompletionStage = searchForReposService
+				.getReposWithKeyword(searchKeyword).thenApply(searchRepoList -> {
+					String randomKey = getSaltString();
+					this.sessionMapRepoData.put(randomKey, searchRepoList);
+					return ok(views.html.searchResults.render(searchRepoList));
+				});
+		}
+		else {
+			String key = request.session().get(searchKeyword).get();
+			List<SearchRepository> searchRepoList = this.sessionMapRepoData.get(key);
+			System.out.println("inside session ==> " + key);
+			resultCompletionStage = CompletableFuture.supplyAsync(() -> ok(views.html.searchResults.render(searchRepoList)));
+		}
+		return resultCompletionStage;
+	}
+
+	protected String getSaltString() {
+		String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+		StringBuilder salt = new StringBuilder();
+		Random rnd = new Random();
+		while (salt.length() < 18) { // length of the random string.
+			int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+			salt.append(SALTCHARS.charAt(index));
+		}
+		String saltStr = salt.toString();
+		return saltStr;
+	}
 
 }

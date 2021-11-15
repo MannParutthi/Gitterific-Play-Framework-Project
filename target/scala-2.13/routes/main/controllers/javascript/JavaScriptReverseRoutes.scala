@@ -58,6 +58,16 @@ package controllers.javascript {
       """
     )
   
+    // @LINE:17
+    def getSearchResults: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.HomeController.getSearchResults",
+      """
+        function() {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "searchResult"})
+        }
+      """
+    )
+  
   }
 
   // @LINE:10
@@ -80,6 +90,26 @@ package controllers.javascript {
   
   }
 
+  // @LINE:15
+  class ReverseRepoDataController(_prefix: => String) {
+
+    def _defaultPrefix: String = {
+      if (_prefix.endsWith("/")) "" else "/"
+    }
+
+  
+    // @LINE:15
+    def getRepoData: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.RepoDataController.getRepoData",
+      """
+        function(userName0) {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "repoData/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("userName", userName0))})
+        }
+      """
+    )
+  
+  }
+
   // @LINE:13
   class ReverseUserDataController(_prefix: => String) {
 
@@ -94,6 +124,26 @@ package controllers.javascript {
       """
         function(userName0) {
           return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "userData/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("userName", userName0))})
+        }
+      """
+    )
+  
+  }
+
+  // @LINE:14
+  class ReverseTopicDataController(_prefix: => String) {
+
+    def _defaultPrefix: String = {
+      if (_prefix.endsWith("/")) "" else "/"
+    }
+
+  
+    // @LINE:14
+    def getTopicData: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.TopicDataController.getTopicData",
+      """
+        function(topic0) {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "topicData/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("topic", topic0))})
         }
       """
     )
