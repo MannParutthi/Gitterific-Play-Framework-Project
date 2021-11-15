@@ -23,7 +23,6 @@ public class UserDataController {
 	public CompletionStage<Result> getUserData(String userName) {
 		CompletionStage<Result> resultCompletionStage = userDataService.getUserData(userName).thenApply(data -> ok(views.html.userData.render(data)));
 		return resultCompletionStage;
-//		User user = new User();
 	}
 	
 }

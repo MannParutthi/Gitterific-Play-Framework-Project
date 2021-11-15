@@ -1,0 +1,29 @@
+@(repoList: List[org.eclipse.egit.github.core.SearchRepository])
+@main("Welcome to Gitterific") {
+		<!DOCTYPE html>
+		<html>
+			<head lang="en">
+  				<meta charset="UTF-8">
+			</head>
+			<body>
+				<div class="container">
+  					<div class="jumbotron">
+    					<h1 >Gitterific</h1>
+  					</div>
+				</div>
+				<div class="container">
+					<ul>
+					@for(repo <- repoList) {
+					<li>
+						<ol type="1">
+							<li><h1>NAME: @repo.getName()</h1></li>
+							<li><h1>OWNER: @repo.getOwner()</h1></li>
+						</ol>
+					</li>
+					}
+					</ul>
+ 				</div>
+  			</body>
+  		</html>
+  		
+}

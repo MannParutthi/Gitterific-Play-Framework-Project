@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>repoData.template.scala</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=2;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Jacoco Coverage Report</a> &gt; <a href="index.source.html" class="el_package">views.html</a> &gt; <span class="el_source">repoData.template.scala</span></div><h1>repoData.template.scala</h1><pre class="source lang-java linenums">
+package views.html
+
+import _root_.play.twirl.api.TwirlFeatureImports._
+import _root_.play.twirl.api.TwirlHelperImports._
+import _root_.play.twirl.api.Html
+import _root_.play.twirl.api.JavaScript
+import _root_.play.twirl.api.Txt
+import _root_.play.twirl.api.Xml
+import models._
+import controllers._
+import play.api.i18n._
+import views.html._
+import play.api.templates.PlayMagic._
+import java.lang._
+import java.util._
+import play.core.j.PlayMagicForJava._
+import play.mvc._
+import play.api.data.Field
+import play.data._
+import play.core.j.PlayFormsMagicForJava._
+import scala.jdk.CollectionConverters._
+
+<span class="pc" id="L24">object repoData extends _root_.play.twirl.api.BaseScalaTemplate[play.twirl.api.HtmlFormat.Appendable,_root_.play.twirl.api.Format[play.twirl.api.HtmlFormat.Appendable]](play.twirl.api.HtmlFormat) with _root_.play.twirl.api.Template1[List[model.RepoDataModel],play.twirl.api.HtmlFormat.Appendable] {</span>
+
+  /**/
+  def apply/*1.2*/(repoList: List[model.RepoDataModel]):play.twirl.api.HtmlFormat.Appendable = {
+<span class="fc" id="L28">    _display_ {</span>
+      {
+
+
+<span class="fc" id="L32">Seq[Any](format.raw/*1.39*/(&quot;&quot;&quot;</span>
+<span class="fc" id="L33">&quot;&quot;&quot;),_display_(/*2.2*/main(&quot;Welcome to Gitterific&quot;)/*2.31*/ {_display_(Seq[Any](format.raw/*2.33*/(&quot;&quot;&quot;</span>
+<span class="fc" id="L34">	&quot;&quot;&quot;),format.raw/*3.2*/(&quot;&quot;&quot;&lt;!DOCTYPE html&gt;</span>
+	&lt;html&gt;
+		&lt;head lang=&quot;en&quot;&gt;
+  			&lt;meta charset=&quot;UTF-8&quot;&gt;
+		&lt;/head&gt;
+		&lt;body&gt;
+			&lt;div class=&quot;container&quot;&gt;
+  				&lt;div class=&quot;jumbotron&quot;&gt;
+    				&lt;h1 &gt;Gitterific&lt;/h1&gt;
+  				&lt;/div&gt;
+			&lt;/div&gt;
+			&lt;div class=&quot;container&quot;&gt;
+				&lt;ul&gt;
+<span class="fc" id="L47">				&quot;&quot;&quot;),_display_(/*16.6*/for(repo &lt;- repoList) yield /*16.27*/ {_display_(Seq[Any](format.raw/*16.29*/(&quot;&quot;&quot;</span>
+  					&quot;&quot;&quot;),format.raw/*17.8*/(&quot;&quot;&quot;&lt;li&gt;
+  						&lt;h4&gt;NAME : &quot;&quot;&quot;),_display_(/*18.21*/repo/*18.25*/.getName()),format.raw/*18.35*/(&quot;&quot;&quot;&lt;/h4&gt;
+  						&lt;ol type=&quot;1&quot;&gt;
+  							&lt;li&gt;&lt;h4&gt;ID : &quot;&quot;&quot;),_display_(/*20.24*/repo/*20.28*/.getId()),format.raw/*20.36*/(&quot;&quot;&quot;&lt;/h4&gt;&lt;/li&gt;
+  							&lt;li&gt;&lt;h4&gt;DESCRIPTION : &quot;&quot;&quot;),_display_(/*21.33*/repo/*21.37*/.getDescription()),format.raw/*21.54*/(&quot;&quot;&quot;&lt;/h4&gt;&lt;/li&gt;
+  							&lt;li&gt;&lt;h4&gt;LANGUAGE : &quot;&quot;&quot;),_display_(/*22.30*/repo/*22.34*/.getLanguage()),format.raw/*22.48*/(&quot;&quot;&quot;&lt;/h4&gt;&lt;/li&gt;
+  					    	&lt;li&gt;&lt;h4&gt;URL : &lt;a&gt;&quot;&quot;&quot;),_display_(/*23.31*/repo/*23.35*/.getUrl()),format.raw/*23.44*/(&quot;&quot;&quot;&lt;/a&gt;&lt;/h4&gt;&lt;/li&gt;
+  					    	&lt;li&gt;&lt;h4&gt;CLONE URL : &quot;&quot;&quot;),_display_(/*24.34*/repo/*24.38*/.getCloneUrl()),format.raw/*24.52*/(&quot;&quot;&quot;&lt;/h4&gt;&lt;/li&gt;
+  					    	&lt;li&gt;&lt;h4&gt;CREATED ON : &quot;&quot;&quot;),_display_(/*25.35*/repo/*25.39*/.getCreatedOn()),format.raw/*25.54*/(&quot;&quot;&quot;&lt;/h4&gt;&lt;/li&gt;
+  					    	&lt;li&gt;&lt;h4&gt;LAST UPDATED ON : &quot;&quot;&quot;),_display_(/*26.40*/repo/*26.44*/.getLastUpdatedOn()),format.raw/*26.63*/(&quot;&quot;&quot;&lt;/h4&gt;&lt;/li&gt;
+  					    	&lt;li&gt;
+  					    		&lt;h4&gt;CONTRIBUTORS : &lt;/h4&gt;
+  					    		&quot;&quot;&quot;),_display_(/*29.15*/for(contributor &lt;- repo.getContributors()) yield /*29.57*/ {_display_(Seq[Any](format.raw/*29.59*/(&quot;&quot;&quot;
+  					    			&quot;&quot;&quot;),format.raw/*30.15*/(&quot;&quot;&quot;&lt;ul&gt;
+  					    				&lt;li&gt;
+  					    					&lt;ol type=&quot;A&quot;&gt;
+  					    						&lt;li&gt;&lt;h4&gt;LOGIN NAME : &quot;&quot;&quot;),_display_(/*33.40*/contributor/*33.51*/.getLoginName()),format.raw/*33.66*/(&quot;&quot;&quot;&lt;/h4&gt;&lt;/li&gt;
+  					    						&lt;li&gt;&lt;h4&gt;URL : &lt;a&gt;&quot;&quot;&quot;),_display_(/*34.36*/contributor/*34.47*/.getUrl()),format.raw/*34.56*/(&quot;&quot;&quot;&lt;/a&gt;&lt;/h4&gt;&lt;/li&gt;
+  					    					&lt;/ol&gt;
+  					    				&lt;/li&gt;
+  					    			&lt;/ul&gt;
+  					    		&quot;&quot;&quot;)))}),format.raw/*38.15*/(&quot;&quot;&quot;
+  					    	&quot;&quot;&quot;),format.raw/*39.13*/(&quot;&quot;&quot;&lt;/li&gt;
+  					    	&lt;li&gt;
+  					    		&lt;h4&gt;ISSUES : &lt;/h4&gt;
+  					    		&quot;&quot;&quot;),_display_(/*42.15*/for(issue &lt;- repo.getIssues()) yield /*42.45*/ {_display_(Seq[Any](format.raw/*42.47*/(&quot;&quot;&quot;
+  					    			&quot;&quot;&quot;),format.raw/*43.15*/(&quot;&quot;&quot;&lt;ul&gt;
+  					    				&lt;li&gt;
+  					    					&lt;ol type=&quot;A&quot;&gt;
+  					    						&lt;li&gt;&lt;h4&gt;TITLE : &quot;&quot;&quot;),_display_(/*46.35*/issue/*46.40*/.getTitle()),format.raw/*46.51*/(&quot;&quot;&quot;&lt;/h4&gt;&lt;/li&gt;
+  					    						&lt;li&gt;&lt;h4&gt;URL : &lt;a&gt;&quot;&quot;&quot;),_display_(/*47.36*/issue/*47.41*/.getUrl()),format.raw/*47.50*/(&quot;&quot;&quot;&lt;/a&gt;&lt;/h4&gt;&lt;/li&gt;
+  					    					&lt;/ol&gt;
+  					    				&lt;/li&gt;
+  					    			&lt;/ul&gt;
+  					    		&quot;&quot;&quot;)))}),format.raw/*51.15*/(&quot;&quot;&quot;
+  					    	&quot;&quot;&quot;),format.raw/*52.13*/(&quot;&quot;&quot;&lt;/li&gt;
+  					    	&lt;li&gt;
+  					    		&lt;h4&gt;COMMITS : &lt;/h4&gt;
+  					    		&quot;&quot;&quot;),_display_(/*55.15*/for(commit &lt;- repo.getCommits()) yield /*55.47*/ {_display_(Seq[Any](format.raw/*55.49*/(&quot;&quot;&quot;
+  					    			&quot;&quot;&quot;),format.raw/*56.15*/(&quot;&quot;&quot;&lt;ul&gt;
+  					    				&lt;li&gt;
+  					    					&lt;ol type=&quot;A&quot;&gt;
+  					    						&lt;li&gt;&lt;h4&gt;LOGIN NAME : &quot;&quot;&quot;),_display_(/*59.40*/commit/*59.46*/.getLoginName()),format.raw/*59.61*/(&quot;&quot;&quot;&lt;/h4&gt;&lt;/li&gt;
+  					    						&lt;li&gt;&lt;h4&gt;URL : &lt;a&gt;&quot;&quot;&quot;),_display_(/*60.36*/commit/*60.42*/.getUrl()),format.raw/*60.51*/(&quot;&quot;&quot;&lt;/a&gt;&lt;/h4&gt;&lt;/li&gt;
+  					    					&lt;/ol&gt;
+  					    				&lt;/li&gt;
+  					    			&lt;/ul&gt;
+  					    		&quot;&quot;&quot;)))}),format.raw/*64.15*/(&quot;&quot;&quot;
+  					    	&quot;&quot;&quot;),format.raw/*65.13*/(&quot;&quot;&quot;&lt;/li&gt;
+  					    &lt;/ol&gt;
+  					&lt;/li&gt;
+<span class="fc" id="L99">				&quot;&quot;&quot;)))}),format.raw/*68.6*/(&quot;&quot;&quot;</span>
+<span class="fc" id="L100">				&quot;&quot;&quot;),format.raw/*69.5*/(&quot;&quot;&quot;&lt;/ul&gt;</span>
+ 			&lt;/div&gt;
+  		&lt;/body&gt;
+  	&lt;/html&gt;	
+<span class="fc" id="L104">&quot;&quot;&quot;)))}),format.raw/*73.2*/(&quot;&quot;&quot;</span>
+&quot;&quot;&quot;))
+      }
+    }
+  }
+
+<span class="fc" id="L110">  def render(repoList:List[model.RepoDataModel]): play.twirl.api.HtmlFormat.Appendable = apply(repoList)</span>
+
+<span class="nc" id="L112">  def f:((List[model.RepoDataModel]) =&gt; play.twirl.api.HtmlFormat.Appendable) = (repoList) =&gt; apply(repoList)</span>
+
+<span class="nc" id="L114">  def ref: this.type = this</span>
+
+}
+
+
+              /*
+                  -- GENERATED --
+                  SOURCE: app/views/repoData.scala.html
+                  HASH: d41ef503b410c9cdc1e7d00b0fa1c7e14176995b
+                  MATRIX: 929-&gt;1|1061-&gt;38|1089-&gt;41|1126-&gt;70|1165-&gt;72|1194-&gt;75|1473-&gt;328|1510-&gt;349|1550-&gt;351|1586-&gt;360|1639-&gt;386|1652-&gt;390|1683-&gt;400|1763-&gt;453|1776-&gt;457|1805-&gt;465|1876-&gt;509|1889-&gt;513|1927-&gt;530|1995-&gt;571|2008-&gt;575|2043-&gt;589|2112-&gt;631|2125-&gt;635|2155-&gt;644|2231-&gt;693|2244-&gt;697|2279-&gt;711|2352-&gt;757|2365-&gt;761|2401-&gt;776|2479-&gt;827|2492-&gt;831|2532-&gt;850|2642-&gt;933|2700-&gt;975|2740-&gt;977|2784-&gt;993|2908-&gt;1090|2928-&gt;1101|2964-&gt;1116|3038-&gt;1163|3058-&gt;1174|3088-&gt;1183|3215-&gt;1279|3257-&gt;1293|3356-&gt;1365|3402-&gt;1395|3442-&gt;1397|3486-&gt;1413|3605-&gt;1505|3619-&gt;1510|3651-&gt;1521|3725-&gt;1568|3739-&gt;1573|3769-&gt;1582|3896-&gt;1678|3938-&gt;1692|4038-&gt;1765|4086-&gt;1797|4126-&gt;1799|4170-&gt;1815|4294-&gt;1912|4309-&gt;1918|4345-&gt;1933|4419-&gt;1980|4434-&gt;1986|4464-&gt;1995|4591-&gt;2091|4633-&gt;2105|4707-&gt;2149|4740-&gt;2155|4816-&gt;2201
+                  LINES: 27-&gt;1|32-&gt;1|33-&gt;2|33-&gt;2|33-&gt;2|34-&gt;3|47-&gt;16|47-&gt;16|47-&gt;16|48-&gt;17|49-&gt;18|49-&gt;18|49-&gt;18|51-&gt;20|51-&gt;20|51-&gt;20|52-&gt;21|52-&gt;21|52-&gt;21|53-&gt;22|53-&gt;22|53-&gt;22|54-&gt;23|54-&gt;23|54-&gt;23|55-&gt;24|55-&gt;24|55-&gt;24|56-&gt;25|56-&gt;25|56-&gt;25|57-&gt;26|57-&gt;26|57-&gt;26|60-&gt;29|60-&gt;29|60-&gt;29|61-&gt;30|64-&gt;33|64-&gt;33|64-&gt;33|65-&gt;34|65-&gt;34|65-&gt;34|69-&gt;38|70-&gt;39|73-&gt;42|73-&gt;42|73-&gt;42|74-&gt;43|77-&gt;46|77-&gt;46|77-&gt;46|78-&gt;47|78-&gt;47|78-&gt;47|82-&gt;51|83-&gt;52|86-&gt;55|86-&gt;55|86-&gt;55|87-&gt;56|90-&gt;59|90-&gt;59|90-&gt;59|91-&gt;60|91-&gt;60|91-&gt;60|95-&gt;64|96-&gt;65|99-&gt;68|100-&gt;69|104-&gt;73
+                  -- GENERATED --
+              */
+          
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

@@ -14,3 +14,4 @@ libraryDependencies ++= Seq(
   "org.eclipse.mylyn.github" % "org.eclipse.egit.github.core" % "2.1.5",
   "org.mockito" % "mockito-core" % "2.22.0" % "test"
 )
+
