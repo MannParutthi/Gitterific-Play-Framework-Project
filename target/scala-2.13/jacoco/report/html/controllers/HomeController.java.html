@@ -1,5 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>HomeController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=2;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Jacoco Coverage Report</a> &gt; <a href="index.source.html" class="el_package">controllers</a> &gt; <span class="el_source">HomeController.java</span></div><h1>HomeController.java</h1><pre class="source lang-java linenums">package controllers;
 
+<<<<<<< HEAD
+//import java.io.File;
+//import java.io.InputStream;
+//import java.nio.ByteBuffer;
+//import java.time.Duration;
+//import java.time.temporal.ChronoUnit;
+//import java.util.concurrent.CompletionStage;
+//import java.util.function.Supplier;
+//
+//import javax.inject.Inject;
+//
+//import akka.stream.scaladsl.Source;
+//import akka.util.ByteString;
+//import play.api.libs.json.JsValue;
+//import play.api.libs.ws.*;
+//import play.api.mvc.MultipartFormData.Part;
+//import play.mvc.*;
+//import scala.xml.Elem;
+//import scala.xml.NodeBuffer;
+
+import javax.inject.Inject;
+
+//import org.eclipse.egit.github.core.Issue;
+
+import play.mvc.*;
+//import services.GitHubService;
+import play.libs.ws.*;
+
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
+import static java.util.stream.Collectors.toList;
+
+/**
+ * This controller contains an action to handle HTTP requests
+ * to the application's home page.
+ */
+public class HomeController {
+	
+	 private final WSClient ws;
+
+	  @Inject
+<span class="fc" id="L44">	  public HomeController(WSClient ws) {</span>
+<span class="fc" id="L45">	    this.ws = ws;</span>
+<span class="fc" id="L46">	  }</span>
+
+    /**
+     * An action that renders an HTML page with a welcome message.
+     * The configuration in the &lt;code&gt;routes&lt;/code&gt; file means that
+     * this method will be called when the application receives a
+     * &lt;code&gt;GET&lt;/code&gt; request with a path of &lt;code&gt;/&lt;/code&gt;.
+     */
+    public Result index() {
+<span class="fc" id="L55">        return Results.ok(views.html.index.render());</span>
+    }
+    
+    public CompletionStage&lt;Result&gt; getUserProfile(String name) {
+<span class="nc" id="L59">    	WSRequest requestUser = ws.url(&quot;https://api.github.com/users/defunkt&quot;);</span>
+<span class="nc" id="L60">    	CompletionStage&lt;? extends WSResponse&gt; responsePromise = requestUser.get();</span>
+<span class="nc" id="L61">        return responsePromise.thenApply(response -&gt; Results.ok(response.getBody()));</span>
+    }
+    
+=======
 import javax.inject.Inject;
 import org.eclipse.egit.github.core.SearchRepository;
 import play.mvc.*;
@@ -92,6 +155,7 @@ public class HomeController {
 <span class="nc" id="L92">		String saltStr = salt.toString();</span>
 <span class="nc" id="L93">		return saltStr;</span>
 	}
+>>>>>>> main
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

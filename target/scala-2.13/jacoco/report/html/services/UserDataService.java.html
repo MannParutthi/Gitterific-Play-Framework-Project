@@ -8,10 +8,62 @@ import org.eclipse.egit.github.core.User;
 import org.eclipse.egit.github.core.client.GitHubClient;
 import org.eclipse.egit.github.core.service.UserService;
 
+<<<<<<< HEAD
+import model.UserDetails;
+
+=======
+>>>>>>> main
 public class UserDataService {	
 
 	private UserService userService;
 	private GitHubClient gitHubClient;
+<<<<<<< HEAD
+	private UserDetails userDetails;
+	
+<span class="fc" id="L19">	public UserDataService() {</span>
+<span class="fc" id="L20">		gitHubClient = new GitHubClient();</span>
+<span class="fc" id="L21">		this.userService = new UserService(gitHubClient);</span>
+		
+<span class="fc" id="L23">	}</span>
+	
+	public CompletionStage&lt;UserDetails&gt; getUserData(String login) {
+<span class="nc" id="L26">		userDetails = new UserDetails();</span>
+<span class="nc" id="L27">		return CompletableFuture.supplyAsync(() -&gt; {</span>
+<span class="nc" id="L28">			User user = null;</span>
+			try {
+<span class="nc" id="L30">				user = userService.getUser(login);</span>
+<span class="nc" id="L31">				userDetails.setEmail(user.getEmail());</span>
+<span class="nc" id="L32">				userDetails.setId(user.getId());</span>
+<span class="nc" id="L33">				userDetails.setLocation(user.getLocation());</span>
+<span class="nc" id="L34">				userDetails.setAvatarUrl(user.getAvatarUrl());</span>
+<span class="nc" id="L35">				userDetails.setBlog(user.getBlog());</span>
+<span class="nc" id="L36">				userDetails.setCollaborators(user.getCollaborators());</span>
+<span class="nc" id="L37">				userDetails.setCompany(user.getCompany());</span>
+<span class="nc" id="L38">				userDetails.setName(user.getName());</span>
+<span class="nc" id="L39">				userDetails.setCreatedAt(user.getCreatedAt());</span>
+<span class="nc" id="L40">				userDetails.setDiskUsage(user.getDiskUsage());</span>
+<span class="nc" id="L41">				userDetails.setFollowers(user.getFollowers());</span>
+<span class="nc" id="L42">				userDetails.setFollowing(user.getFollowing());</span>
+<span class="nc" id="L43">				userDetails.setGravatarId(user.getGravatarId());</span>
+<span class="nc" id="L44">				userDetails.setHireable(user.isHireable());</span>
+<span class="nc" id="L45">				userDetails.setHtmlUrl(user.getHtmlUrl());</span>
+<span class="nc" id="L46">				userDetails.setLogin(user.getLogin());</span>
+<span class="nc" id="L47">				userDetails.setOwnedPrivateRepos(user.getOwnedPrivateRepos());</span>
+<span class="nc" id="L48">				userDetails.setPlan(user.getPlan());</span>
+<span class="nc" id="L49">				userDetails.setPrivateGists(user.getPrivateGists());</span>
+<span class="nc" id="L50">				userDetails.setPublicGists(user.getPublicGists());</span>
+<span class="nc" id="L51">				userDetails.setPublicRepos(user.getPublicRepos());</span>
+<span class="nc" id="L52">				userDetails.setTotalPrivateRepos(user.getTotalPrivateRepos());</span>
+<span class="nc" id="L53">				userDetails.setType(user.getType());</span>
+<span class="nc" id="L54">				userDetails.setUrl(user.getUrl());</span>
+<span class="nc" id="L55">				System.out.println(&quot;chk ==&gt; &quot; + user.getId() + user.getEmail() + user.getHtmlUrl() + user.getPublicRepos());</span>
+<span class="nc" id="L56">			} catch (IOException e) {</span>
+				// TODO Auto-generated catch block
+<span class="nc" id="L58">				e.printStackTrace();</span>
+<span class="nc" id="L59">			}</span>
+			
+<span class="nc" id="L61">			return userDetails;</span>
+=======
 	
 <span class="fc" id="L16">	public UserDataService() {</span>
 <span class="fc" id="L17">		gitHubClient = new GitHubClient();</span>
@@ -30,6 +82,7 @@ public class UserDataService {
 <span class="nc" id="L30">			}</span>
 			
 <span class="nc" id="L32">			return user;</span>
+>>>>>>> main
 		});
 		
 	}
