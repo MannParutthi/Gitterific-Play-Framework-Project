@@ -23,23 +23,16 @@ import org.eclipse.egit.github.core.service.RepositoryService;
 import org.eclipse.egit.github.core.Repository;
 import org.eclipse.egit.github.core.Issue;
 
-
 public class RepoIssues {
 
     private IssueService issueService;
     private RepositoryService repositoryService;
     private GitHubClient gitHubClient;
 
-    public IssueService getIssueService() {
-        return issueService;
-    }
-
-    public RepositoryService getRepositoryService() {
-        return repositoryService;
-    }
-
-    public GitHubClient getGitHubClient() {
-        return gitHubClient;
+    public RepoIssues() {
+        this.gitHubClient = new GitHubClient();
+        this.issueService = new IssueService(this.gitHubClient);
+        this.repositoryService = new RepositoryService(this.gitHubClient);
     }
 
     public void setIssueService(IssueService issueService) {
@@ -54,25 +47,17 @@ public class RepoIssues {
         this.gitHubClient = gitHubClient;
     }
 
-    // TODO : Mock github service to cover below methods
-
-    public RepoIssues() {
-        gitHubClient = new GitHubClient();
-        this.issueService = new IssueService(gitHubClient);
-        this.repositoryService = new RepositoryService(gitHubClient);
-    }
-
-    public CompletionStage<String> getIssueReportFromRepo(String userName, String repo) {
+    public CompletableFuture<String> getIssueReportFromRepo(String userName, String repo) {
         return CompletableFuture.supplyAsync(() -> fetchRepoIssues(userName, repo))
                 .thenApplyAsync(RepoIssues::generateReport)
                 .exceptionally(throwable -> "Error");
 
     }
 
-    private List<Issue> fetchRepoIssues(String userName, String repo) {
+    public List<Issue> fetchRepoIssues(String userName, String repo) {
         List<Issue> issues = null;
         try {
-            Repository repository = this.repositoryService.getRepository(userName, repo);
+            Repository repository = repositoryService.getRepository(userName, repo);
             issues = this.issueService.getIssues(repository, null);
         } catch (IOException e) {
             e.printStackTrace();
@@ -81,6 +66,8 @@ public class RepoIssues {
     }
 
     public static String generateReport(List<Issue> issues) {
+        if (issues == null)
+            return "Error";
         if (issues.isEmpty())
             return "No issues present in the repository";
         Map<String, Integer> map = issues.stream()
