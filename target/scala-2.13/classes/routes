@@ -18,8 +18,12 @@ GET     /git/:name                  controllers.HomeController.getUserProfile(na
 GET 	/userData/:userName			controllers.UserDataController.getUserData(userName: String)
 =======
 GET 	/userData/:userName			controllers.UserDataController.getUserData(userName: String)
+GET 	/topicData/:topic			controllers.TopicDataController.getTopicData(topic: String)
 
 GET		/repoData/:userName			controllers.RepoDataController.getRepoData(request: Request, userName: String)
 
 GET		/searchResult				controllers.HomeController.getSearchResults(request: Request)
+<<<<<<< HEAD
+=======
+>>>>>>> main
 >>>>>>> main

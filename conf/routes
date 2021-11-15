@@ -11,6 +11,7 @@ GET     /assets/*file               controllers.Assets.versioned(path="/public",
 GET     /git/:name                  controllers.HomeController.getUserProfile(name: String)
 
 GET 	/userData/:userName			controllers.UserDataController.getUserData(userName: String)
+GET 	/topicData/:topic			controllers.TopicDataController.getTopicData(topic: String)
 
 GET		/repoData/:userName			controllers.RepoDataController.getRepoData(request: Request, userName: String)
 

@@ -4,6 +4,24 @@ run
 clean
 compile
 run
+<<<<<<< HEAD
+eclipse
+sbt run
+run
+stop
+run
+sbt
+run
+sbt
+run
+sbt
+run
+jacoco
+run
+2, rue de la Terrasse-Dufferin
+Quebec, Quebec G1R 4T9
+Canada
+=======
 clean
 eompile
 compile
@@ -230,3 +248,4 @@ clean
 compile
 run
 jacoco
+>>>>>>> main

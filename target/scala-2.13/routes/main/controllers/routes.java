@@ -11,6 +11,7 @@ public class routes {
   public static final controllers.ReverseAssets Assets = new controllers.ReverseAssets(RoutesPrefix.byNamePrefix());
   public static final controllers.ReverseRepoDataController RepoDataController = new controllers.ReverseRepoDataController(RoutesPrefix.byNamePrefix());
   public static final controllers.ReverseUserDataController UserDataController = new controllers.ReverseUserDataController(RoutesPrefix.byNamePrefix());
+  public static final controllers.ReverseTopicDataController TopicDataController = new controllers.ReverseTopicDataController(RoutesPrefix.byNamePrefix());
 
   public static class javascript {
     
@@ -18,6 +19,7 @@ public class routes {
     public static final controllers.javascript.ReverseAssets Assets = new controllers.javascript.ReverseAssets(RoutesPrefix.byNamePrefix());
     public static final controllers.javascript.ReverseRepoDataController RepoDataController = new controllers.javascript.ReverseRepoDataController(RoutesPrefix.byNamePrefix());
     public static final controllers.javascript.ReverseUserDataController UserDataController = new controllers.javascript.ReverseUserDataController(RoutesPrefix.byNamePrefix());
+    public static final controllers.javascript.ReverseTopicDataController TopicDataController = new controllers.javascript.ReverseTopicDataController(RoutesPrefix.byNamePrefix());
   }
 
 }
