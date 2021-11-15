@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="app"/>
+	<classpathentry kind="src" path="target/scala-2.13/classes"/>
 	<classpathentry kind="src" path="conf"/>
 	<classpathentry kind="src" path="target/scala-2.13/twirl/main"/>
 	<classpathentry kind="src" path="target/scala-2.13/routes/main"/>
@@ -625,6 +626,6 @@
 			<attribute name="javadoc_location" value="jar:file:C:\Users\gyash\AppData\Local\Coursier\cache\v1\https\repo1.maven.org\maven2\org\eclipse\jetty\websocket\websocket-api\9.4.20.v20190813\websocket-api-9.4.20.v20190813-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

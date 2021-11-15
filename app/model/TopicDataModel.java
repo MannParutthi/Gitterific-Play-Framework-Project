@@ -5,21 +5,11 @@ import java.util.Date;
 public class TopicDataModel {
 
 	private String name, Id, language, description, owner, url;
-	private Date createdAt;
+	private int size;
+	private Date createdAt, pushedAt;
 	
 	public TopicDataModel() {}
 	
-	public TopicDataModel(String name, String id, String language, String description, String owner, String url,
-			Date createdAt) {
-		super();
-		this.name = name;
-		Id = id;
-		this.language = language;
-		this.description = description;
-		this.owner = owner;
-		this.url = url;
-		this.createdAt = createdAt;
-	}
 	public String getName() {
 		return name;
 	}
@@ -62,10 +52,23 @@ public class TopicDataModel {
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
 	}
+	public Date getPushedAt() {
+		return pushedAt;
+	}
+	public void setPushedAt(Date pushedAt) {
+		this.pushedAt = pushedAt;
+	}
+	public int getSize() {
+		return size;
+	}
+	public void setSize(int size) {
+		this.size = size;
+	}
+
 	@Override
 	public String toString() {
 		return "TopicDataModel [name=" + name + ", Id=" + Id + ", language=" + language + ", description=" + description
-				+ ", owner=" + owner + ", url=" + url + ", createdAt=" + createdAt + "]";
-	}	
-	
+				+ ", owner=" + owner + ", url=" + url + ", size=" + size + ", createdAt=" + createdAt + ", pushedAt="
+				+ pushedAt + "]";
+	}
 }

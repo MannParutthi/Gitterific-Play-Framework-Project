@@ -8,7 +8,7 @@
 			<body>
 				<div class="container">
   					<div class="jumbotron">
-    					<h3>Repositories filtered based on the Creation Date</h3>
+    					<h3>Repositories filtered based on the Pushed Date and Given Topic Name</h3>
   					</div>
 				</div>
 				<div class="container">
@@ -22,6 +22,8 @@
 								<li><h4>CREATED ON : @data.getCreatedAt()</h4></li>
 								<li><h4>DESCRIPTION : @data.getDescription()</h4></li>
 								<li><h4>OWNER : @data.getOwner()</h4></li>
+								<li><h4>SIZE : @data.getSize()</h4></li>
+								<li><h4>PUSHED AT : @data.getPushedAt()</h4></li>
 								<li><h4>REPOSITORY URL : <a href="@data.getUrl()" target="_blank">Repository Link</a> </h4></li>
 							</ul>
 						</li>
