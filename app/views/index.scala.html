@@ -1,3 +1,7 @@
+@import helper._
+@import play.mvc.Http.Request
+@import views.SearchDTO
+@(newSearchForm: play.data.Form[SearchDTO])(implicit messages: play.i18n.Messages)
 @main("Welcome to Gitterific") {
   		<!DOCTYPE html>
 		<html>
@@ -9,6 +13,12 @@
   					<div class="jumbotron">
     					<h1>Gitterific</h1>
   					</div>
+  					
+  					
+					@helper.form(action = routes.HomeController.getSearchResults()) {
+    					@helper.inputText(newSearchForm("searchTerm"))
+    					<button type="submit" class="btn btn-primary btn-block">Search</button>
+					}
 				</div>
   			</body>
   		</html>
