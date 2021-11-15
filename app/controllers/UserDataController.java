@@ -23,7 +23,7 @@ public class UserDataController {
 		this.userDataService = userDataService;
 	}
 	
-	public CompletionStage<Result> getUserData(Http.Request request,String userName) {
+	public CompletionStage<Result> getUserData(String userName) {
 		CompletionStage<Result> resultCompletionStage = userDataService.getUserData(userName).thenApply(data -> ok(views.html.userData.render(data)));
 		return resultCompletionStage;
 	}

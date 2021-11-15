@@ -257,3 +257,12 @@ run
 jacoco
 >>>>>>> main
 >>>>>>> main
+eclipse
+compile
+test
+clean
+compile
+test
+clean
+compile
+test
