@@ -1,4 +1,10 @@
 <<<<<<< HEAD
+[0m[[0m[31merror[0m] [0m[0mD:\APP_Project_G7\app\views\repoIssueShow.scala.html:15:10: not found: value report[0m
+[0m[[0m[31merror[0m] [0m[0m			@Html(report)[0m
+[0m[[0m[31merror[0m] [0m[0m			      ^[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m
+=======
+<<<<<<< HEAD
 [0m[[0m[31merror[0m] [0m[0mD:\CODING\APP Project\APP_Project_G7\app\views\topicData.scala.html:13:65: not found: value name[0m
 [0m[[0m[31merror[0m] [0m[0m    					<h3>Repositories filtered based on the Creation Date: @name</h3>[0m
 [0m[[0m[31merror[0m] [0m[0m    					                                                       ^[0m
@@ -14,4 +20,5 @@
 [0m[[0m[31merror[0m] [0m[0m}[0m
 [0m[[0m[31merror[0m] [0m[0m ^[0m
 [0m[[0m[31merror[0m] [0m[0mthree errors found[0m
+>>>>>>> main
 >>>>>>> main

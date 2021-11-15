@@ -10,6 +10,21 @@ import _root_.play.libs.F
 // @LINE:6
 package controllers {
 
+  // @LINE:15
+  class ReverseRepoIssueController(_prefix: => String) {
+    def _defaultPrefix: String = {
+      if (_prefix.endsWith("/")) "" else "/"
+    }
+
+  
+    // @LINE:15
+    def getRepoIssues(userName:String, repoName:String): Call = {
+      
+      Call("GET", _prefix + { _defaultPrefix } + "repoIssues/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("userName", userName)) + "/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("repoName", repoName)))
+    }
+  
+  }
+
   // @LINE:6
   class ReverseHomeController(_prefix: => String) {
     def _defaultPrefix: String = {
