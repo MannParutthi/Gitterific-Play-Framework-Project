@@ -1,5 +1,1 @@
-<<<<<<< HEAD
-["controllers.HomeControllerTest","controllers.UserDataControllerTest"]
-=======
-["controllers.RepoDataControllerTest","controllers.HomeControllerTest"]
->>>>>>> main
+["controllers.UserDataControllerTest","controllers.HomeControllerTest","controllers.RepoDataControllerTest"]
