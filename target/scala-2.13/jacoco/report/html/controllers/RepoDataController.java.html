@@ -39,7 +39,7 @@ public class RepoDataController {
 	}
 
 	public CompletionStage&lt;Result&gt; getRepoData(Http.Request request, String userName) {
-<span class="fc" id="L42">		sessionMapRepoData.put(&quot;randomKeyForTesting&quot;, Arrays.asList());</span>
+<span class="fc" id="L42">		sessionMapRepoData.put(&quot;randomKeyForTesting&quot;, Arrays.asList()); // for testing</span>
 		CompletionStage&lt;Result&gt; resultCompletionStage;
 <span class="fc bfc" id="L44" title="All 2 branches covered.">		if (request.session().get(userName).isEmpty()) {</span>
 <span class="fc" id="L45">			resultCompletionStage = repoDataService.getRepoData(userName).thenApply(repoList -&gt; {</span>

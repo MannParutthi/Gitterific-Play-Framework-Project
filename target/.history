@@ -221,3 +221,12 @@ test
 jacoco
 test
 jacoco
+clean
+compile
+run
+clean
+run
+clean
+compile
+run
+jacoco
