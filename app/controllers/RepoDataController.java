@@ -41,7 +41,7 @@ public class RepoDataController {
 	public CompletionStage<Result> getRepoData(Http.Request request, String userName) {
 		sessionMapRepoData.put("randomKeyForTesting", Arrays.asList()); // for testing
 		CompletionStage<Result> resultCompletionStage;
-		if (request.session().get(userName).isEmpty()) {
+		if (request.session().get(userName).isEmpty() || this.sessionMapRepoData.get(request.session().get(userName).get()) == null) {
 			resultCompletionStage = repoDataService.getRepoData(userName).thenApply(repoList -> {
 				String randomKey = getSaltString();
 				this.sessionMapRepoData.put(randomKey, repoList);

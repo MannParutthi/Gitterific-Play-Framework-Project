@@ -2,6 +2,7 @@ package services;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
@@ -32,6 +33,7 @@ public class RepoDataService {
 	
 	public RepoDataService() {
 		gitHubClient = new GitHubClient();
+		gitHubClient.setCredentials("manan.paruthi@gmail.com", "Mysore10.10");
 		this.repositoryService = new RepositoryService(gitHubClient);
 		this.issueService = new IssueService(gitHubClient);
 		this.commitService = new CommitService(gitHubClient);
@@ -72,9 +74,12 @@ public class RepoDataService {
 						repoIssueList.add(repoIssueDetails);
 					}
 					repoDetails.setIssues(repoIssueList);
-					
+	
 					List<RepoCommitModel> repoCommitList = new ArrayList<RepoCommitModel>();
-					List<RepositoryCommit> commitList = commitService.getCommits(repository);
+					List<RepositoryCommit> commitList = Arrays.asList();
+					if (repository.getSize() > 0) {
+						commitList = commitService.getCommits(repository);
+					}
 					for (RepositoryCommit commit : commitList) {
 						RepoCommitModel repoCommitDetails = new RepoCommitModel();
 						repoCommitDetails.setLoginName(commit.getAuthor().getLogin());
