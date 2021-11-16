@@ -60,7 +60,7 @@ class Routes(
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """git/""" + "$" + """name<[^/]+>""", """controllers.HomeController.getUserProfile(name:String)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """userData/""" + "$" + """userName<[^/]+>""", """controllers.UserDataController.getUserData(userName:String)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """repoIssues/""" + "$" + """userName<[^/]+>/""" + "$" + """repoName<[^/]+>""", """controllers.RepoIssueController.getRepoIssues(userName:String, repoName:String)"""),
-    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """topicData/""" + "$" + """topic<[^/]+>""", """controllers.TopicDataController.getTopicData(topic:String)"""),
+    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """topicData/""" + "$" + """topic<[^/]+>""", """controllers.TopicDataController.getTopicData(request:Request, topic:String)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """repoData/""" + "$" + """userName<[^/]+>""", """controllers.RepoDataController.getRepoData(request:Request, userName:String)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """searchResult""", """controllers.HomeController.getSearchResults(request:Request)"""),
     Nil
@@ -167,12 +167,14 @@ class Routes(
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("topicData/"), DynamicPart("topic", """[^/]+""",true)))
   )
   private[this] lazy val controllers_TopicDataController_getTopicData5_invoker = createInvoker(
-    TopicDataController_0.getTopicData(fakeValue[String]),
+    
+    (req:play.mvc.Http.Request) =>
+      TopicDataController_0.getTopicData(fakeValue[play.mvc.Http.Request], fakeValue[String]),
     play.api.routing.HandlerDef(this.getClass.getClassLoader,
       "router",
       "controllers.TopicDataController",
       "getTopicData",
-      Seq(classOf[String]),
+      Seq(classOf[play.mvc.Http.Request], classOf[String]),
       "GET",
       this.prefix + """topicData/""" + "$" + """topic<[^/]+>""",
       """""",
@@ -257,7 +259,8 @@ class Routes(
     // @LINE:16
     case controllers_TopicDataController_getTopicData5_route(params@_) =>
       call(params.fromPath[String]("topic", None)) { (topic) =>
-        controllers_TopicDataController_getTopicData5_invoker.call(TopicDataController_0.getTopicData(topic))
+        controllers_TopicDataController_getTopicData5_invoker.call(
+          req => TopicDataController_0.getTopicData(req, topic))
       }
   
     // @LINE:18

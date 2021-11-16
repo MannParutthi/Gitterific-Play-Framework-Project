@@ -22,8 +22,7 @@ public class TopicDataService{
 	
 	private RepositoryService repositoryService;
 	private GitHubClient gitHubClient;
-	//private AsyncCacheApi cache;
-	//Cache<k, V> cache;
+	public List<TopicDataModel> topicRepoList;
 	
 	/**
 	 * Default Constructor
@@ -40,7 +39,7 @@ public class TopicDataService{
 	 */
 	public CompletableFuture<List<TopicDataModel>> getRepositoryData(String keyword) {
 		return CompletableFuture.supplyAsync(() -> {
-			List<TopicDataModel> topicRepoList = new ArrayList<TopicDataModel>();
+			topicRepoList = new ArrayList<TopicDataModel>();
 			List<SearchRepository> repoList = null;
 			try {
 				repoList = repositoryService.searchRepositories(keyword);

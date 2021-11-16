@@ -5,7 +5,6 @@ import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -20,7 +19,9 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import model.TopicDataModel;
+import play.mvc.Http.Request;
 import play.mvc.Result;
+import play.test.Helpers;
 import services.TopicDataService;
 
 /**
@@ -41,24 +42,24 @@ public class TopicDataControllerTest{
 
 	public static List<TopicDataModel> topicLists;
 
-	List<SearchRepository> repos = null;
+	public static List<SearchRepository> repos = null;
 	
 	@BeforeClass
 	public static void setUp() {
 		topicLists = new ArrayList<TopicDataModel>();
 
 		TopicDataModel topicDataModel = new TopicDataModel();
-		topicDataModel.setCreatedAt(new Date("Tue Apr 02 01:52:50 EDT 2019"));
-		topicDataModel.setDescription("iphone: Home Assistant Companion for Android");
-		topicDataModel.setId("home-assistant/android");
-		topicDataModel.setLanguage("Kotlin");
-		topicDataModel.setName("android");
-		topicDataModel.setOwner("home-assistant");
-		topicDataModel.setUrl("https://github.com/home-assistant/android");
-		topicDataModel.setPushedAt(new Date("Mon Nov 15 18:15:17 EST 2021"));
-		topicDataModel.setSize(7315);
+		SearchRepository sr = new SearchRepository("Java", "John");
+		topicDataModel.setCreatedAt(sr.getCreatedAt());
+		topicDataModel.setDescription(sr.getDescription());
+		topicDataModel.setId(sr.getId());
+		topicDataModel.setLanguage(sr.getLanguage());
+		topicDataModel.setName(sr.getName());
+		topicDataModel.setOwner(sr.getOwner());
+		topicDataModel.setUrl(sr.getUrl());
+		topicDataModel.setPushedAt(sr.getPushedAt());
+		topicDataModel.setSize(sr.getSize());
 		topicLists.add(topicDataModel);
-				
 	}
 	
 	@org.junit.Test
@@ -69,10 +70,13 @@ public class TopicDataControllerTest{
 		
 		List<TopicDataModel> topicData = null;
 		Result res1 = null;
-		//Result res2 = null;
+		
 		try {
 			topicData = topicDataService.getRepositoryData("android").toCompletableFuture().get();
-			res1 = topicDataController.getTopicData("android").toCompletableFuture().get();
+			
+			Request request1 = Helpers.fakeRequest().method("GET").uri("/topicData/Java").build();
+			res1 = topicDataController.getTopicData(request1, "android").toCompletableFuture().get();
+			
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -85,4 +89,38 @@ public class TopicDataControllerTest{
 		assertEquals(topicData.isEmpty(), false);
 		assertEquals(topicData.get(0).getId(), topicLists.get(0).getId());
 	}
+	
+	@org.junit.Test
+	public void test_getRandomKey() {
+		assertEquals(topicDataController.getRandomKey().isEmpty(), false);
+	}
 }
+	
+//	@org.junit.Test
+//	public void test_getRepositoryData() {
+//		repos = new ArrayList<SearchRepository>();
+//		
+//		
+//		
+//	}
+//		List<TopicDataModel> result = null;
+//		
+//		repos = new ArrayList<SearchRepository>();
+//		
+//		repos.add(new SearchRepository("Java", "John"));
+//		repos.add(new SearchRepository("C", "Bala"));
+//		
+//		try {
+//			when(repositoryService.searchRepositories("java")).thenReturn((List<SearchRepository>) (CompletableFuture.supplyAsync(() -> repos)));
+//			try {
+//				result = topicDataService.getRepositoryData("java").toCompletableFuture().get();
+//			} catch (InterruptedException | ExecutionException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			} 
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		assertEquals("Java", result.get(0).getName());
+//	}

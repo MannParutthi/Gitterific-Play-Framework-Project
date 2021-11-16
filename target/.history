@@ -290,6 +290,7 @@ jacoco
 run
 jacoco
 run
+<<<<<<< HEAD
 clean
 eclipse
 clean
@@ -301,5 +302,25 @@ run
 clean
 run
 clean
+=======
+compile
+run
+compile
+run
+compile
+RUN
+run
+compile
+run
+compile
+run
+compile
+run
+comoile
+compile
+run
+compile
+jacoco
+>>>>>>> 4281812dd59836aa3c84b3cdf7e2c894b346c1a6
 compile
 run
