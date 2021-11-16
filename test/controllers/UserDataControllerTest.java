@@ -6,6 +6,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.*;
 import play.mvc.Result;
+import play.mvc.Http.Request;
+import play.test.Helpers;
+
 import static org.mockito.Mockito.when;
 
 import java.util.concurrent.CompletableFuture;
@@ -35,7 +38,7 @@ import services.UserDataService;
 public class UserDataControllerTest {
 	
 	@InjectMocks
-	UserDataController userDataController;
+	HomeController userDataController;
 	
 	@Mock
 	UserDataService userDataService;
@@ -71,10 +74,13 @@ public class UserDataControllerTest {
 	public void testGetUser() {
 
 		when(userDataService.getUserData(anyString())).thenReturn(CompletableFuture.supplyAsync(() -> userDetails));
-		Result a = null;
+		Result res1=null,res2 = null;
 		UserDetails ud = null;
 		try {
-			a = userDataController.getUserData("harman8").toCompletableFuture().get();
+			Request requestWithoutSession = Helpers.fakeRequest().method("GET").uri("/userData/harman8").build();
+			res1 = userDataController.getUserData(requestWithoutSession,"harman8").toCompletableFuture().get();
+			Request requestWithSession = Helpers.fakeRequest().method("GET").uri("/userData/harman8").session("harman8", "randomKeyTesting").build();
+			res2 = userDataController.getUserData(requestWithSession,"harman8").toCompletableFuture().get();
 			ud = userDataService.getUserData("harman8").toCompletableFuture().get();
 			System.out.println(ud.getName());
 		} catch (InterruptedException e) {
@@ -84,7 +90,7 @@ public class UserDataControllerTest {
 			// 
 			e.printStackTrace();
 		}
-		System.out.println(a);
+		//System.out.println(a);
 		assertNotNull(ud);
 		assertEquals("test",ud.getName());
 		assertEquals(44037806,ud.getId());
@@ -102,7 +108,8 @@ public class UserDataControllerTest {
 		assertEquals("User",ud.getType());
 		assertEquals(0,ud.getPrivateGists());
 		assertEquals(0,ud.getTotalPrivateRepos());
-		assertEquals( HttpStatus.OK_200,a.status());
+		assertEquals( HttpStatus.OK_200,res1.status());
+		assertEquals( HttpStatus.OK_200,res2.status());
 
 	}
 }

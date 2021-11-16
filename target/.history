@@ -266,3 +266,11 @@ test
 clean
 compile
 test
+eclipse
+compile
+run
+jacoco
+test
+jacoco
+test
+jacoco

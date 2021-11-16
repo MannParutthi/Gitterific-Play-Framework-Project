@@ -1,0 +1,4 @@
+[0m[[0m[31merror[0m] [0m[0mD:\SOEN 6441\APP_Project_G7\app\controllers\RepoDataController.java:45:1: cannot find symbol[0m
+[0m[[0m[31merror[0m] [0m[0m  symbol:   method isEmpty()[0m
+[0m[[0m[31merror[0m] [0m[0m  location: class java.util.Optional<java.lang.String>[0m
+[0m[[0m[31merror[0m] [0m[0mrequest.session().get(userName).isEmpty[0m
