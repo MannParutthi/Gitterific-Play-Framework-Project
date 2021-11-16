@@ -31,7 +31,13 @@ public class HomeController {
 
 	@Inject
 	private MessagesApi messagesApi;
-
+	
+	/**
+	 *	Parameterized Constructor with WebService Client and Search Repository Service
+	 * 
+	 * @param ws	WebService Client
+	 * @param searchForReposService		Repository Service Search 	
+	 */
 	@Inject
 	public HomeController(WSClient ws, SearchForReposService searchForReposService) {
 		this.ws = ws;
@@ -49,12 +55,22 @@ public class HomeController {
 		return Results.ok(views.html.index.render(formFactory.form(SearchDTO.class), messagesApi.preferred(request)));
 	}
 
+	/**
+	 * Generates the user profile for a given user
+	 * @param name	Username 
+	 * @return	Returns the User Profile for the given username
+	 */
 	public CompletionStage<Result> getUserProfile(String name) {
 		WSRequest requestUser = ws.url("https://api.github.com/users/defunkt");
 		CompletionStage<? extends WSResponse> responsePromise = requestUser.get();
 		return responsePromise.thenApply(response -> Results.ok(response.getBody()));
 	}
 
+	/**
+	 * This method handles the session management for the home page
+	 * @param request Http Request for session managing
+	 * @return	Returns the Search Results
+	 */
 	public CompletionStage<Result> getSearchResults(Http.Request request) {
 		Form<SearchDTO> form = formFactory.form(SearchDTO.class).bindFromRequest(request);
 		String searchKeyword = request.queryString("searchTerm").get();
@@ -81,6 +97,10 @@ public class HomeController {
 		return resultCompletionStage;
 	}
 
+	/**
+	 * This method is used to generate a random string which is used in session management
+	 * @return RandomString	Returns the Random String which is used in session management
+	 */
 	protected String getSaltString() {
 		String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
 		StringBuilder salt = new StringBuilder();

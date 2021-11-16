@@ -13,15 +13,27 @@ import org.eclipse.egit.github.core.service.RepositoryService;
 
 import model.RepoDataModel;
 
+/**
+ * Service for Searching the Repo Service
+ *
+ */
 public class SearchForReposService {
 	private RepositoryService repositoryService;
 	private GitHubClient gitHubClient;
 	
+	/**
+	 * Default Constructor
+	 */
 	public SearchForReposService() {
 		gitHubClient = new GitHubClient();
 		this.repositoryService = new RepositoryService(gitHubClient);
 	}
 	
+	/**
+	 * Gets the list of repos for the given repo name
+	 * @param keywordKeyword used for getting the Repositories
+	 * @return Returns the List of Repositories for the given name
+	 */
 	public CompletableFuture<List<SearchRepository>> getReposWithKeyword(String keyword) {
 		
 		return CompletableFuture.supplyAsync(() -> {
