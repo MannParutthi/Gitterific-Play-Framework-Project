@@ -5,11 +5,18 @@ import org.eclipse.egit.github.core.SearchRepository;
 import play.mvc.*;
 import views.SearchDTO;
 import play.i18n.MessagesApi;
+import play.cache.Cached;
+import play.cache.SyncCacheApi;
 import play.data.Form;
 import play.data.FormFactory;
 import play.libs.ws.*;
 import services.SearchForReposService;
+
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
@@ -22,27 +29,35 @@ import static play.mvc.Results.ok;
  */
 public class HomeController {
 
+	private SyncCacheApi cacheApi;
+
 	private final SearchForReposService searchForReposService;
 	private final WSClient ws;
-	private HashMap<String, List<SearchRepository>> sessionMapRepoData;
+	private HashMap<String, List<SearchRepository>> cacheMapSearchData;
+	private HashMap<String, ArrayList<LinkedHashMap<String, List<SearchRepository>>>> prevSearchSessionData;
+	private ArrayList<LinkedHashMap<String, List<SearchRepository>>> prevSearchData;
+	boolean isSessionPresent;
 
 	@Inject
 	private FormFactory formFactory;
 
 	@Inject
 	private MessagesApi messagesApi;
-	
+
 	/**
-	 *	Parameterized Constructor with WebService Client and Search Repository Service
+	 * Parameterized Constructor with WebService Client and Search Repository
+	 * Service
 	 * 
-	 * @param ws	WebService Client
-	 * @param searchForReposService		Repository Service Search 	
+	 * @param ws                    WebService Client
+	 * @param searchForReposService Repository Service Search
 	 */
 	@Inject
-	public HomeController(WSClient ws, SearchForReposService searchForReposService) {
+	public HomeController(WSClient ws, SyncCacheApi cacheApi, SearchForReposService searchForReposService) {
+		this.cacheApi = cacheApi;
 		this.ws = ws;
 		this.searchForReposService = searchForReposService;
-		sessionMapRepoData = new HashMap<String, List<SearchRepository>>();
+		cacheMapSearchData = new HashMap<String, List<SearchRepository>>();
+		prevSearchSessionData = new HashMap<String,ArrayList<LinkedHashMap<String, List<SearchRepository>>>>();
 	}
 
 	/**
@@ -57,8 +72,9 @@ public class HomeController {
 
 	/**
 	 * Generates the user profile for a given user
-	 * @param name	Username 
-	 * @return	Returns the User Profile for the given username
+	 * 
+	 * @param name Username
+	 * @return Returns the User Profile for the given username
 	 */
 	public CompletionStage<Result> getUserProfile(String name) {
 		WSRequest requestUser = ws.url("https://api.github.com/users/defunkt");
@@ -68,39 +84,93 @@ public class HomeController {
 
 	/**
 	 * This method handles the session management for the home page
+	 * 
 	 * @param request Http Request for session managing
-	 * @return	Returns the Search Results
+	 * @return Returns the Search Results
 	 */
+//	@Cached(key="search")
 	public CompletionStage<Result> getSearchResults(Http.Request request) {
-		Form<SearchDTO> form = formFactory.form(SearchDTO.class).bindFromRequest(request);
-		String searchKeyword = request.queryString("searchTerm").get();
-		System.out.println(searchKeyword);
-		System.out.println("sessions ==> " + request.session().data());
-		System.out.println("MAP ==> " + this.sessionMapRepoData);
-		System.out.println("chk session for keyword ==> " + request.session().get(searchKeyword));
 		
-		CompletionStage<Result> resultCompletionStage;
-		if (request.session().get(searchKeyword).isEmpty()) {
-		resultCompletionStage = searchForReposService
-				.getReposWithKeyword(searchKeyword).thenApply(searchRepoList -> {
-					String randomKey = getSaltString();
-					this.sessionMapRepoData.put(randomKey, searchRepoList);
-					return ok(views.html.searchResults.render(searchRepoList));
-				});
+		String newSessionKey = getSaltString();
+		
+		isSessionPresent = false;
+		if(request.session().get("savedData").isPresent()) {
+			isSessionPresent = true;
+		}
+		
+		if(!isSessionPresent) {
+			this.prevSearchSessionData.put(newSessionKey, new ArrayList<LinkedHashMap<String, List<SearchRepository>>>());
+			prevSearchData = this.prevSearchSessionData.get(newSessionKey);
 		}
 		else {
-			String key = request.session().get(searchKeyword).get();
-			List<SearchRepository> searchRepoList = this.sessionMapRepoData.get(key);
-			System.out.println("inside session ==> " + key);
-			resultCompletionStage = CompletableFuture.supplyAsync(() -> ok(views.html.searchResults.render(searchRepoList)));
+			prevSearchData = this.prevSearchSessionData.get(request.session().get("savedData").get());
+		}
+		
+		
+		Form<SearchDTO> form = formFactory.form(SearchDTO.class).bindFromRequest(request);
+		String searchKeyword = request.queryString("searchTerm").get();
+
+		CompletionStage<Result> resultCompletionStage;
+		if (this.cacheApi.get(searchKeyword).isEmpty()) {
+			resultCompletionStage = searchForReposService.getReposWithKeyword(searchKeyword)
+					.thenApply(searchRepoList -> {
+						String randomKey = getCurrentTimeStamp();
+						this.cacheMapSearchData.put(randomKey, searchRepoList);
+						this.cacheApi.set(searchKeyword, randomKey);
+						
+						if(prevSearchData.size() >= 10) {
+							prevSearchData.remove(0);
+						}
+						LinkedHashMap<String, List<SearchRepository>> currSearchData = new LinkedHashMap<String, List<SearchRepository>>();
+						currSearchData.put(searchKeyword, searchRepoList);
+						prevSearchData.add(currSearchData);
+						
+						if(isSessionPresent) {
+							return ok(views.html.searchResults.render(prevSearchData)); 
+						}
+						else {
+							return ok(views.html.searchResults.render(prevSearchData)).addingToSession(request, "savedData", newSessionKey); 
+						}
+						
+						//.withHeader("Cache-Control", "max-age=3600");
+					});
+		} else {
+			String key = this.cacheApi.get(searchKeyword).get().toString();
+			List<SearchRepository> searchRepoList = this.cacheMapSearchData.get(key);
+			System.out.println("inside cache ==> " + key);
+			
+			if(prevSearchData.size() >= 10) {
+				prevSearchData.remove(0);
+			}
+			LinkedHashMap<String, List<SearchRepository>> currSearchData = new LinkedHashMap<String, List<SearchRepository>>();
+			currSearchData.put(searchKeyword, searchRepoList);
+			prevSearchData.add(currSearchData);
+			
+			resultCompletionStage = CompletableFuture.supplyAsync(() -> ok(views.html.searchResults.render(prevSearchData)));
 		}
 		return resultCompletionStage;
 	}
 
 	/**
-	 * This method is used to generate a random string which is used in session management
-	 * @return RandomString	Returns the Random String which is used in session management
+	 * This method is used to generate a random string which is used in session
+	 * management
+	 * 
+	 * @return RandomString Returns the Random String which is used in session
+	 *         management
 	 */
+	protected String getCurrentTimeStamp() {
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		return timestamp.toString();
+	}
+	
+	protected void getLastTenResults() {
+
+		LinkedHashMap<String, List<SearchRepository>> results = new LinkedHashMap<String, List<SearchRepository>>();
+		
+		System.out.println("===>  "); 
+	
+	}
+	
 	protected String getSaltString() {
 		String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
 		StringBuilder salt = new StringBuilder();

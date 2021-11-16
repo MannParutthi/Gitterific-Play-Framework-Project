@@ -1,4 +1,4 @@
-@(repoList: List[org.eclipse.egit.github.core.SearchRepository])
+@(arrayListOfResult: ArrayList[LinkedHashMap[String,List[org.eclipse.egit.github.core.SearchRepository]]])
 @main("Welcome to Gitterific") {
 		<!DOCTYPE html>
 		<html>
@@ -12,16 +12,21 @@
   					</div>
 				</div>
 				<div class="container">
-					<ul>
-					@for(repo <- repoList) {
-					<li>
-						<ol type="1">
-							<li><h1>NAME: <a href='@routes.RepoIssueController.getRepoIssues(repo.getOwner(), repo.getName())'>@repo.getName()</a></h1></li>
-							<li><h1>OWNER: <a href='@routes.UserDataController.getUserData(repo.getOwner())'>@repo.getOwner()</a></h1></li>
-						</ol>
-					</li>
+					@for(mapOfSearchAndResult <- arrayListOfResult) {
+						@for((keyword,repoList) <- mapOfSearchAndResult) {
+						<p> @keyword </p>
+							<ul>
+							@for(repo <- repoList) {
+								<li>
+									<ol type="1">
+										<li><h1>NAME: <a href='@routes.RepoIssueController.getRepoIssues(repo.getOwner(), repo.getName())'>@repo.getName()</a></h1></li>
+										<li><h1>OWNER: <a href='@routes.UserDataController.getUserData(repo.getOwner())'>@repo.getOwner()</a></h1></li>
+									</ol>
+								</li>
+							}
+							</ul>
+						}
 					}
-					</ul>
  				</div>
   			</body>
   		</html>

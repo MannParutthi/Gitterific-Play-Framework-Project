@@ -1,6 +1,0 @@
-#Successful Tests
-#Tue Nov 16 11:18:15 EST 2021
-controllers.UserDataControllerTest=1637079491630
-controllers.RepoDataControllerTest=1637079491982
-controllers.TopicDataControllerTest=1637079491833
-controllers.HomeControllerTest=1637079495262
