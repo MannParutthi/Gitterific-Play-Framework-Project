@@ -13,21 +13,37 @@ import play.mvc.Result;
 import static play.mvc.Results.ok;
 import services.UserDataService;
 
-
+/**
+ * This Controller contains an action to get the User data
+ *
+ */
 public class UserDataController {
 	private final UserDataService userDataService;
 //	private HashMap<String, List<RepoDataModel>> sessionMapRepoData;
 	
+	/**
+	 * Constructor Injection for UserDataService
+	 * @param userDataService
+	 */
 	@Inject
 	UserDataController(UserDataService userDataService) {
 		this.userDataService = userDataService;
 	}
 	
+	/**
+	 * This method get the User Data for a given username
+	 * @param userName This username is used to get the data of the User
+	 * @return Returns the data of the given User
+	 */
 	public CompletionStage<Result> getUserData(String userName) {
 		CompletionStage<Result> resultCompletionStage = userDataService.getUserData(userName).thenApply(data -> ok(views.html.userData.render(data)));
 		return resultCompletionStage;
 	}
 	
+	/**
+	 * Method to get the Randomkey for session management
+	 * @return Returns the random string
+	 */
 	protected String getSaltString() {
 		String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
 		StringBuilder salt = new StringBuilder();

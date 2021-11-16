@@ -23,7 +23,10 @@ import model.RepoDataModel;
 import model.RepoIssueModel;
 import play.mvc.Http.Session;
 
-
+/**
+ * Service Class for Repository Data
+ *
+ */
 public class RepoDataService {
 	
 	private RepositoryService repositoryService;
@@ -31,6 +34,9 @@ public class RepoDataService {
 	private CommitService commitService;
 	private GitHubClient gitHubClient;
 	
+	/**
+	 * Default Constructor
+	 */
 	public RepoDataService() {
 		gitHubClient = new GitHubClient();
 		gitHubClient.setCredentials("manan.paruthi@gmail.com", "Mysore10.10");
@@ -38,7 +44,11 @@ public class RepoDataService {
 		this.issueService = new IssueService(gitHubClient);
 		this.commitService = new CommitService(gitHubClient);
 	}
-	
+	/**
+	 * Returns the list of Repository Data for the given username
+	 * @param userName Username to get the Repo Data
+	 * @return Returns the Repository Data for the given username
+	 */
 	public CompletionStage<List<RepoDataModel>> getRepoData(String userName) {
 		return CompletableFuture.supplyAsync(() -> {		
 			List<RepoDataModel> repoData = new ArrayList<RepoDataModel>();
@@ -89,9 +99,7 @@ public class RepoDataService {
 					repoDetails.setCommits(repoCommitList);
 					
 					repoData.add(repoDetails);
-				} 
-				
-				
+				} 				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

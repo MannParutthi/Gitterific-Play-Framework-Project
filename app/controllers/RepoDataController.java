@@ -16,16 +16,30 @@ import play.mvc.Http;
 import play.mvc.Result;
 import services.RepoDataService;
 
+/**
+ * This controller contains an action to get the Repository Data and render it 
+ * to the Repo Display View Page
+ * 
+ */
 public class RepoDataController {
 	private final RepoDataService repoDataService;
 	private HashMap<String, List<RepoDataModel>> sessionMapRepoData;
 
+	/**
+	 * Constructor Injection with RepoDataService
+	 * @param repoDataService
+	 */
 	@Inject
 	RepoDataController(RepoDataService repoDataService) {
 		this.repoDataService = repoDataService;
 		sessionMapRepoData = new HashMap<String, List<RepoDataModel>>();
 	}
 
+	/**
+	 * This method return the RandomString used in session management
+	 * 
+	 * @return RandomString Returns a string that is used in session management
+	 */
 	protected String getSaltString() {
 		String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
 		StringBuilder salt = new StringBuilder();
@@ -38,6 +52,12 @@ public class RepoDataController {
 		return saltStr;
 	}
 
+	/**
+	 * This method provides the repository data for a given user
+	 * @param request The request parameter the handle the session 
+	 * @param userName Username to get the Repo Details
+	 * @return Returns the Repository Data for the given Username
+	 */
 	public CompletionStage<Result> getRepoData(Http.Request request, String userName) {
 		sessionMapRepoData.put("randomKeyForTesting", Arrays.asList()); // for testing
 		CompletionStage<Result> resultCompletionStage;
