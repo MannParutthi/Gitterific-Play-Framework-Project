@@ -111,7 +111,7 @@ public class HomeController {
 		String searchKeyword = request.queryString("searchTerm").get();
 
 		CompletionStage<Result> resultCompletionStage;
-		if (this.cacheApi.get(searchKeyword).isEmpty()) {
+		if (!this.cacheApi.get(searchKeyword).isPresent()) {
 			resultCompletionStage = searchForReposService.getReposWithKeyword(searchKeyword)
 					.thenApply(searchRepoList -> {
 						String randomKey = getCurrentTimeStamp();

@@ -10,7 +10,7 @@ GET     /                           controllers.HomeController.index(request: Re
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
 GET     /git/:name                  controllers.HomeController.getUserProfile(name: String)
 
-GET 	/userData/:userName			controllers.HomeController.getUserData(request: Request, userName: String)
+GET 	/userData/:userName			controllers.UserDataController.getUserData(request: Request, userName: String)
 
 GET		/repoIssues/:userName/:repoName       controllers.RepoIssueController.getRepoIssues(userName: String,repoName: String)
 GET 	/topicData/:topic			controllers.TopicDataController.getTopicData(request: Request, topic: String)

@@ -58,7 +58,7 @@ public class TopicDataController {
 	public CompletionStage<Result> getTopicData(Http.Request request, String topicName) {
 		topicDataModelMap.put("Testing branch", Arrays.asList()); // for testing
 		CompletionStage<Result> result = null;
-		if (request.session().get(topicName).isEmpty() || this.topicDataModelMap.get(request.session().get(topicName).get()) == null) {
+		if (!request.session().get(topicName).isPresent() || this.topicDataModelMap.get(request.session().get(topicName).get()) == null) {
 			result = topicDataService.getRepositoryData(topicName).thenApply(topicsList -> {
 				String randomKey = getRandomKey();
 				for(TopicDataModel topic : topicsList) {

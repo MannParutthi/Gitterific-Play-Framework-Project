@@ -333,3 +333,6 @@ jacoco
 compile
 run
 >>>>>>> db3b56af272733f091c3163a629c3ee3fd96958f
+clean
+compile
+test
