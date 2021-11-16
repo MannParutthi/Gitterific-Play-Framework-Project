@@ -143,4 +143,18 @@ public class TopicDataModel {
 	public void setSize(int size) {
 		this.size = size;
 	}
+	
+	/**
+	 * Returns the Topic Data Model Object
+	 * @return Returns the topic data model object with all the values
+	 */
+	@Override
+	public String toString() {
+		return "TopicDataModel [name=" + name + ", Id=" + Id + ", language=" + language + ", description=" + description
+				+ ", owner=" + owner + ", url=" + url + ", size=" + size + ", createdAt=" + createdAt + ", pushedAt="
+				+ pushedAt + "]";
+	}
+	
+	
+	
 }

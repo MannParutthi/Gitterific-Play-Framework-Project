@@ -2,36 +2,65 @@
 [0m[[0m[0mdebug[0m] [0m[0mForking tests - parallelism = false[0m
 [0m[[0m[0mdebug[0m] [0m[0mCreate a single-thread test executor[0m
 [0m[[0m[0mdebug[0m] [0m[0mRunner for com.novocode.junit.JUnitFramework produced 4 initial tasks for 4 tests.[0m
-[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(controllers.UserDataControllerTest, sbt.ForkMain$AnnotatedFingerscan@6eb6e5f6, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(controllers.UserDataControllerTest, sbt.ForkMain$AnnotatedFingerscan@37c06839, false, [SuiteSelector])[0m
 [0m[[0m[0mdebug[0m] [0m[0m[34mTest run started[0m[0m
 [0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mUserDataControllerTest[0m.[36mtestGetUser[0m started[0m
-[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mUserDataControllerTest[0m.[36mtestGetUser[0m finished, took 0.992 sec[0m
-[0m[[0m[0mdebug[0m] [0m[0m[34mTest run finished: [0m[34m0 failed[0m[34m, [0m[34m0 ignored[0m[34m, 1 total, 1.214s[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mUserDataControllerTest[0m.[36mtestGetUser[0m finished, took 1.133 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0m[34mTest run finished: [0m[34m0 failed[0m[34m, [0m[34m0 ignored[0m[34m, 1 total, 1.356s[0m[0m
 [0m[[0m[0mdebug[0m] [0m[0m    Produced 0 nested tasks and 1 events.[0m
-[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(controllers.TopicDataControllerTest, sbt.ForkMain$AnnotatedFingerscan@4e0f98d1, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(controllers.TopicDataControllerTest, sbt.ForkMain$AnnotatedFingerscan@570ce20b, false, [SuiteSelector])[0m
 [0m[[0m[0mdebug[0m] [0m[0m[34mTest run started[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mTopicDataControllerTest[0m.[36mtest_getRandomKey[0m started[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mTopicDataControllerTest[0m.[36mtest_getRandomKey[0m finished, took 0.213 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mTopicDataControllerTest[0m.[36mtest_getRepositoryData[0m started[0m
+[0m[[0m[31merror[0m] [0m[0mTest controllers.[33mTopicDataControllerTest[0m.[31mtest_getRepositoryData[0m failed: java.lang.[31mClassCastException[0m: class java.util.concurrent.CompletableFuture cannot be cast to class java.util.List (java.util.concurrent.CompletableFuture and java.util.List are in module java.base of loader 'bootstrap'), took 0.002 sec[0m
+[0m[[0m[31merror[0m] [0m[0m    at controllers.TopicDataControllerTest.test_getRepositoryData([35mTopicDataControllerTest.java[0m:[33m109[0m)[0m
+[0m[[0m[31merror[0m] [0m[0m    at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)[0m
+[0m[[0m[31merror[0m] [0m[0m    at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)[0m
+[0m[[0m[31merror[0m] [0m[0m    at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)[0m
+[0m[[0m[31merror[0m] [0m[0m    at java.lang.reflect.Method.invoke(Method.java:566)[0m
+[0m[[0m[31merror[0m] [0m[0m    ...[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mTopicDataControllerTest[0m.[36mtest_getRepositoryData[0m finished, took 0.003 sec[0m
+[0m[[0m[31merror[0m] [0m[0mTest controllers.[33mTopicDataControllerTest[0m.[31mtest_getRepositoryData[0m failed: org.mockito.exceptions.misusing.[31mUnfinishedStubbingException[0m: [0m
+[0m[[0m[31merror[0m] [0m[0mUnfinished stubbing detected here:[0m
+[0m[[0m[31merror[0m] [0m[0m-> at controllers.TopicDataControllerTest.test_getRepositoryData(TopicDataControllerTest.java:109)[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0mE.g. thenReturn() may be missing.[0m
+[0m[[0m[31merror[0m] [0m[0mExamples of correct stubbing:[0m
+[0m[[0m[31merror[0m] [0m[0m    when(mock.isOk()).thenReturn(true);[0m
+[0m[[0m[31merror[0m] [0m[0m    when(mock.isOk()).thenThrow(exception);[0m
+[0m[[0m[31merror[0m] [0m[0m    doThrow(exception).when(mock).someVoidMethod();[0m
+[0m[[0m[31merror[0m] [0m[0mHints:[0m
+[0m[[0m[31merror[0m] [0m[0m 1. missing thenReturn()[0m
+[0m[[0m[31merror[0m] [0m[0m 2. you are trying to stub a final method, which is not supported[0m
+[0m[[0m[31merror[0m] [0m[0m 3: you are stubbing the behaviour of another mock inside before 'thenReturn' instruction if completed[0m
+[0m[[0m[31merror[0m] [0m[0m, took 0.01 sec[0m
+[0m[[0m[31merror[0m] [0m[0m    at org.mockito.internal.runners.DefaultInternalRunner$1$1.testFinished(DefaultInternalRunner.java:70)[0m
+[0m[[0m[31merror[0m] [0m[0m    ...[0m
 [0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mTopicDataControllerTest[0m.[36mtest_getRepoData[0m started[0m
-[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mTopicDataControllerTest[0m.[36mtest_getRepoData[0m finished, took 0.216 sec[0m
-[0m[[0m[0mdebug[0m] [0m[0m[34mTest run finished: [0m[34m0 failed[0m[34m, [0m[34m0 ignored[0m[34m, 1 total, 0.218s[0m[0m
-[0m[[0m[0mdebug[0m] [0m[0m    Produced 0 nested tasks and 1 events.[0m
-[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(controllers.RepoDataControllerTest, sbt.ForkMain$AnnotatedFingerscan@1a2ff56d, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mTopicDataControllerTest[0m.[36mtest_getRepoData[0m finished, took 0.194 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0m[34mTest run finished: [0m[31m2 failed[0m[34m, [0m[34m0 ignored[0m[34m, 3 total, 0.42s[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0m    Produced 0 nested tasks and 3 events.[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(controllers.RepoDataControllerTest, sbt.ForkMain$AnnotatedFingerscan@3c25c0ef, false, [SuiteSelector])[0m
 [0m[[0m[0mdebug[0m] [0m[0m[34mTest run started[0m[0m
 [0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mRepoDataControllerTest[0m.[36mtest_getSaltString[0m started[0m
-[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mRepoDataControllerTest[0m.[36mtest_getSaltString[0m finished, took 0.006 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mRepoDataControllerTest[0m.[36mtest_getSaltString[0m finished, took 0.008 sec[0m
 [0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mRepoDataControllerTest[0m.[36mtest_getRepoData[0m started[0m
-[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mRepoDataControllerTest[0m.[36mtest_getRepoData[0m finished, took 0.134 sec[0m
-[0m[[0m[0mdebug[0m] [0m[0m[34mTest run finished: [0m[34m0 failed[0m[34m, [0m[34m0 ignored[0m[34m, 2 total, 0.143s[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mRepoDataControllerTest[0m.[36mtest_getRepoData[0m finished, took 0.032 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0m[34mTest run finished: [0m[34m0 failed[0m[34m, [0m[34m0 ignored[0m[34m, 2 total, 0.041s[0m[0m
 [0m[[0m[0mdebug[0m] [0m[0m    Produced 0 nested tasks and 2 events.[0m
-[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(controllers.HomeControllerTest, sbt.ForkMain$AnnotatedFingerscan@3a0b1b24, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(controllers.HomeControllerTest, sbt.ForkMain$AnnotatedFingerscan@13b0e90d, false, [SuiteSelector])[0m
 [0m[[0m[0mdebug[0m] [0m[0m[34mTest run started[0m[0m
 [0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mHomeControllerTest[0m.[36mtestIndex[0m started[0m
-[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mHomeControllerTest[0m.[36mtestIndex[0m finished, took 3.268 sec[0m
-[0m[[0m[0mdebug[0m] [0m[0m[34mTest run finished: [0m[34m0 failed[0m[34m, [0m[34m0 ignored[0m[34m, 1 total, 3.269s[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mHomeControllerTest[0m.[36mtestIndex[0m finished, took 3.982 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0m[34mTest run finished: [0m[34m0 failed[0m[34m, [0m[34m0 ignored[0m[34m, 1 total, 3.982s[0m[0m
 [0m[[0m[0mdebug[0m] [0m[0m    Produced 0 nested tasks and 1 events.[0m
 [0m[[0m[0mdebug[0m] [0m[0mSummary for JUnit not available.[0m
-[0m[[0m[0minfo[0m] [0m[0mPassed: Total 5, Failed 0, Errors 0, Passed 5[0m
+[0m[[0m[31merror[0m] [0m[0mFailed: Total 7, Failed 1, Errors 0, Passed 6[0m
 [0m[[0m[0mdebug[0m] [0m[0mPassed tests:[0m
 [0m[[0m[0mdebug[0m] [0m[0m	controllers.RepoDataControllerTest[0m
-[0m[[0m[0mdebug[0m] [0m[0m	controllers.TopicDataControllerTest[0m
 [0m[[0m[0mdebug[0m] [0m[0m	controllers.HomeControllerTest[0m
 [0m[[0m[0mdebug[0m] [0m[0m	controllers.UserDataControllerTest[0m
+[0m[[0m[31merror[0m] [0m[0mFailed tests:[0m
+[0m[[0m[31merror[0m] [0m[0m	controllers.TopicDataControllerTest[0m
+[0m[[0m[31merror[0m] [0m[0m(Test / [31mtest[0m) sbt.TestsFailedException: Tests unsuccessful[0m
