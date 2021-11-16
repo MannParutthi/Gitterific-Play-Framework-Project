@@ -12,6 +12,10 @@ import static play.mvc.Http.Status.OK;
 import static play.test.Helpers.GET;
 import static play.test.Helpers.route;
 
+/**
+ * Test Controller to test Home Page
+ *
+ */
 public class HomeControllerTest extends WithApplication {
 
     @Override

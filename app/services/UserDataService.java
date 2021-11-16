@@ -10,18 +10,30 @@ import org.eclipse.egit.github.core.service.UserService;
 
 import model.UserDetails;
 
+/**
+ * Service class for User Data
+ *
+ */
 public class UserDataService {	
 
 	private UserService userService;
 	private GitHubClient gitHubClient;
 	private UserDetails userDetails;
 	
+	/**
+	 * Default Constructor
+	 */
 	public UserDataService() {
 		gitHubClient = new GitHubClient();
 		this.userService = new UserService(gitHubClient);
 		
 	}
 	
+	/**
+	 * Returns the User Data for the given login
+	 * @param login used for fetching the user data
+	 * @return Returns the User Data for the given user
+	 */
 	public CompletionStage<UserDetails> getUserData(String login) {
 		userDetails = new UserDetails();
 		return CompletableFuture.supplyAsync(() -> {

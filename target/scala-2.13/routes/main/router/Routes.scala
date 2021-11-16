@@ -42,10 +42,10 @@ class Routes(
     ("""GET""", this.prefix, """controllers.HomeController.index(request:Request)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """assets/""" + "$" + """file<.+>""", """controllers.Assets.versioned(path:String = "/public", file:Asset)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """git/""" + "$" + """name<[^/]+>""", """controllers.HomeController.getUserProfile(name:String)"""),
-    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """userData/""" + "$" + """userName<[^/]+>""", """controllers.HomeController.getUserData(request:Request, userName:String)"""),
-    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """repoIssues/""" + "$" + """userName<[^/]+>/""" + "$" + """repoName<[^/]+>""", """controllers.HomeController.getRepoIssues(userName:String, repoName:String)"""),
-    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """topicData/""" + "$" + """topic<[^/]+>""", """controllers.HomeController.getTopicData(topic:String)"""),
-    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """repoData/""" + "$" + """userName<[^/]+>""", """controllers.HomeController.getRepoData(request:Request, userName:String)"""),
+    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """userData/""" + "$" + """userName<[^/]+>""", """controllers.UserDataController.getUserData(userName:String)"""),
+    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """repoIssues/""" + "$" + """userName<[^/]+>/""" + "$" + """repoName<[^/]+>""", """controllers.RepoIssueController.getRepoIssues(userName:String, repoName:String)"""),
+    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """topicData/""" + "$" + """topic<[^/]+>""", """controllers.TopicDataController.getTopicData(request:Request, topic:String)"""),
+    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """repoData/""" + "$" + """userName<[^/]+>""", """controllers.RepoDataController.getRepoData(request:Request, userName:String)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """searchResult""", """controllers.HomeController.getSearchResults(request:Request)"""),
     Nil
   ).foldLeft(List.empty[(String,String,String)]) { (s,e) => e.asInstanceOf[Any] match {
@@ -152,13 +152,15 @@ class Routes(
   private[this] lazy val controllers_HomeController_getTopicData5_route = Route("GET",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("topicData/"), DynamicPart("topic", """[^/]+""",true)))
   )
-  private[this] lazy val controllers_HomeController_getTopicData5_invoker = createInvoker(
-    HomeController_1.getTopicData(fakeValue[String]),
+  private[this] lazy val controllers_TopicDataController_getTopicData5_invoker = createInvoker(
+    
+    (req:play.mvc.Http.Request) =>
+      TopicDataController_0.getTopicData(fakeValue[play.mvc.Http.Request], fakeValue[String]),
     play.api.routing.HandlerDef(this.getClass.getClassLoader,
       "router",
       "controllers.HomeController",
       "getTopicData",
-      Seq(classOf[String]),
+      Seq(classOf[play.mvc.Http.Request], classOf[String]),
       "GET",
       this.prefix + """topicData/""" + "$" + """topic<[^/]+>""",
       """""",
@@ -244,7 +246,8 @@ class Routes(
     // @LINE:16
     case controllers_HomeController_getTopicData5_route(params@_) =>
       call(params.fromPath[String]("topic", None)) { (topic) =>
-        controllers_HomeController_getTopicData5_invoker.call(HomeController_1.getTopicData(topic))
+        controllers_TopicDataController_getTopicData5_invoker.call(
+          req => TopicDataController_0.getTopicData(req, topic))
       }
   
     // @LINE:18

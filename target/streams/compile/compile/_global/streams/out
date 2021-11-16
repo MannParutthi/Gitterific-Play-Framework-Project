@@ -1,4 +1,11 @@
+<<<<<<< HEAD
 [0m[[0m[31merror[0m] [0m[0mD:\SOEN 6441\APP_Project_G7\app\controllers\RepoDataController.java:45:1: cannot find symbol[0m
 [0m[[0m[31merror[0m] [0m[0m  symbol:   method isEmpty()[0m
 [0m[[0m[31merror[0m] [0m[0m  location: class java.util.Optional<java.lang.String>[0m
 [0m[[0m[31merror[0m] [0m[0mrequest.session().get(userName).isEmpty[0m
+=======
+[0m[[0m[31merror[0m] [0m[0mE:\APP_Project_G7\app\views\searchResults.scala.html:20:22: value map is not a member of org.eclipse.egit.github.core.SearchRepository[0m
+[0m[[0m[31merror[0m] [0m[0m								@for(repo <- repoList) {[0m
+[0m[[0m[31merror[0m] [0m[0m								             ^[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m
+>>>>>>> db3b56af272733f091c3163a629c3ee3fd96958f

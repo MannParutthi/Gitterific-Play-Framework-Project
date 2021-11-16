@@ -23,37 +23,67 @@ import org.eclipse.egit.github.core.service.RepositoryService;
 import org.eclipse.egit.github.core.Repository;
 import org.eclipse.egit.github.core.Issue;
 
+/**
+ * Service class for Repository Issues
+ *
+ */
 public class RepoIssues {
 
     private IssueService issueService;
     private RepositoryService repositoryService;
     private GitHubClient gitHubClient;
-
+    
+    /**
+     * Default Constructor
+     */
     public RepoIssues() {
         this.gitHubClient = new GitHubClient();
         this.issueService = new IssueService(this.gitHubClient);
         this.repositoryService = new RepositoryService(this.gitHubClient);
     }
 
+    /**
+     * Sets the Issue Service
+     * @param issueService used for setting the Issue Service
+     */
     public void setIssueService(IssueService issueService) {
         this.issueService = issueService;
     }
 
+    /**
+     * Sets the Repository Service
+     * @param repositoryService used for setting the repository service
+     */
     public void setRepositoryService(RepositoryService repositoryService) {
         this.repositoryService = repositoryService;
     }
 
+    /**
+     * Sets the GitHub Client
+     * @param gitHubClient used for setting the github client
+     */
     public void setGitHubClient(GitHubClient gitHubClient) {
         this.gitHubClient = gitHubClient;
     }
 
+    /**
+     * Gets the Issue Report from the Repository for the given username and repository
+     * @param userName	Username to get the Issue Reports 
+     * @param repo Repo Name to get the Issue Reports
+     * @return Returns the list of Repo Issues for the given username and repository
+     */
     public CompletableFuture<String> getIssueReportFromRepo(String userName, String repo) {
         return CompletableFuture.supplyAsync(() -> fetchRepoIssues(userName, repo))
                 .thenApplyAsync(RepoIssues::generateReport)
                 .exceptionally(throwable -> "Error");
 
     }
-
+    /**
+     * Fetches the List of Repo Issues for the given username and Repo
+     * @param userName Username to get the List of Issues
+     * @param repo Repository Name to fetch the list of Issues
+     * @return Returns the List of Issues for the given username and repository
+     */
     public List<Issue> fetchRepoIssues(String userName, String repo) {
         List<Issue> issues = null;
         try {
@@ -64,7 +94,11 @@ public class RepoIssues {
         }
         return issues;
     }
-
+    /**
+     * Generates the Report for the list of usses provided
+     * @param issues Issues to generate the report 
+     * @return Returns the Report for the given list of issues
+     */
     public static String generateReport(List<Issue> issues) {
         if (issues == null)
             return "Error";

@@ -267,10 +267,69 @@ clean
 compile
 test
 eclipse
+<<<<<<< HEAD
 compile
+=======
+>>>>>>> db3b56af272733f091c3163a629c3ee3fd96958f
 run
 jacoco
 test
 jacoco
+<<<<<<< HEAD
 test
 jacoco
+=======
+clear
+cls
+clsr
+test
+jacoco
+test
+jacoco
+sbt
+run
+ompile
+compile
+jacoco
+compile
+jacoco
+compile
+jacoco
+run
+jacoco
+run
+<<<<<<< HEAD
+clean
+eclipse
+clean
+compile
+clean
+compile
+rrun
+run
+clean
+run
+clean
+=======
+compile
+run
+compile
+run
+compile
+RUN
+run
+compile
+run
+compile
+run
+compile
+run
+comoile
+compile
+run
+compile
+jacoco
+>>>>>>> 4281812dd59836aa3c84b3cdf7e2c894b346c1a6
+compile
+run
+>>>>>>> db3b56af272733f091c3163a629c3ee3fd96958f

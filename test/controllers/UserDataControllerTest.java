@@ -1,7 +1,5 @@
 package controllers;
 
-
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.*;
@@ -32,8 +30,10 @@ import org.mockito.stubbing.OngoingStubbing;
 import model.UserDetails;
 import services.UserDataService;
 
-
-
+/**
+ * Controller for testing the User Data
+ *
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class UserDataControllerTest {
 	

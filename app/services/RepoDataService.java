@@ -2,6 +2,7 @@ package services;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
@@ -22,7 +23,10 @@ import model.RepoDataModel;
 import model.RepoIssueModel;
 import play.mvc.Http.Session;
 
-
+/**
+ * Service Class for Repository Data
+ *
+ */
 public class RepoDataService {
 	
 	private RepositoryService repositoryService;
@@ -30,13 +34,21 @@ public class RepoDataService {
 	private CommitService commitService;
 	private GitHubClient gitHubClient;
 	
+	/**
+	 * Default Constructor
+	 */
 	public RepoDataService() {
 		gitHubClient = new GitHubClient();
+		gitHubClient.setCredentials("manan.paruthi@gmail.com", "Mysore10.10");
 		this.repositoryService = new RepositoryService(gitHubClient);
 		this.issueService = new IssueService(gitHubClient);
 		this.commitService = new CommitService(gitHubClient);
 	}
-	
+	/**
+	 * Returns the list of Repository Data for the given username
+	 * @param userName Username to get the Repo Data
+	 * @return Returns the Repository Data for the given username
+	 */
 	public CompletionStage<List<RepoDataModel>> getRepoData(String userName) {
 		return CompletableFuture.supplyAsync(() -> {		
 			List<RepoDataModel> repoData = new ArrayList<RepoDataModel>();
@@ -72,9 +84,12 @@ public class RepoDataService {
 						repoIssueList.add(repoIssueDetails);
 					}
 					repoDetails.setIssues(repoIssueList);
-					
+	
 					List<RepoCommitModel> repoCommitList = new ArrayList<RepoCommitModel>();
-					List<RepositoryCommit> commitList = commitService.getCommits(repository);
+					List<RepositoryCommit> commitList = Arrays.asList();
+					if (repository.getSize() > 0) {
+						commitList = commitService.getCommits(repository);
+					}
 					for (RepositoryCommit commit : commitList) {
 						RepoCommitModel repoCommitDetails = new RepoCommitModel();
 						repoCommitDetails.setLoginName(commit.getAuthor().getLogin());
@@ -84,9 +99,7 @@ public class RepoDataService {
 					repoDetails.setCommits(repoCommitList);
 					
 					repoData.add(repoDetails);
-				} 
-				
-				
+				} 				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
