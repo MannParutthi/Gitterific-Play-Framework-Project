@@ -1,0 +1,4 @@
+[0m[[0m[31merror[0m] [0m[0mD:\CODING\APP Project\APP_Project_G7\app\controllers\TopicDataController.java:36:1: cannot find symbol[0m
+[0m[[0m[31merror[0m] [0m[0m  symbol:   class topicDataSearch[0m
+[0m[[0m[31merror[0m] [0m[0m  location: package views.html[0m
+[0m[[0m[31merror[0m] [0m[0mviews.html.topicDataSearch[0m

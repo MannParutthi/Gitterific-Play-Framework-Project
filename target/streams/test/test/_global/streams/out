@@ -5,28 +5,28 @@
 [0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(controllers.UserDataControllerTest, sbt.ForkMain$AnnotatedFingerscan@6eb6e5f6, false, [SuiteSelector])[0m
 [0m[[0m[0mdebug[0m] [0m[0m[34mTest run started[0m[0m
 [0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mUserDataControllerTest[0m.[36mtestGetUser[0m started[0m
-[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mUserDataControllerTest[0m.[36mtestGetUser[0m finished, took 1.142 sec[0m
-[0m[[0m[0mdebug[0m] [0m[0m[34mTest run finished: [0m[34m0 failed[0m[34m, [0m[34m0 ignored[0m[34m, 1 total, 1.443s[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mUserDataControllerTest[0m.[36mtestGetUser[0m finished, took 0.992 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0m[34mTest run finished: [0m[34m0 failed[0m[34m, [0m[34m0 ignored[0m[34m, 1 total, 1.214s[0m[0m
 [0m[[0m[0mdebug[0m] [0m[0m    Produced 0 nested tasks and 1 events.[0m
 [0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(controllers.TopicDataControllerTest, sbt.ForkMain$AnnotatedFingerscan@4e0f98d1, false, [SuiteSelector])[0m
 [0m[[0m[0mdebug[0m] [0m[0m[34mTest run started[0m[0m
 [0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mTopicDataControllerTest[0m.[36mtest_getRepoData[0m started[0m
-[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mTopicDataControllerTest[0m.[36mtest_getRepoData[0m finished, took 0.257 sec[0m
-[0m[[0m[0mdebug[0m] [0m[0m[34mTest run finished: [0m[34m0 failed[0m[34m, [0m[34m0 ignored[0m[34m, 1 total, 0.257s[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mTopicDataControllerTest[0m.[36mtest_getRepoData[0m finished, took 0.216 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0m[34mTest run finished: [0m[34m0 failed[0m[34m, [0m[34m0 ignored[0m[34m, 1 total, 0.218s[0m[0m
 [0m[[0m[0mdebug[0m] [0m[0m    Produced 0 nested tasks and 1 events.[0m
 [0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(controllers.RepoDataControllerTest, sbt.ForkMain$AnnotatedFingerscan@1a2ff56d, false, [SuiteSelector])[0m
 [0m[[0m[0mdebug[0m] [0m[0m[34mTest run started[0m[0m
 [0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mRepoDataControllerTest[0m.[36mtest_getSaltString[0m started[0m
-[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mRepoDataControllerTest[0m.[36mtest_getSaltString[0m finished, took 0.008 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mRepoDataControllerTest[0m.[36mtest_getSaltString[0m finished, took 0.006 sec[0m
 [0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mRepoDataControllerTest[0m.[36mtest_getRepoData[0m started[0m
-[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mRepoDataControllerTest[0m.[36mtest_getRepoData[0m finished, took 0.191 sec[0m
-[0m[[0m[0mdebug[0m] [0m[0m[34mTest run finished: [0m[34m0 failed[0m[34m, [0m[34m0 ignored[0m[34m, 2 total, 0.201s[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mRepoDataControllerTest[0m.[36mtest_getRepoData[0m finished, took 0.134 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0m[34mTest run finished: [0m[34m0 failed[0m[34m, [0m[34m0 ignored[0m[34m, 2 total, 0.143s[0m[0m
 [0m[[0m[0mdebug[0m] [0m[0m    Produced 0 nested tasks and 2 events.[0m
-[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(controllers.HomeControllerTest, sbt.ForkMain$AnnotatedFingerscan@7cc5c7b2, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(controllers.HomeControllerTest, sbt.ForkMain$AnnotatedFingerscan@3a0b1b24, false, [SuiteSelector])[0m
 [0m[[0m[0mdebug[0m] [0m[0m[34mTest run started[0m[0m
 [0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mHomeControllerTest[0m.[36mtestIndex[0m started[0m
-[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mHomeControllerTest[0m.[36mtestIndex[0m finished, took 3.549 sec[0m
-[0m[[0m[0mdebug[0m] [0m[0m[34mTest run finished: [0m[34m0 failed[0m[34m, [0m[34m0 ignored[0m[34m, 1 total, 3.549s[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mHomeControllerTest[0m.[36mtestIndex[0m finished, took 3.268 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0m[34mTest run finished: [0m[34m0 failed[0m[34m, [0m[34m0 ignored[0m[34m, 1 total, 3.269s[0m[0m
 [0m[[0m[0mdebug[0m] [0m[0m    Produced 0 nested tasks and 1 events.[0m
 [0m[[0m[0mdebug[0m] [0m[0mSummary for JUnit not available.[0m
 [0m[[0m[0minfo[0m] [0m[0mPassed: Total 5, Failed 0, Errors 0, Passed 5[0m

@@ -2,28 +2,23 @@
 [0m[[0m[0mdebug[0m] [0m[0mInitial source changes: [0m
 [0m[[0m[0mdebug[0m] [0m[0m	removed:Set()[0m
 [0m[[0m[0mdebug[0m] [0m[0m	added: Set()[0m
-[0m[[0m[0mdebug[0m] [0m[0m	modified: Set(D:\CODING\APP Project\APP_Project_G7\test\controllers\TopicDataControllerTest.java)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	modified: Set(D:\CODING\APP Project\APP_Project_G7\test\controllers\HomeControllerTest.java, D:\CODING\APP Project\APP_Project_G7\test\controllers\TopicDataControllerTest.java, D:\CODING\APP Project\APP_Project_G7\test\controllers\RepoDataControllerTest.java, D:\CODING\APP Project\APP_Project_G7\test\controllers\UserDataControllerTest.java)[0m
 [0m[[0m[0mdebug[0m] [0m[0mInvalidated products: Set()[0m
 [0m[[0m[0mdebug[0m] [0m[0mExternal API changes: API Changes: Set()[0m
-[0m[[0m[0mdebug[0m] [0m[0mModified binary dependencies: Set()[0m
-[0m[[0m[0mdebug[0m] [0m[0mInitial directly invalidated classes: Set(controllers.TopicDataControllerTest)[0m
+[0m[[0m[0mdebug[0m] [0m[0mModified binary dependencies: Set(D:\CODING\APP Project\APP_Project_G7\target\scala-2.13\classes, C:\Users\gyash\AppData\Local\Coursier\cache\v1\https\repo1.maven.org\maven2\com\typesafe\play\play-cache_2.13\2.8.8\play-cache_2.13-2.8.8.jar, D:\CODING\APP Project\APP_Project_G7\target\scala-2.13\classes\controllers\UserDataController.class, D:\CODING\APP Project\APP_Project_G7\target\scala-2.13\classes\services\UserDataService.class)[0m
+[0m[[0m[0mdebug[0m] [0m[0mInitial directly invalidated classes: Set(controllers.HomeControllerTest, controllers.TopicDataControllerTest, controllers.RepoDataControllerTest, controllers.UserDataControllerTest)[0m
 [0m[[0m[0mdebug[0m] [0m[0m[0m
 [0m[[0m[0mdebug[0m] [0m[0mSources indirectly invalidated by:[0m
 [0m[[0m[0mdebug[0m] [0m[0m	product: Set()[0m
-[0m[[0m[0mdebug[0m] [0m[0m	binary dep: Set()[0m
+[0m[[0m[0mdebug[0m] [0m[0m	binary dep: Set(D:\CODING\APP Project\APP_Project_G7\test\controllers\UserDataControllerTest.java)[0m
 [0m[[0m[0mdebug[0m] [0m[0m	external source: Set()[0m
-[0m[[0m[0mdebug[0m] [0m[0mAll initially invalidated classes: Set(controllers.TopicDataControllerTest)[0m
-[0m[[0m[0mdebug[0m] [0m[0mAll initially invalidated sources:Set(D:\CODING\APP Project\APP_Project_G7\test\controllers\TopicDataControllerTest.java)[0m
-[0m[[0m[0mdebug[0m] [0m[0mInitial set of included nodes: controllers.TopicDataControllerTest[0m
-[0m[[0m[0minfo[0m] [0m[0mCompiling 1 Java source to D:\CODING\APP Project\APP_Project_G7\target\scala-2.13\test-classes ...[0m
-[0m[[0m[0mdebug[0m] [0m[0mAttempting to call com.sun.tools.javac.api.JavacTool@31b0ba9e directly...[0m
-[0m[[0m[0mdebug[0m] [0m[0mJava compilation took 1.097657 s[0m
-[0m[[0m[0mdebug[0m] [0m[0mJava analysis took 0.0572416 s[0m
-[0m[[0m[0mdebug[0m] [0m[0mJava compilation + analysis took 1.1626286 s[0m
+[0m[[0m[0mdebug[0m] [0m[0mAll initially invalidated classes: Set(controllers.HomeControllerTest, controllers.TopicDataControllerTest, controllers.RepoDataControllerTest, controllers.UserDataControllerTest)[0m
+[0m[[0m[0mdebug[0m] [0m[0mAll initially invalidated sources:Set(D:\CODING\APP Project\APP_Project_G7\test\controllers\HomeControllerTest.java, D:\CODING\APP Project\APP_Project_G7\test\controllers\TopicDataControllerTest.java, D:\CODING\APP Project\APP_Project_G7\test\controllers\RepoDataControllerTest.java, D:\CODING\APP Project\APP_Project_G7\test\controllers\UserDataControllerTest.java)[0m
+[0m[[0m[0mdebug[0m] [0m[0mInitial set of included nodes: controllers.HomeControllerTest, controllers.TopicDataControllerTest, controllers.RepoDataControllerTest, controllers.UserDataControllerTest[0m
+[0m[[0m[0mdebug[0m] [0m[0mRecompiling all sources: number of invalidated sources > 50.0% of all sources[0m
+[0m[[0m[0minfo[0m] [0m[0mCompiling 6 Java sources to D:\CODING\APP Project\APP_Project_G7\target\scala-2.13\test-classes ...[0m
+[0m[[0m[0mdebug[0m] [0m[0mAttempting to call com.sun.tools.javac.api.JavacTool@68729184 directly...[0m
+[0m[[0m[0mdebug[0m] [0m[0mJava compilation took 1.4510695 s[0m
+[0m[[0m[0mdebug[0m] [0m[0mJava analysis took 0.0827091 s[0m
+[0m[[0m[0mdebug[0m] [0m[0mJava compilation + analysis took 1.5414051 s[0m
 [0m[[0m[0mdebug[0m] [0m[0mDone compiling.[0m
-[0m[[0m[0mdebug[0m] [0m[0mNew invalidations:[0m
-[0m[[0m[0mdebug[0m] [0m[0m	Set()[0m
-[0m[[0m[0mdebug[0m] [0m[0mInitial set of included nodes: [0m
-[0m[[0m[0mdebug[0m] [0m[0mPreviously invalidated, but (transitively) depend on new invalidations:[0m
-[0m[[0m[0mdebug[0m] [0m[0m	Set()[0m
-[0m[[0m[0mdebug[0m] [0m[0mNo classes were invalidated.[0m
