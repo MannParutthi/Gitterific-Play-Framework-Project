@@ -52,7 +52,6 @@ public class UserDataService {
 				userDetails.setDiskUsage(user.getDiskUsage());
 				userDetails.setFollowers(user.getFollowers());
 				userDetails.setFollowing(user.getFollowing());
-				userDetails.setGravatarId(user.getGravatarId());
 				userDetails.setHireable(user.isHireable());
 				userDetails.setHtmlUrl(user.getHtmlUrl());
 				userDetails.setLogin(user.getLogin());
