@@ -94,6 +94,7 @@ public class RepoDataControllerTest {
 
 		// Mocking
 		when(repoDataService.getRepoData("MannParutthi")).thenReturn((CompletableFuture.supplyAsync(() -> repoList)));
+//		when(repositoryService.getRepositories(""))
 
 		List<RepoDataModel> repoData = null;
 		Result res1 = null;
@@ -106,6 +107,8 @@ public class RepoDataControllerTest {
 			
 			Request request2 = Helpers.fakeRequest().method("GET").uri("/repoData/MannParutthi").session("MannParutthi", "randomKeyForTesting").build();
 			res2 = repoDataController.getRepoData(request2, "MannParutthi").toCompletableFuture().get();
+			
+			List<RepoDataModel> rData = repoDataService.getRepoData("MannParutthi").toCompletableFuture().get();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

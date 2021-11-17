@@ -336,3 +336,11 @@ run
 clean
 compile
 test
+clean
+compile
+test
+jacoco
+run
+clean
+compile
+run
