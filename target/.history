@@ -365,3 +365,7 @@ compile
 run
 test
 compile
+test
+jacoco
+test
+jacoco
