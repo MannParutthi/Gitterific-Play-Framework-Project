@@ -2,6 +2,10 @@ package controllers;
 
 import javax.inject.Inject;
 import org.eclipse.egit.github.core.SearchRepository;
+
+import model.RepoDataModel;
+import model.TopicDataModel;
+import model.UserDetails;
 import play.mvc.*;
 import views.SearchDTO;
 import play.i18n.MessagesApi;
@@ -10,7 +14,11 @@ import play.cache.SyncCacheApi;
 import play.data.Form;
 import play.data.FormFactory;
 import play.libs.ws.*;
+import services.RepoDataService;
+import services.RepoIssues;
 import services.SearchForReposService;
+import services.TopicDataService;
+import services.UserDataService;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -37,6 +45,13 @@ public class HomeController {
 	private HashMap<String, ArrayList<LinkedHashMap<String, List<SearchRepository>>>> prevSearchSessionData;
 	private ArrayList<LinkedHashMap<String, List<SearchRepository>>> prevSearchData;
 	boolean isSessionPresent;
+	private final RepoDataService repoDataService;
+	private HashMap<String, List<RepoDataModel>> sessionMapRepoData;
+	private RepoIssues repoIssues;
+	private final TopicDataService topicDataService;
+	private HashMap<String, List<TopicDataModel>> topicDataModelMap;
+	private final UserDataService userDataService;
+	private HashMap<String, UserDetails> sessionMapUserData;
 
 	@Inject
 	private FormFactory formFactory;
@@ -52,12 +67,19 @@ public class HomeController {
 	 * @param searchForReposService Repository Service Search
 	 */
 	@Inject
-	public HomeController(WSClient ws, SyncCacheApi cacheApi, SearchForReposService searchForReposService) {
+	public HomeController(WSClient ws, SyncCacheApi cacheApi, SearchForReposService searchForReposService,RepoDataService repoDataService,RepoIssues repoIssues,TopicDataService topicDataService,UserDataService userDataService) {
 		this.cacheApi = cacheApi;
 		this.ws = ws;
 		this.searchForReposService = searchForReposService;
 		cacheMapSearchData = new HashMap<String, List<SearchRepository>>();
 		prevSearchSessionData = new HashMap<String,ArrayList<LinkedHashMap<String, List<SearchRepository>>>>();
+		this.repoDataService = repoDataService;
+		sessionMapRepoData = new HashMap<String, List<RepoDataModel>>();
+		this.repoIssues = repoIssues;
+		this.topicDataService = topicDataService;
+		topicDataModelMap = new HashMap<String, List<TopicDataModel>>();
+		this.userDataService = userDataService;
+		sessionMapUserData = new HashMap<String, UserDetails>();
 	}
 
 	/**
@@ -171,6 +193,11 @@ public class HomeController {
 	
 	}
 	
+	/**
+	 * This method return the RandomString used in session management
+	 * 
+	 * @return RandomString Returns a string that is used in session management
+	 */
 	protected String getSaltString() {
 		String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
 		StringBuilder salt = new StringBuilder();
@@ -182,5 +209,112 @@ public class HomeController {
 		String saltStr = salt.toString();
 		return saltStr;
 	}
+	
+	/**
+	 * This method provides the repository data for a given user
+	 * @param request The request parameter the handle the session 
+	 * @param userName Username to get the Repo Details
+	 * @return Returns the Repository Data for the given Username
+	 */
+	public CompletionStage<Result> getRepoData(Http.Request request, String userName) {
+		sessionMapRepoData.put("randomKeyForTesting", Arrays.asList()); // for testing
+		CompletionStage<Result> resultCompletionStage;
+		if (!request.session().get(userName).isPresent() || this.sessionMapRepoData.get(request.session().get(userName).get()) == null) {
+			resultCompletionStage = repoDataService.getRepoData(userName).thenApply(repoList -> {
+				String randomKey = getSaltString();
+				this.sessionMapRepoData.put(randomKey, repoList);
+				return ok(views.html.repoData.render(repoList)).addingToSession(request, userName, randomKey);
+			});
+		} else {
+			String key = request.session().get(userName).get();
+			List<RepoDataModel> repoData = this.sessionMapRepoData.get(key);
+			System.out.println("inside session ==> " + key);
+			resultCompletionStage = CompletableFuture.supplyAsync(() -> ok(views.html.repoData.render(repoData)));
+		}
+		return resultCompletionStage;
+	}
+	
+	/**
+	 * Method to get the Repository Issues for given username and repository
+	 * 
+	 * @param userName Username to get the Repo Issues
+	 * @param repo	Repository Name to get the Repo Issues
+	 * @return	Returns the Repo Issues for the given Username and Repository
+	 */
+	public CompletionStage<Result> getRepoIssues(String userName,String repo) {
+		System.out.println(userName + "," + repo);
+		return repoIssues.getIssueReportFromRepo(userName,repo)
+				.thenApply(output -> ok(views.html.repoIssueShow.render(output)));
+	}
+	
+	/**
+	 * This method provides the repository data for a given user
+	 * @param request The request parameter the handle the session 
+	 * @param userName Username to get the Repo Details
+	 * @return Returns the Repository Data for the given Username
+	 */
+	public CompletionStage<Result> getTopicData(Http.Request request, String topicName) {
+		topicDataModelMap.put("Testing branch", Arrays.asList()); // for testing
+		CompletionStage<Result> result = null;
+		if (!request.session().get(topicName).isPresent() || this.topicDataModelMap.get(request.session().get(topicName).get()) == null) {
+			result = topicDataService.getRepositoryData(topicName).thenApply(topicsList -> {
+				String randomKey = getSaltString();
+				for(TopicDataModel topic : topicsList) {
+					System.out.println(topic.toString());
+				}
+				topicDataModelMap.put(randomKey, topicsList);
+				return ok(views.html.topicData.render(topicsList)).addingToSession(request, topicName, randomKey);
+			});
+		} else {
+			String key = request.session().get(topicName).get();
+			List<TopicDataModel> topicData = this.topicDataModelMap.get(key);
+			System.out.println("inside session ==> " + key);
+			result = CompletableFuture.supplyAsync(() -> ok(views.html.topicData.render(topicData)));
+		}
+		return result;
+	}
+	
+	
+	/**
+	 * This method gets the repository results for the given topic
+	 *  
+	 * @param keyword Keyword used for searching the given Topic
+	 * @return Returns the list of all Topics Data that are filtered with the given topic
+	 */
+//	public CompletionStage<Result> getTopicData(HttpString keyword) {
+//		CompletionStage<Result> resultCompletionStage = topicDataService.getRepositoryData(keyword).thenApply(data -> ok(views.html.topicData.render(data)));		
+//		return resultCompletionStage;
+//	}
+	
+	/**
+	 * This method get the User Data for a given username
+	 * @param userName This username is used to get the data of the User
+	 * @return Returns the data of the given User
+	 */
+	public CompletionStage<Result> getUserData(Http.Request request, String userName) {
+		//	sessionMapUserData.put("randomKeyForTesting", Arrays.asList());
+			System.out.println("hi--------------------------------------");
+			System.out.println(this.sessionMapUserData);
+			System.out.println(request.session().get(userName));
+			System.out.println(!request.session().get(userName).isPresent());
+		//	System.out.println(this.sessionMapUserData.get(request.session().get(userName).get()));
+			
+			CompletionStage<Result> resultCompletionStage;
+			if (!request.session().get(userName).isPresent() || this.sessionMapUserData.size()>0 || this.sessionMapUserData.get(request.session().get(userName).get()) == null) {
+				resultCompletionStage = userDataService.getUserData(userName).thenApply(userList -> {
+					String randomKey = getSaltString();
+					System.out.println("my random key ----->"+randomKey);
+					this.sessionMapUserData.put(randomKey, userList);
+					return ok(views.html.userData.render(userList)).addingToSession(request, userName, randomKey);
+				});
+			} else {
+				System.out.println("Here-----------------------");
+				String key = request.session().get(userName).get();
+				UserDetails userData = this.sessionMapUserData.get(key);
+				System.out.println("inside session ==> " + key);
+				resultCompletionStage = CompletableFuture.supplyAsync(() -> ok(views.html.userData.render(userData)));
+			}
+			return resultCompletionStage;
+		}
 
 }

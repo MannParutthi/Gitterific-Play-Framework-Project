@@ -32,7 +32,7 @@ import services.RepoDataService;
 public class RepoDataControllerTest {
 
 	@InjectMocks
-	RepoDataController repoDataController;
+	HomeController repoDataController;
 
 	@Mock
 	RepoDataService repoDataService;

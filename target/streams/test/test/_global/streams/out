@@ -1,3 +1,40 @@
 [0m[[0m[0mdebug[0m] [0m[0mjavaOptions: Vector(-Djacoco-agent.destfile=D:\SOEN 6441\APP_Project_G7\target\scala-2.13\jacoco\data\jacoco.exec)[0m
 [0m[[0m[0mdebug[0m] [0m[0mForking tests - parallelism = false[0m
+[0m[[0m[0mdebug[0m] [0m[0mCreate a single-thread test executor[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunner for com.novocode.junit.JUnitFramework produced 3 initial tasks for 3 tests.[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(services.RepoIssuesTest, sbt.ForkMain$AnnotatedFingerscan@9ec0de8, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0m[34mTest run started[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest services.[33mRepoIssuesTest[0m.[36mtestLoadAllAndGenerateReport[0m started[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest services.[33mRepoIssuesTest[0m.[36mtestLoadAllAndGenerateReport[0m finished, took 4.775 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest services.[33mRepoIssuesTest[0m.[36mtestRepoNotFound[0m started[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest services.[33mRepoIssuesTest[0m.[36mtestRepoNotFound[0m finished, took 0.167 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest services.[33mRepoIssuesTest[0m.[36mtestEmptyIssues[0m started[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest services.[33mRepoIssuesTest[0m.[36mtestEmptyIssues[0m finished, took 0.143 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest services.[33mRepoIssuesTest[0m.[36mtestManyIssues[0m started[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest services.[33mRepoIssuesTest[0m.[36mtestManyIssues[0m finished, took 0.128 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest services.[33mRepoIssuesTest[0m.[36mtestNoRepositoryErrorReport[0m started[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest services.[33mRepoIssuesTest[0m.[36mtestNoRepositoryErrorReport[0m finished, took 0.125 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest services.[33mRepoIssuesTest[0m.[36mtestSingleIssue[0m started[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest services.[33mRepoIssuesTest[0m.[36mtestSingleIssue[0m finished, took 0.094 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0m[34mTest run finished: [0m[34m0 failed[0m[34m, [0m[34m0 ignored[0m[34m, 6 total, 5.477s[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0m    Produced 0 nested tasks and 6 events.[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(controllers.TopicDataControllerTest, sbt.ForkMain$AnnotatedFingerscan@6b1eb2d6, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0m[34mTest run started[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mTopicDataControllerTest[0m.[36mtest_getRandomKey[0m started[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mTopicDataControllerTest[0m.[36mtest_getRandomKey[0m finished, took 0.011 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mTopicDataControllerTest[0m.[36mtest_getRepoData[0m started[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mTopicDataControllerTest[0m.[36mtest_getRepoData[0m finished, took 0.084 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0m[34mTest run finished: [0m[34m0 failed[0m[34m, [0m[34m0 ignored[0m[34m, 2 total, 0.097s[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0m    Produced 0 nested tasks and 2 events.[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(controllers.UserDataControllerTest, sbt.ForkMain$AnnotatedFingerscan@2ac12bd5, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0m[34mTest run started[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mUserDataControllerTest[0m.[36mtestGetUser[0m started[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mUserDataControllerTest[0m.[36mtestGetUser[0m finished, took 0.015 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0m[34mTest run finished: [0m[34m0 failed[0m[34m, [0m[34m0 ignored[0m[34m, 1 total, 0.018s[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0m    Produced 0 nested tasks and 1 events.[0m
 [0m[[0m[0mdebug[0m] [0m[0mSummary for JUnit not available.[0m
+[0m[[0m[0minfo[0m] [0m[0mPassed: Total 9, Failed 0, Errors 0, Passed 9[0m
+[0m[[0m[0mdebug[0m] [0m[0mPassed tests:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	controllers.TopicDataControllerTest[0m
+[0m[[0m[0mdebug[0m] [0m[0m	services.RepoIssuesTest[0m
+[0m[[0m[0mdebug[0m] [0m[0m	controllers.UserDataControllerTest[0m

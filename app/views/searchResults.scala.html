@@ -19,8 +19,8 @@
 							@for(repo <- repoList) {
 								<li>
 									<ol type="1">
-										<li><h1>NAME: <a href='@routes.RepoIssueController.getRepoIssues(repo.getOwner(), repo.getName())'>@repo.getName()</a></h1></li>
-										<li><h1>OWNER: <a href='@routes.UserDataController.getUserData(repo.getOwner())'>@repo.getOwner()</a></h1></li>
+										<li><h1>NAME: <a href='@routes.HomeController.getRepoIssues(repo.getOwner(), repo.getName())'>@repo.getName()</a></h1></li>
+										<li><h1>OWNER: <a href='@routes.HomeController.getUserData(repo.getOwner())'>@repo.getOwner()</a></h1></li>
 									</ol>
 								</li>
 							}

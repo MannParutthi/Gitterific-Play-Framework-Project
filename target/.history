@@ -336,3 +336,12 @@ run
 clean
 compile
 test
+eclipse
+run
+clean
+compile
+run
+compile
+run
+test
+jacoco

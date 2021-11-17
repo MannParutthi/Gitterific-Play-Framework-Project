@@ -1,21 +1,13 @@
-[0m[[0m[0minfo[0m] [0m[0mInstrumenting 50 classes to D:\SOEN 6441\APP_Project_G7\target\scala-2.13\jacoco\instrumented-classes[0m
+[0m[[0m[0minfo[0m] [0m[0mInstrumenting 42 classes to D:\SOEN 6441\APP_Project_G7\target\scala-2.13\jacoco\instrumented-classes[0m
 [0m[[0m[0mdebug[0m] [0m[0minstrumenting products: D:\SOEN 6441\APP_Project_G7\target\scala-2.13\classes[0m
 [0m[[0m[0mdebug[0m] [0m[0mFound jacoco agent: Vector()[0m
 [0m[[0m[0mdebug[0m] [0m[0minstrumenting D:\SOEN 6441\APP_Project_G7\target\scala-2.13\classes\controllers\HomeController.class[0m
 [0m[[0m[0mdebug[0m] [0m[0minstrumenting D:\SOEN 6441\APP_Project_G7\target\scala-2.13\classes\controllers\javascript\ReverseAssets.class[0m
 [0m[[0m[0mdebug[0m] [0m[0minstrumenting D:\SOEN 6441\APP_Project_G7\target\scala-2.13\classes\controllers\javascript\ReverseHomeController.class[0m
-[0m[[0m[0mdebug[0m] [0m[0minstrumenting D:\SOEN 6441\APP_Project_G7\target\scala-2.13\classes\controllers\javascript\ReverseRepoDataController.class[0m
-[0m[[0m[0mdebug[0m] [0m[0minstrumenting D:\SOEN 6441\APP_Project_G7\target\scala-2.13\classes\controllers\javascript\ReverseRepoIssueController.class[0m
-[0m[[0m[0mdebug[0m] [0m[0minstrumenting D:\SOEN 6441\APP_Project_G7\target\scala-2.13\classes\controllers\javascript\ReverseTopicDataController.class[0m
-[0m[[0m[0mdebug[0m] [0m[0minstrumenting D:\SOEN 6441\APP_Project_G7\target\scala-2.13\classes\controllers\javascript\ReverseUserDataController.class[0m
 [0m[[0m[0mdebug[0m] [0m[0minstrumenting D:\SOEN 6441\APP_Project_G7\target\scala-2.13\classes\controllers\RepoDataController.class[0m
 [0m[[0m[0mdebug[0m] [0m[0minstrumenting D:\SOEN 6441\APP_Project_G7\target\scala-2.13\classes\controllers\RepoIssueController.class[0m
 [0m[[0m[0mdebug[0m] [0m[0minstrumenting D:\SOEN 6441\APP_Project_G7\target\scala-2.13\classes\controllers\ReverseAssets.class[0m
 [0m[[0m[0mdebug[0m] [0m[0minstrumenting D:\SOEN 6441\APP_Project_G7\target\scala-2.13\classes\controllers\ReverseHomeController.class[0m
-[0m[[0m[0mdebug[0m] [0m[0minstrumenting D:\SOEN 6441\APP_Project_G7\target\scala-2.13\classes\controllers\ReverseRepoDataController.class[0m
-[0m[[0m[0mdebug[0m] [0m[0minstrumenting D:\SOEN 6441\APP_Project_G7\target\scala-2.13\classes\controllers\ReverseRepoIssueController.class[0m
-[0m[[0m[0mdebug[0m] [0m[0minstrumenting D:\SOEN 6441\APP_Project_G7\target\scala-2.13\classes\controllers\ReverseTopicDataController.class[0m
-[0m[[0m[0mdebug[0m] [0m[0minstrumenting D:\SOEN 6441\APP_Project_G7\target\scala-2.13\classes\controllers\ReverseUserDataController.class[0m
 [0m[[0m[0mdebug[0m] [0m[0minstrumenting D:\SOEN 6441\APP_Project_G7\target\scala-2.13\classes\controllers\routes$javascript.class[0m
 [0m[[0m[0mdebug[0m] [0m[0minstrumenting D:\SOEN 6441\APP_Project_G7\target\scala-2.13\classes\controllers\routes.class[0m
 [0m[[0m[0mdebug[0m] [0m[0minstrumenting D:\SOEN 6441\APP_Project_G7\target\scala-2.13\classes\controllers\TopicDataController.class[0m

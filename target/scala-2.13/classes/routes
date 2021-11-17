@@ -10,11 +10,11 @@ GET     /                           controllers.HomeController.index(request: Re
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
 GET     /git/:name                  controllers.HomeController.getUserProfile(name: String)
 
-GET 	/userData/:userName			controllers.UserDataController.getUserData(request: Request, userName: String)
+GET 	/userData/:userName			controllers.HomeController.getUserData(request: Request, userName: String)
 
-GET		/repoIssues/:userName/:repoName       controllers.RepoIssueController.getRepoIssues(userName: String,repoName: String)
-GET 	/topicData/:topic			controllers.TopicDataController.getTopicData(request: Request, topic: String)
+GET		/repoIssues/:userName/:repoName       controllers.HomeController.getRepoIssues(userName: String,repoName: String)
+GET 	/topicData/:topic			controllers.HomeController.getTopicData(request: Request, topic: String)
 
-GET		/repoData/:userName			controllers.RepoDataController.getRepoData(request: Request, userName: String)
+GET		/repoData/:userName			controllers.HomeController.getRepoData(request: Request, userName: String)
 
 GET		/searchResult				controllers.HomeController.getSearchResults(request: Request)
