@@ -4,6 +4,7 @@ import javax.inject.Inject;
 import org.eclipse.egit.github.core.SearchRepository;
 
 import model.RepoDataModel;
+import model.SearchRepoModel;
 import model.TopicDataModel;
 import model.UserDetails;
 import play.mvc.*;
@@ -41,9 +42,9 @@ public class HomeController {
 
 	private final SearchForReposService searchForReposService;
 	private final WSClient ws;
-	private HashMap<String, List<SearchRepository>> cacheMapSearchData;
-	private HashMap<String, ArrayList<LinkedHashMap<String, List<SearchRepository>>>> prevSearchSessionData;
-	private ArrayList<LinkedHashMap<String, List<SearchRepository>>> prevSearchData;
+	private HashMap<String, List<SearchRepoModel>> cacheMapSearchData;
+	private HashMap<String, ArrayList<LinkedHashMap<String, List<SearchRepoModel>>>> prevSearchSessionData;
+	private ArrayList<LinkedHashMap<String, List<SearchRepoModel>>> prevSearchData;
 	boolean isSessionPresent;
 	private final RepoDataService repoDataService;
 	private HashMap<String, List<RepoDataModel>> sessionMapRepoData;
@@ -71,8 +72,8 @@ public class HomeController {
 		this.cacheApi = cacheApi;
 		this.ws = ws;
 		this.searchForReposService = searchForReposService;
-		cacheMapSearchData = new HashMap<String, List<SearchRepository>>();
-		prevSearchSessionData = new HashMap<String,ArrayList<LinkedHashMap<String, List<SearchRepository>>>>();
+		cacheMapSearchData = new HashMap<String, List<SearchRepoModel>>();
+		prevSearchSessionData = new HashMap<String,ArrayList<LinkedHashMap<String, List<SearchRepoModel>>>>();
 		this.repoDataService = repoDataService;
 		sessionMapRepoData = new HashMap<String, List<RepoDataModel>>();
 		this.repoIssues = repoIssues;
@@ -116,12 +117,12 @@ public class HomeController {
 		String newSessionKey = getSaltString();
 		
 		isSessionPresent = false;
-		if(request.session().get("savedData").isPresent()) {
+		if(request.session().get("savedData").isPresent() && this.prevSearchSessionData.get(request.session().get("savedData").get()) != null) {
 			isSessionPresent = true;
 		}
 		
 		if(!isSessionPresent) {
-			this.prevSearchSessionData.put(newSessionKey, new ArrayList<LinkedHashMap<String, List<SearchRepository>>>());
+			this.prevSearchSessionData.put(newSessionKey, new ArrayList<LinkedHashMap<String, List<SearchRepoModel>>>());
 			prevSearchData = this.prevSearchSessionData.get(newSessionKey);
 		}
 		else {
@@ -139,11 +140,11 @@ public class HomeController {
 						String randomKey = getCurrentTimeStamp();
 						this.cacheMapSearchData.put(randomKey, searchRepoList);
 						this.cacheApi.set(searchKeyword, randomKey);
-						
+
 						if(prevSearchData.size() >= 10) {
 							prevSearchData.remove(0);
 						}
-						LinkedHashMap<String, List<SearchRepository>> currSearchData = new LinkedHashMap<String, List<SearchRepository>>();
+						LinkedHashMap<String, List<SearchRepoModel>> currSearchData = new LinkedHashMap<String, List<SearchRepoModel>>();
 						currSearchData.put(searchKeyword, searchRepoList);
 						prevSearchData.add(currSearchData);
 						
@@ -158,13 +159,13 @@ public class HomeController {
 					});
 		} else {
 			String key = this.cacheApi.get(searchKeyword).get().toString();
-			List<SearchRepository> searchRepoList = this.cacheMapSearchData.get(key);
+			List<SearchRepoModel> searchRepoList = this.cacheMapSearchData.get(key);
 			System.out.println("inside cache ==> " + key);
 			
 			if(prevSearchData.size() >= 10) {
 				prevSearchData.remove(0);
 			}
-			LinkedHashMap<String, List<SearchRepository>> currSearchData = new LinkedHashMap<String, List<SearchRepository>>();
+			LinkedHashMap<String, List<SearchRepoModel>> currSearchData = new LinkedHashMap<String, List<SearchRepoModel>>();
 			currSearchData.put(searchKeyword, searchRepoList);
 			prevSearchData.add(currSearchData);
 			
@@ -183,14 +184,6 @@ public class HomeController {
 	protected String getCurrentTimeStamp() {
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		return timestamp.toString();
-	}
-	
-	protected void getLastTenResults() {
-
-		LinkedHashMap<String, List<SearchRepository>> results = new LinkedHashMap<String, List<SearchRepository>>();
-		
-		System.out.println("===>  "); 
-	
 	}
 	
 	/**

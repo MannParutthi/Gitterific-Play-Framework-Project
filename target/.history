@@ -356,3 +356,12 @@ run
 test
 jacoco
 >>>>>>> 275e94e555efdbc18cfdea85ca8a3d2a405f01a8
+compile
+run
+clean
+eclipse
+clean
+compile
+run
+test
+compile

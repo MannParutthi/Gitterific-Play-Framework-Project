@@ -1,4 +1,4 @@
-@(arrayListOfResult: ArrayList[LinkedHashMap[String,List[org.eclipse.egit.github.core.SearchRepository]]])
+@(arrayListOfResult: ArrayList[LinkedHashMap[String,List[model.SearchRepoModel]]])
 @main("Welcome to Gitterific") {
 		<!DOCTYPE html>
 		<html>
@@ -19,11 +19,17 @@
 							@for(repo <- repoList) {
 								<li>
 									<ol type="1">
-										<li><h1>NAME: <a href='@routes.HomeController.getRepoIssues(repo.getOwner(), repo.getName())'>@repo.getName()</a></h1></li>
-										<li><h1>OWNER: <a href='@routes.HomeController.getUserData(repo.getOwner())'>@repo.getOwner()</a></h1></li>
+										<li><h1>OWNER: <a href='@routes.HomeController.getUserData(repo.getUserName())'>@repo.getUserName()</a></h1></li>
+										<li><h1>REPO NAME: <a href='@routes.HomeController.getRepoIssues(repo.getUserName(), repo.getRepoName())'>@repo.getRepoName()</a></h1></li>
+										<li>
+											@for(topic <- repo.getTopics()) {
+												<p>@topic</p>
+											}
+										</li>
 									</ol>
-								</li>
+								</li>	
 							}
+							
 							</ul>
 						}
 					}

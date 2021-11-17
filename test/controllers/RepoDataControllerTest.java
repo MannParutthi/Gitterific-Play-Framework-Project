@@ -10,6 +10,14 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
+import org.eclipse.egit.github.core.Contributor;
+import org.eclipse.egit.github.core.Issue;
+import org.eclipse.egit.github.core.Repository;
+import org.eclipse.egit.github.core.RepositoryCommit;
+import org.eclipse.egit.github.core.User;
+import org.eclipse.egit.github.core.service.CommitService;
+import org.eclipse.egit.github.core.service.IssueService;
+import org.eclipse.egit.github.core.service.RepositoryService;
 import org.eclipse.jetty.http.HttpStatus;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
@@ -36,6 +44,15 @@ public class RepoDataControllerTest {
 
 	@Mock
 	RepoDataService repoDataService;
+	
+	@Mock
+	RepositoryService repositoryService;
+	
+	@Mock
+	IssueService issueService;
+	
+	@Mock
+	CommitService commitService;
 
 	public static List<RepoDataModel> repoList;
 
@@ -94,7 +111,6 @@ public class RepoDataControllerTest {
 
 		// Mocking
 		when(repoDataService.getRepoData("MannParutthi")).thenReturn((CompletableFuture.supplyAsync(() -> repoList)));
-//		when(repositoryService.getRepositories(""))
 
 		List<RepoDataModel> repoData = null;
 		Result res1 = null;
@@ -130,10 +146,51 @@ public class RepoDataControllerTest {
 		assertEquals(repoDataController.getSaltString().isEmpty(), false);
 	}
 
-//	@org.junit.Test
-//	public void test_getRepoDataService() {]
-//		try {	
-//			assertEquals(repoDataService.getRepoData("MannParutthi").toCompletableFuture().get().isEmpty(), false);
+	@org.junit.Test
+	public void test_getRepoDataService() {
+		List<Repository> repoDataList = new ArrayList<Repository>();
+		Repository repo = new Repository();
+		repo.setName("SOEN6441");
+		repo.setId(1);
+		repo.setDescription("SOEN6441 Project");
+		repo.setLanguage("JAVA");
+		repo.setHtmlUrl("https://github.com/MannParutthi/SOEN6441");
+		repo.setCloneUrl("https://github.com/MannParutthi/SOEN6441.git");
+		repo.setCreatedAt(new Date("Sun Sep 26 16:23:40 EDT 2021"));
+		repo.setUpdatedAt(new Date("Sun Sep 26 17:04:56 EDT 2021"));
+		repoDataList.add(repo);
+		
+		List<Contributor> repoContributorList = new ArrayList<Contributor>();
+		Contributor contributor = new Contributor();
+		contributor.setLogin("MannParutthi");
+		contributor.setUrl("https://api.github.com/users/MannParutthi");
+		repoContributorList.add(contributor);
+		
+		List<Issue> repoIssueList = new ArrayList<Issue>();
+		Issue issue = new Issue();
+		issue.setTitle("Null Pointer Exception");
+		issue.setUrl("https://api.github.com/users/MannParutthi");
+		repoIssueList.add(issue);
+		
+		List<RepositoryCommit> repoCommitList = new ArrayList<RepositoryCommit>();
+		RepositoryCommit commit = new RepositoryCommit();
+		commit.setAuthor(new User().setLogin("MannParutthi"));
+		commit.setUrl("https://api.github.com/repos/MannParutthi/COMP-6481/commits/64e2d10b3aed94d7cd3c2a60636dd26ef709f724");
+		repoCommitList.add(commit);
+		
+//		try {
+//			when(repositoryService.getRepositories("MannParutthi")).thenReturn(repoDataList);
+//			when(repositoryService.getContributors(repo, false)).thenReturn(repoContributorList);
+//			when(issueService.getIssues(repo, null)).thenReturn(repoIssueList);
+//			when(commitService.getCommits(repo)).thenReturn(repoCommitList);
+//			
+//			System.out.println("1 hhheereee ==> " + repoDataService.getRepoData("MannParutthi"));
+//			List<RepoDataModel> repoData = repoDataService.getRepoData("MannParutthi").toCompletableFuture().get();
+//			System.out.println("2 hhheereee ==> " + repoData);
+//			assertEquals(repoData.isEmpty(), false);
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
 //		} catch (InterruptedException e) {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
@@ -141,6 +198,6 @@ public class RepoDataControllerTest {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-//	}
+	}
 
 }
