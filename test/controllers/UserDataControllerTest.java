@@ -9,12 +9,15 @@ import play.test.Helpers;
 
 import static org.mockito.Mockito.when;
 
+import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.ExecutionException;
 
 import static play.mvc.Results.ok;
 
+import org.eclipse.egit.github.core.User;
+import org.eclipse.egit.github.core.service.UserService;
 import org.eclipse.jetty.http.HttpStatus;
 import org.junit.Assert;
 import org.junit.Before;
@@ -43,9 +46,13 @@ public class UserDataControllerTest {
 	@Mock
 	UserDataService userDataService;
 	
-//	@Mock
+	@Mock
+	UserService userService;
+	
 	static
 	UserDetails userDetails;
+	
+	static User user;
 	
 	@BeforeClass
 	public static void setUp() throws Exception{
@@ -74,15 +81,17 @@ public class UserDataControllerTest {
 	public void testGetUser() {
 
 		when(userDataService.getUserData(anyString())).thenReturn(CompletableFuture.supplyAsync(() -> userDetails));
-		Result res1=null,res2 = null;
+		Result res1=null,res2 = null,res3=null;
 		UserDetails ud = null;
 		try {
 			Request requestWithoutSession = Helpers.fakeRequest().method("GET").uri("/userData/harman8").build();
 			res1 = userDataController.getUserData(requestWithoutSession,"harman8").toCompletableFuture().get();
 			Request requestWithSession = Helpers.fakeRequest().method("GET").uri("/userData/harman8").session("harman8", "randomKeyTesting").build();
 			res2 = userDataController.getUserData(requestWithSession,"harman8").toCompletableFuture().get();
-			ud = userDataService.getUserData("harman8").toCompletableFuture().get();
-			System.out.println(ud.getName());
+			Request requestWithSession2 = Helpers.fakeRequest().method("GET").uri("/userData/harman8").session("harman8", "randomKeyTesting").build();
+			res3 = userDataController.getUserData(requestWithSession2,"harman8").toCompletableFuture().get();
+		//	ud = userDataService.getUserData("harman8").toCompletableFuture().get();
+		//	System.out.println(ud.getName());
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -91,25 +100,10 @@ public class UserDataControllerTest {
 			e.printStackTrace();
 		}
 		//System.out.println(a);
-		assertNotNull(ud);
-		assertEquals("test",ud.getName());
-		assertEquals(44037806,ud.getId());
-		assertEquals("https://avatars.githubusercontent.com/u/44037806?v=4",ud.getAvatarUrl());
-		assertEquals("http://fabien.potencier.org/",ud.getBlog());
-		assertEquals(3,ud.getCollaborators());
-		assertEquals("Symfony/Blackfire",ud.getCompany());
-		assertEquals(700,ud.getFollowers());
-		assertEquals(20,ud.getFollowing());
-		assertEquals(false,ud.isHireable());
-		assertEquals("https://github.com/fabpot",ud.getHtmlUrl());
-		assertEquals(8,ud.getPublicRepos());
-		assertEquals(10,ud.getPublicGists());
-		assertEquals("https://api.github.com/users/fabpot",ud.getUrl());
-		assertEquals("User",ud.getType());
-		assertEquals(0,ud.getPrivateGists());
-		assertEquals(0,ud.getTotalPrivateRepos());
+		
 		assertEquals( HttpStatus.OK_200,res1.status());
 		assertEquals( HttpStatus.OK_200,res2.status());
-
+		assertEquals( HttpStatus.OK_200,res3.status());
 	}
+	
 }

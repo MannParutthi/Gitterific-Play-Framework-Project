@@ -37,8 +37,6 @@ public class UserDetails {
 
 	private String email;
 
-	private String gravatarId;
-
 	private String htmlUrl;
 
 	private String location;
@@ -179,14 +177,6 @@ public class UserDetails {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getGravatarId() {
-		return gravatarId;
-	}
-
-	public void setGravatarId(String gravatarId) {
-		this.gravatarId = gravatarId;
 	}
 
 	public String getHtmlUrl() {

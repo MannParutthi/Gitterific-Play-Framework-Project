@@ -285,29 +285,28 @@ public class HomeController {
 	 * @return Returns the data of the given User
 	 */
 	public CompletionStage<Result> getUserData(Http.Request request, String userName) {
-		//	sessionMapUserData.put("randomKeyForTesting", Arrays.asList());
-			System.out.println("hi--------------------------------------");
-			System.out.println(this.sessionMapUserData);
-			System.out.println(request.session().get(userName));
-			System.out.println(!request.session().get(userName).isPresent());
-		//	System.out.println(this.sessionMapUserData.get(request.session().get(userName).get()));
-			
-			CompletionStage<Result> resultCompletionStage;
-			if (!request.session().get(userName).isPresent() || this.sessionMapUserData.size()>0 || this.sessionMapUserData.get(request.session().get(userName).get()) == null) {
-				resultCompletionStage = userDataService.getUserData(userName).thenApply(userList -> {
-					String randomKey = getSaltString();
-					System.out.println("my random key ----->"+randomKey);
-					this.sessionMapUserData.put(randomKey, userList);
-					return ok(views.html.userData.render(userList)).addingToSession(request, userName, randomKey);
-				});
-			} else {
-				System.out.println("Here-----------------------");
-				String key = request.session().get(userName).get();
-				UserDetails userData = this.sessionMapUserData.get(key);
-				System.out.println("inside session ==> " + key);
-				resultCompletionStage = CompletableFuture.supplyAsync(() -> ok(views.html.userData.render(userData)));
-			}
-			return resultCompletionStage;
+		sessionMapUserData.put("randomKeyTesting", new UserDetails());
+		System.out.println("hi--------------------------------------");
+		System.out.println(this.sessionMapUserData);
+		System.out.println(request.session().get(userName));
+		System.out.println(!request.session().get(userName).isPresent());
+	//	System.out.println(this.sessionMapUserData.get(request.session().get(userName).get()));
+		
+		CompletionStage<Result> resultCompletionStage;
+		if (!request.session().get(userName).isPresent() || this.sessionMapUserData.get(request.session().get(userName).get()) == null) {
+			resultCompletionStage = userDataService.getUserData(userName).thenApply(userList -> {
+				String randomKey = getSaltString();
+				System.out.println("my random key ----->"+randomKey);
+				this.sessionMapUserData.put(randomKey, userList);
+				return ok(views.html.userData.render(userList)).addingToSession(request, userName, randomKey);
+			});
+		} else {
+			System.out.println("Here-----------------------");
+			String key = request.session().get(userName).get();
+			UserDetails userData = this.sessionMapUserData.get(key);
+			System.out.println("inside session ==> " + key);
+			resultCompletionStage = CompletableFuture.supplyAsync(() -> ok(views.html.userData.render(userData)));
 		}
-
+		return resultCompletionStage;
+	}
 }

@@ -371,3 +371,10 @@ test
 jacoco
 test
 jacoco
+eclipse
+run
+compile
+run
+test
+jacoco
+run
