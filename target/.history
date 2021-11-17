@@ -336,6 +336,7 @@ run
 clean
 compile
 test
+<<<<<<< HEAD
 clean
 compile
 test
@@ -344,3 +345,14 @@ run
 clean
 compile
 run
+=======
+eclipse
+run
+clean
+compile
+run
+compile
+run
+test
+jacoco
+>>>>>>> 275e94e555efdbc18cfdea85ca8a3d2a405f01a8

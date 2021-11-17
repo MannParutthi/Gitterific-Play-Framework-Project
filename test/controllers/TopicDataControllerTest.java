@@ -32,7 +32,7 @@ import services.TopicDataService;
 public class TopicDataControllerTest{
 
 	@InjectMocks
-	TopicDataController topicDataController;
+	HomeController topicDataController;
 	
 	@Mock
 	RepositoryService repositoryService;
@@ -92,7 +92,7 @@ public class TopicDataControllerTest{
 	
 	@org.junit.Test
 	public void test_getRandomKey() {
-		assertEquals(topicDataController.getRandomKey().isEmpty(), false);
+		assertEquals(topicDataController.getSaltString().isEmpty(), false);
 	}
 }
 	
