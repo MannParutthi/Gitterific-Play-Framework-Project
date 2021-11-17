@@ -101,6 +101,8 @@ public class RepoDataServiceTest {
 			
 			List<RepoDataModel> repoData = repoDataService.getRepoData("MannParutthi").toCompletableFuture().get();
 			assertEquals(repoData.isEmpty(), false);
+			assertEquals(repoData.get(0).getIssues().get(0).getTitle(), "Null Pointer Exception");
+			assertEquals(repoData.get(0).getIssues().get(0).getUrl(), "https://api.github.com/users/MannParutthi");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
