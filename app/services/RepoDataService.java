@@ -39,7 +39,6 @@ public class RepoDataService {
 	 */
 	public RepoDataService() {
 		gitHubClient = new GitHubClient();
-		gitHubClient.setCredentials("manan.paruthi@gmail.com", "Mysore10.10");
 		this.repositoryService = new RepositoryService(gitHubClient);
 		this.issueService = new IssueService(gitHubClient);
 		this.commitService = new CommitService(gitHubClient);

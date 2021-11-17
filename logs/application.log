@@ -462,3 +462,6 @@ Caused by: java.lang.ClassCastException: class com.fasterxml.jackson.databind.no
     play.filters.csrf.CSRFFilter
 
 2021-11-17 00:21:56,093 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-75 - Application started (Dev) (no global state)
+2021-11-17 01:43:05,455 [INFO] from play.core.server.AkkaHttpServer in play-dev-mode-shutdown-hook-1 - Stopping Akka HTTP server...
+2021-11-17 01:43:05,455 [INFO] from play.core.server.AkkaHttpServer in play-dev-mode-akka.actor.internal-dispatcher-87 - Terminating server binding for /0:0:0:0:0:0:0:0:9000
+2021-11-17 01:43:05,486 [INFO] from play.core.server.AkkaHttpServer in play-dev-mode-akka.actor.internal-dispatcher-99 - Running provided shutdown stop hooks
