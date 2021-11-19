@@ -9,8 +9,13 @@ import org.eclipse.egit.github.core.client.GitHubClient;
 import org.eclipse.egit.github.core.service.IssueService;
 import org.eclipse.egit.github.core.service.RepositoryService;
 import org.junit.*;
+import org.junit.function.ThrowingRunnable;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 import play.Application;
 import play.test.WithApplication;
 import utils.JSONLoader;
@@ -20,15 +25,16 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.function.Supplier;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
-
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(value = MockitoJUnitRunner.class)
 public class RepoIssuesTest extends WithApplication {
 
     @Override
@@ -37,9 +43,13 @@ public class RepoIssuesTest extends WithApplication {
     }
 
     Type issueListType;
+    @Mock
     GitHubClient client;
+    @Mock
     IssueService mockIssueService;
+    @Mock
     RepositoryService mockRepoService;
+    @InjectMocks
     RepoIssues repoIssues;
 
     @Before
@@ -59,7 +69,7 @@ public class RepoIssuesTest extends WithApplication {
     }
 
     @Test
-    public void testLoadAllAndGenerateReport() throws IOException, ExecutionException, InterruptedException {
+    public void testLoadAllAndGenerateReport() throws IOException {
         Repository repository = new Repository()
                 .setName("kerax")
                 .setOwner(new User().setName("umangjpatel"));
@@ -78,14 +88,30 @@ public class RepoIssuesTest extends WithApplication {
     }
 
     @Test
-    public void testNoRepositoryErrorReport() throws IOException {
-//        Repository repository = null;
-//        List<Issue> issues = null;
-//        when(mockIssueService.getIssues(any(Repository.class), eq(null))).thenReturn(issues);
-//
-//        List<Issue> mockIssues = mockIssueService.getIssues(repository, null);
-//        when (repoIssues.fetchRepoIssues(anyString(), anyString())).thenReturn(mockIssues);
-//        assertEquals(RepoIssues.generateReport(finalIssues), "Error");
+    public void testRepoNotFoundExceptionReport() {
+        when (repoIssues.fetchRepoIssues(anyString(), anyString())).thenThrow(new IOException());
+        assertThrows(IOException.class, () -> {
+            repoIssues.fetchRepoIssues("abc", "xyz");
+            throw new IOException();
+        });
+    }
+
+    @Test
+    public void testEmptyIssuesReport() throws ExecutionException, InterruptedException {
+        RepoIssues issues = mock(RepoIssues.class, CALLS_REAL_METHODS);
+        when (issues.getIssueReportFromRepo(anyString(), anyString()))
+                .thenReturn(CompletableFuture.supplyAsync(() -> RepoIssues.generateReport(new ArrayList<>())));
+        CompletableFuture<String> result = issues.getIssueReportFromRepo("abc", "xyz");
+        assertEquals(result.get(), "No issues present in the repository");
+    }
+
+    @Test
+    public void testErrorReport() throws ExecutionException, InterruptedException {
+        RepoIssues issues = mock(RepoIssues.class, CALLS_REAL_METHODS);
+        when (issues.getIssueReportFromRepo(anyString(), anyString()))
+                .thenReturn(CompletableFuture.supplyAsync(() -> RepoIssues.generateReport(null)));
+        CompletableFuture<String> result = issues.getIssueReportFromRepo("abc", "xyz");
+        assertEquals(result.get(), "Error");
     }
 
     @Test
@@ -101,6 +127,13 @@ public class RepoIssuesTest extends WithApplication {
         assertNotNull(issues);
         assertTrue(issues.isEmpty());
         assertEquals(RepoIssues.generateReport(issues), "No issues present in the repository");
+    }
+
+    @Test
+    public void testNullIssues() {
+        List<Issue> issues = null;
+        assertNull(issues);
+        assertEquals(RepoIssues.generateReport(issues), "Error");
     }
 
     @Test
