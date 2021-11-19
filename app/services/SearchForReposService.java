@@ -45,7 +45,7 @@ public class SearchForReposService {
 	/**
 	 * Gets the list of repos for the given repo name
 	 * 
-	 * @param keywordKeyword used for getting the Repositories
+	 * @param keyword used for getting the Repositories
 	 * @return Returns the List of Repositories for the given name
 	 */
 	public CompletableFuture<List<SearchRepoModel>> getReposWithKeyword(String keyword) {
@@ -58,11 +58,14 @@ public class SearchForReposService {
 					return r.asJson();
 				}).toCompletableFuture().get();
 				int i = 0;
-				for (JsonNode repoData : json.findValue("items")) {
+				for (JsonNode  repoData : json.findValue("items")) {
 					SearchRepoModel repoModel = new SearchRepoModel();
-					repoModel.setUserName(repoData.findValue("owner").findValue("login").toString());
-					repoModel.setRepoName(repoData.findValue("name").toString());
-					repoModel.setTopics(repoData.findValue("topics").toString().substring(1, repoData.findValue("topics").toString().length()-2).split(","));
+					repoModel.setUserName(repoData.findValue("owner").get("login").asText());
+					repoModel.setRepoName(repoData.get("name").asText());
+					repoModel.setTopics(repoData.get("topics").toString()
+							.replace("[", "").replace("]", "")
+							.replace("\"", "")
+							.split(","));
 					searchRepoList.add(repoModel);
 					i++;
 					if (i == 10) {

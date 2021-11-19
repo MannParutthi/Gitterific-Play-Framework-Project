@@ -72,7 +72,7 @@ public class HomeController {
 		this.cacheApi = cacheApi;
 		this.ws = ws;
 		this.searchForReposService = searchForReposService;
-		cacheMapSearchData = new HashMap<String, List<SearchRepoModel>>();
+		cacheMapSearchData = new HashMap<>();
 		prevSearchSessionData = new HashMap<String,ArrayList<LinkedHashMap<String, List<SearchRepoModel>>>>();
 		this.repoDataService = repoDataService;
 		sessionMapRepoData = new HashMap<String, List<RepoDataModel>>();

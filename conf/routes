@@ -12,7 +12,7 @@ GET     /git/:name                  controllers.HomeController.getUserProfile(na
 
 GET 	/userData/:userName			controllers.HomeController.getUserData(request: Request, userName: String)
 
-GET		/repoIssues/:userName/:repoName       controllers.HomeController.getRepoIssues(userName: String,repoName: String)
+GET		/repoIssues/:userName/:repoName       controllers.HomeController.getRepoIssues(userName: String, repoName: String)
 GET 	/topicData/:topic			controllers.HomeController.getTopicData(request: Request, topic: String)
 
 GET		/repoData/:userName			controllers.HomeController.getRepoData(request: Request, userName: String)
