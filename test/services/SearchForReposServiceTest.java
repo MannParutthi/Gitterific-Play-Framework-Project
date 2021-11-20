@@ -88,6 +88,7 @@ public class SearchForReposServiceTest {
         });
         assertEquals(searchForReposService.getSearchRepoModels(node).get(0).getRepoName(), model.getRepoName());
         assertEquals(searchForReposService.getSearchRepoModels(node).get(1).getUserName(), model.getUserName());
+        assertEquals(searchForReposService.getSearchRepoModels(node).size(), 10);
         assertEquals(Arrays.toString(searchForReposService.getSearchRepoModels(node).get(0).getTopics()), Arrays.toString(model.getTopics()));
     }
 
