@@ -19,6 +19,13 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import model.TopicDataModel;
 
+
+/**
+ * This class is used for testing the Topic Data Service
+ * 
+ * @author Yashwanth Gundlapally
+ *
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class TopicDataServiceTest {
 
@@ -32,6 +39,12 @@ public class TopicDataServiceTest {
 	public static SearchRepository repository1;
 	public static SearchRepository repository2;
 	
+	/**
+	 * This method is used for setting up the data for testing
+	 * 
+	 * @return void
+	 * 
+	 */
 	@BeforeClass
 	public static void setUp() {
 		topicDataList = new ArrayList<SearchRepository>();
@@ -43,6 +56,11 @@ public class TopicDataServiceTest {
 		topicDataList.add(repository2);
 	}
 	
+	/**
+	 * This method is used for testing the topic Data Service
+	 * 
+	 * @return void
+	 */
 	@org.junit.Test
 	public void test_getTopicDataService() {
 		try {

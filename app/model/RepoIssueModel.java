@@ -3,6 +3,7 @@ package model;
 /**
  * Model class for Repo Issue
  *
+ * @author Kevinkumar Patel
  */
 public class RepoIssueModel {
 	private String title, url;
@@ -18,6 +19,7 @@ public class RepoIssueModel {
 	/**
 	 * Sets the Title
 	 * @param title Sets the Title
+	 * @return void
 	 */
 	public void setTitle(String title) {
 		this.title = title;
@@ -34,6 +36,7 @@ public class RepoIssueModel {
 	/**
 	 * Sets the URL
 	 * @param url Sets the URL
+	 * @return void
 	 */
 	public void setUrl(String url) {
 		this.url = url;

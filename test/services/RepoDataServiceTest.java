@@ -35,6 +35,13 @@ import play.mvc.Result;
 import play.test.Helpers;
 import services.RepoDataService;
 
+
+/**
+ * This class is used for testing the Service class: RepoDataService 
+ * 
+ * @author Manan Dineshbhai Paruthi
+ *
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class RepoDataServiceTest {
 	@InjectMocks
@@ -55,6 +62,12 @@ public class RepoDataServiceTest {
 	public static List<RepositoryCommit> repoCommitList;
 	public static Repository repo;
 
+	/**
+	 * This method is used for setting up the test data for testing
+	 * 
+	 * @return void
+	 * 
+	 */
 	@BeforeClass
 	public static void setUp() {
 		repoDataList = new ArrayList<Repository>();
@@ -89,6 +102,12 @@ public class RepoDataServiceTest {
 		repoCommitList.add(commit);
 	}
 
+	/**
+	 * This method unit tests the Repo Data Service
+	 * 
+	 * @return void
+	 * 
+	 */
 	@org.junit.Test
 	public void test_getRepoDataService() {
 

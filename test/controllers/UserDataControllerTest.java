@@ -36,6 +36,8 @@ import services.UserDataService;
 /**
  * Controller for testing the User Data
  *
+ *
+ *@author Harman Preet Kaur
  */
 @RunWith(MockitoJUnitRunner.class)
 public class UserDataControllerTest {
@@ -54,6 +56,12 @@ public class UserDataControllerTest {
 	
 	static User user;
 	
+	/**
+	 * This method is used to setup test data for testing
+	 * 
+	 * @return void
+	 * @throws Exception
+	 */
 	@BeforeClass
 	public static void setUp() throws Exception{
 		MockitoAnnotations.initMocks(UserDataControllerTest.class);
@@ -77,6 +85,12 @@ public class UserDataControllerTest {
 		userDetails.setTotalPrivateRepos(0);
 	}
 
+	/**
+	 * This method tests the User Data Controller
+	 * 
+	 * @return void
+	 * 
+	 */
 	@Test
 	public void testGetUser() {
 

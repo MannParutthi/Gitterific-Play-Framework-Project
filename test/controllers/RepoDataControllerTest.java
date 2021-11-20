@@ -34,6 +34,8 @@ import play.test.Helpers;
 import services.RepoDataService;
 /**
  * Controller for testing the Repository Data 
+ * 
+ * @author Manan Dineshbhai Paruthi
  *
  */
 @RunWith(MockitoJUnitRunner.class)
@@ -56,6 +58,12 @@ public class RepoDataControllerTest {
 
 	public static List<RepoDataModel> repoList;
 
+	/**
+	 * This method is used to setup test data for testing
+	 * 
+	 * @return void
+	 * 
+	 */
 	@BeforeClass
 	public static void setUp() {
 		repoList = new ArrayList<RepoDataModel>();
@@ -105,7 +113,13 @@ public class RepoDataControllerTest {
 
 		repoList.add(repoOneDataModel);
 	}
-
+	
+	/**
+	 * This method test the Repo Data Controller
+	 * 
+	 * @return void
+	 * @throws IOException
+	 */
 	@org.junit.Test
 	public void test_getRepoData() throws IOException {
 
@@ -141,6 +155,11 @@ public class RepoDataControllerTest {
 		assertEquals(repoData.isEmpty(), false);
 	}
 
+	/**
+	 * This method tests the random string generator method
+	 *
+	 * @return void
+	 */
 	@org.junit.Test
 	public void test_getSaltString() {
 		assertEquals(repoDataController.getSaltString().isEmpty(), false);

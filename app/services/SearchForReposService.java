@@ -25,6 +25,11 @@ import play.libs.ws.WSResponse;
 
 /**
  * Service for Searching the Repo Service
+ * 
+ * @author Harman Preet Kaur
+ * @author Manan Dineshbhai Paruthi
+ * @author Yashwanth Gundlapally
+ * @author Kevinkumar Patel
  *
  */
 public class SearchForReposService {

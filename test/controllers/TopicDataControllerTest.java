@@ -28,6 +28,7 @@ import services.TopicDataService;
 /**
  * Controller for testing the Topic Data
  * 
+ * @author Yashwanth Gundlapally
  */
 @RunWith(MockitoJUnitRunner.class)
 public class TopicDataControllerTest{
@@ -45,6 +46,11 @@ public class TopicDataControllerTest{
 
 	public static List<SearchRepository> repos = null;
 	
+	/**
+	 * This method is used to setup test data for testing
+	 * 
+	 * @return void
+	 */
 	@BeforeClass
 	public static void setUp() {
 		topicLists = new ArrayList<TopicDataModel>();
@@ -83,6 +89,12 @@ public class TopicDataControllerTest{
 		topicLists.add(topicDataModel2);
 	}
 	
+	/**
+	 * This method tests the Topic Data Controller
+	 * 
+	 * @return void
+	 * @throws IOException
+	 */
 	@org.junit.Test
 	public void test_getTopicData() throws IOException {
 
@@ -114,6 +126,12 @@ public class TopicDataControllerTest{
 		assertEquals(topicData.isEmpty(), false);
 	}
 	
+	/**
+	 * This method tests the random key generator
+	 * 
+	 * @return void
+	 * 
+	 */
 	@org.junit.Test
 	public void test_getRandomKey() {
 		assertEquals(topicDataController.getSaltString().isEmpty(), false);

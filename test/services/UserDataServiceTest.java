@@ -35,6 +35,8 @@ import services.UserDataService;
 
 /**
  * Service for testing the User Data
+ * 
+ * @author Harman Preet Kaur
  *
  */
 @RunWith(MockitoJUnitRunner.class)
@@ -51,6 +53,11 @@ public class UserDataServiceTest {
 	
 	static User user;
 	
+	/**
+	 * This method is used for setting up the test data for testing
+	 * 
+	 * @throws Exception
+	 */
 	@BeforeClass
 	public static void setUp() throws Exception{
 		MockitoAnnotations.initMocks(UserDataServiceTest.class);
@@ -101,6 +108,12 @@ public class UserDataServiceTest {
 //
 //	}
 	
+	/**
+	 * This method test the getUser service 
+	 * 
+	 * @return void
+	 * 
+	 */
 	@Test
 	public void testGetUserService() {
 
@@ -139,7 +152,5 @@ public class UserDataServiceTest {
 		assertEquals("User",ud.getType());
 		assertEquals(0,ud.getPrivateGists());
 		assertEquals(0,ud.getTotalPrivateRepos());
-
-
 	}
 }

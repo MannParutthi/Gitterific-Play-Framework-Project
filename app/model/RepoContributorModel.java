@@ -3,6 +3,7 @@ package model;
 /**
  * Model class for Repo Contributor
  *
+ *@author Manan Dineshbhai Paruthi
  */
 public class RepoContributorModel {
 	private String loginName, url;
@@ -18,6 +19,7 @@ public class RepoContributorModel {
 	/**
 	 * Sets the login name
 	 * @param loginName Used to set the LoginName
+	 * @return void
 	 */
 	public void setLoginName(String loginName) {
 		this.loginName = loginName;
@@ -33,7 +35,8 @@ public class RepoContributorModel {
 
 	/**
 	 * Sets the Url
-	 * @param url	Sets the URL
+	 * @param url Sets the URL
+	 * @return void
 	 */
 	public void setUrl(String url) {
 		this.url = url;
