@@ -44,14 +44,16 @@ public class UserDataService {
 		userDetails = new UserDetails();
 		return CompletableFuture.supplyAsync(() -> {
 			User user = null;
+			List<Repository> repoList = null;
 			try {
 				user = userService.getUser(login);
-				List<Repository> repoList = repositoryService.getRepositories(login);
+				repoList = repositoryService.getRepositories(login);
 				List<String> listOfRepoNames = new ArrayList<String>();
 				for (Repository repository : repoList) {
 					listOfRepoNames.add(repository.getName());
 				}
 				userDetails.setRepoName(listOfRepoNames);
+				System.out.println("printttttttttttttttttttt "+userDetails.getRepoName());
 				userDetails.setEmail(user.getEmail());
 				userDetails.setId(user.getId());
 				userDetails.setLocation(user.getLocation());

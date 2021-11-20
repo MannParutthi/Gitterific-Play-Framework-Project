@@ -425,3 +425,13 @@ run
 >>>>>>> 411744c082ee80cf0d368e368c8fe39c313f11df
 >>>>>>> c1d7a84ebe07a6d5ef93951d1264f392a26429ff
 >>>>>>> 298d530b0aea8a7ce4ae897d2188353cfa1051b7
+compile
+run
+compile
+run
+exit
+run
+exit
+compile
+run
+test
