@@ -34,6 +34,13 @@ import static org.mockito.Mockito.*;
 
 import org.mockito.junit.MockitoJUnitRunner;
 
+
+/**
+ * This class is used for testing the Repo Issues
+ * 
+ * @author Kevinkumar Patel
+ *
+ */
 @RunWith(value = MockitoJUnitRunner.class)
 public class RepoIssuesTest extends WithApplication {
 
@@ -51,7 +58,12 @@ public class RepoIssuesTest extends WithApplication {
     RepositoryService mockRepoService;
     @InjectMocks
     RepoIssues repoIssues;
-
+    
+    /**
+     * This method is used for setting up the test data for testing
+     *
+     * @return void
+     */
     @Before
     public void init() {
         issueListType = new TypeToken<List<Issue>>() {}.getType();
@@ -68,6 +80,14 @@ public class RepoIssuesTest extends WithApplication {
 
     }
 
+    /**
+     * This method is used for testing the Issue Service
+     * 
+     * @return void
+     * @throws IOException
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
     @Test
     public void testLoadAllAndGenerateReport() throws IOException {
         Repository repository = new Repository()
@@ -113,7 +133,12 @@ public class RepoIssuesTest extends WithApplication {
         CompletableFuture<String> result = issues.getIssueReportFromRepo("abc", "xyz");
         assertEquals(result.get(), "Error");
     }
-
+    
+    /**
+     * This method is used for testing the JSON Loader
+     * 
+     * @return void
+     */
     @Test
     public void testRepoNotFound() {
         JsonNode node = JSONLoader.getJSONMessage(new File("test/simulated/repoIssues/repo_not_found.json"));
@@ -121,6 +146,11 @@ public class RepoIssuesTest extends WithApplication {
         assertEquals(node.get("message").asText(), "Not Found");
     }
 
+    /**
+     * This method is used for testing the JSON Loader
+     * 
+     * @return void
+     */
     @Test
     public void testEmptyIssues() {
         List<Issue> issues = JSONLoader.jsonToGson(new File("test/simulated/repoIssues/empty_issues.json"), issueListType);
@@ -129,6 +159,11 @@ public class RepoIssuesTest extends WithApplication {
         assertEquals(RepoIssues.generateReport(issues), "No issues present in the repository");
     }
 
+    /**
+     * This method is used for testing the JSON Loader
+     * 
+     * @return void
+     */
     @Test
     public void testNullIssues() {
         List<Issue> issues = null;
@@ -146,6 +181,11 @@ public class RepoIssuesTest extends WithApplication {
                 "<b>1</b> => is<br>");
     }
 
+    /**
+     * This method is used for testing the JSON Loader
+     * 
+     * @return void
+     */
     @Test
     public void testManyIssues() {
         List<Issue> issues = JSONLoader.jsonToGson(new File("test/simulated/repoIssues/many_issues.json"), issueListType);
@@ -160,6 +200,12 @@ public class RepoIssuesTest extends WithApplication {
                 "<b>1</b> => is<br>");
     }
 
+    /**
+     * This method is used to destroy the objects/references after testing
+     * 
+     * @return void
+     * 
+     */
     @After
     public void destroy() {
         issueListType = null;

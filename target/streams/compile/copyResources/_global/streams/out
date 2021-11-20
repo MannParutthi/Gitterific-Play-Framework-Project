@@ -1,4 +1,25 @@
+<<<<<<< HEAD
 [0m[[0m[0mdebug[0m] [0m[0mCopy resource mappings: [0m
 [0m[[0m[0mdebug[0m] [0m[0m	(D:\app_project\APP_Project_G7\conf\application.conf,D:\app_project\APP_Project_G7\target\scala-2.13\classes\application.conf)[0m
 [0m[[0m[0mdebug[0m] [0m[0m	(D:\app_project\APP_Project_G7\conf\logback.xml,D:\app_project\APP_Project_G7\target\scala-2.13\classes\logback.xml)[0m
 [0m[[0m[0mdebug[0m] [0m[0m	(D:\app_project\APP_Project_G7\conf\routes,D:\app_project\APP_Project_G7\target\scala-2.13\classes\routes)[0m
+=======
+<<<<<<< HEAD
+[0m[[0m[0mdebug[0m] [0m[0mCopy resource mappings: [0m
+[0m[[0m[0mdebug[0m] [0m[0m	(E:\APP_Project_G7\conf\application.conf,E:\APP_Project_G7\target\scala-2.13\classes\application.conf)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	(E:\APP_Project_G7\conf\logback.xml,E:\APP_Project_G7\target\scala-2.13\classes\logback.xml)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	(E:\APP_Project_G7\conf\routes,E:\APP_Project_G7\target\scala-2.13\classes\routes)[0m
+=======
+<<<<<<< HEAD
+[0m[[0m[0mdebug[0m] [0m[0mCopy resource mappings: [0m
+[0m[[0m[0mdebug[0m] [0m[0m	(D:\CODING\APP Project\APP_Project_G7\conf\application.conf,D:\CODING\APP Project\APP_Project_G7\target\scala-2.13\classes\application.conf)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	(D:\CODING\APP Project\APP_Project_G7\conf\logback.xml,D:\CODING\APP Project\APP_Project_G7\target\scala-2.13\classes\logback.xml)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	(D:\CODING\APP Project\APP_Project_G7\conf\routes,D:\CODING\APP Project\APP_Project_G7\target\scala-2.13\classes\routes)[0m
+=======
+[debug] Copy resource mappings: 
+[debug] 	(D:\MAIN\APP_Project_G7\conf\application.conf,D:\MAIN\APP_Project_G7\target\scala-2.13\classes\application.conf)
+[debug] 	(D:\MAIN\APP_Project_G7\conf\logback.xml,D:\MAIN\APP_Project_G7\target\scala-2.13\classes\logback.xml)
+[debug] 	(D:\MAIN\APP_Project_G7\conf\routes,D:\MAIN\APP_Project_G7\target\scala-2.13\classes\routes)
+>>>>>>> 411744c082ee80cf0d368e368c8fe39c313f11df
+>>>>>>> c1d7a84ebe07a6d5ef93951d1264f392a26429ff
+>>>>>>> 298d530b0aea8a7ce4ae897d2188353cfa1051b7

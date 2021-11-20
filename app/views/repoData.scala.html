@@ -1,4 +1,4 @@
-@(repoList: List[model.RepoDataModel])
+@(repo: model.RepoDataModel)
 @main("Welcome to Gitterific") {
 	<!DOCTYPE html>
 	<html>
@@ -12,61 +12,55 @@
   				</div>
 			</div>
 			<div class="container">
-				<ul>
-				@for(repo <- repoList) {
+  				<h4>NAME : @repo.getName()</h4>
+  				<ol type="1">
+  					<li><h4>ID : @repo.getId()</h4></li>
+  					<li><h4>DESCRIPTION : @repo.getDescription()</h4></li>
+  					<li><h4>LANGUAGE : @repo.getLanguage()</h4></li>
+  					<li><h4>URL : <a>@repo.getUrl()</a></h4></li>
+  					<li><h4>CLONE URL : @repo.getCloneUrl()</h4></li>
+  					<li><h4>CREATED ON : @repo.getCreatedOn()</h4></li>
+  					<li><h4>LAST UPDATED ON : @repo.getLastUpdatedOn()</h4></li>
   					<li>
-  						<h4>NAME : @repo.getName()</h4>
-  						<ol type="1">
-  							<li><h4>ID : @repo.getId()</h4></li>
-  							<li><h4>DESCRIPTION : @repo.getDescription()</h4></li>
-  							<li><h4>LANGUAGE : @repo.getLanguage()</h4></li>
-  					    	<li><h4>URL : <a>@repo.getUrl()</a></h4></li>
-  					    	<li><h4>CLONE URL : @repo.getCloneUrl()</h4></li>
-  					    	<li><h4>CREATED ON : @repo.getCreatedOn()</h4></li>
-  					    	<li><h4>LAST UPDATED ON : @repo.getLastUpdatedOn()</h4></li>
-  					    	<li>
-  					    		<h4>CONTRIBUTORS : </h4>
-  					    		@for(contributor <- repo.getContributors()) {
-  					    			<ul>
-  					    				<li>
-  					    					<ol type="A">
-  					    						<li><h4>LOGIN NAME : <a href='@routes.HomeController.getUserData(contributor.getLoginName())'>@contributor.getLoginName()</a></h4></li>
-  					    						<li><h4>URL : <a href="@contributor.getUrl()">@contributor.getUrl()</a></h4></li>
-  					    					</ol>
-  					    				</li>
-  					    			</ul>
-  					    		}
-  					    	</li>
-  					    	<li>
-  					    		<h4>ISSUES : </h4>
-  					    		@for(issue <- repo.getIssues()) {
-  					    			<ul>
-  					    				<li>
-  					    					<ol type="A">
-  					    						<li><h4>TITLE : @issue.getTitle()</h4></li>
-  					    						<li><h4>URL : <a>@issue.getUrl()</a></h4></li>
-  					    					</ol>
-  					    				</li>
-  					    			</ul>
-  					    		}
-  					    	</li>
-  					    	<li>
-  					    		<h4>COMMITS : </h4>
-  					    		@for(commit <- repo.getCommits()) {
-  					    			<ul>
-  					    				<li>
-  					    					<ol type="A">
-  					    						<li><h4>LOGIN NAME : @commit.getLoginName()</h4></li>
-  					    						<li><h4>URL : <a>@commit.getUrl()</a></h4></li>
-  					    					</ol>
-  					    				</li>
-  					    			</ul>
-  					    		}
-  					    	</li>
-  					    </ol>
+  					    <h4>CONTRIBUTORS : </h4>
+  					    @for(contributor <- repo.getContributors()) {
+  					    	<ul>
+  					    		<li>
+  					    			<ol type="A">
+  					    				<li><h4>LOGIN NAME : <a href='@routes.HomeController.getUserData(contributor.getLoginName())'>@contributor.getLoginName()</a></h4></li>
+  					    				<li><h4>URL : <a href="@contributor.getUrl()">@contributor.getUrl()</a></h4></li>
+  					    			</ol>
+  					    		</li>
+  					    	</ul>
+  					    }
   					</li>
-				}
-				</ul>
+  					<li>
+  						<h4>ISSUES : </h4>
+  					    @for(issue <- repo.getIssues()) {
+  					    	<ul>
+  					    		<li>
+  					    			<ol type="A">
+  					    				<li><h4>TITLE : @issue.getTitle()</h4></li>
+  					    				<li><h4>URL : <a>@issue.getUrl()</a></h4></li>
+  					    			</ol>
+  					    		</li>
+  					    	</ul>
+  					    }
+  					</li>
+  					<li>
+  					   	<h4>COMMITS : </h4>
+  					    @for(commit <- repo.getCommits()) {
+  					    	<ul>
+  					    		<li>
+  					    			<ol type="A">
+  					    				<li><h4>LOGIN NAME : <a href='@routes.HomeController.getUserData(commit.getLoginName())'>@commit.getLoginName()</a></h4></li>
+  					    				<li><h4>URL : <a>@commit.getUrl()</a></h4></li>
+  					    			</ol>
+  					    		</li>
+  					    	</ul>
+  					    }
+  					</li>
+  				</ol>
  			</div>
   		</body>
   	</html>	

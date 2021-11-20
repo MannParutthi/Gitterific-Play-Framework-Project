@@ -26,6 +26,7 @@ import org.eclipse.egit.github.core.Issue;
 /**
  * Service class for Repository Issues
  *
+ *@author Kevinkumar Patel
  */
 public class RepoIssues {
 
@@ -45,6 +46,7 @@ public class RepoIssues {
     /**
      * Sets the Issue Service
      * @param issueService used for setting the Issue Service
+     * @return void
      */
     public void setIssueService(IssueService issueService) {
         this.issueService = issueService;
@@ -53,6 +55,7 @@ public class RepoIssues {
     /**
      * Sets the Repository Service
      * @param repositoryService used for setting the repository service
+     * @return void
      */
     public void setRepositoryService(RepositoryService repositoryService) {
         this.repositoryService = repositoryService;
@@ -61,6 +64,7 @@ public class RepoIssues {
     /**
      * Sets the GitHub Client
      * @param gitHubClient used for setting the github client
+     * @return void
      */
     public void setGitHubClient(GitHubClient gitHubClient) {
         this.gitHubClient = gitHubClient;

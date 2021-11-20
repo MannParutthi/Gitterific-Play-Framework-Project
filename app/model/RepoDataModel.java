@@ -7,6 +7,7 @@ import java.util.List;
 /**
  * Model Class for Repo Data
  *
+ *@author Manan Dineshbhai Paruthi
  */
 public class RepoDataModel {
 	private long id;
@@ -26,6 +27,7 @@ public class RepoDataModel {
 	/**
 	 * Sets the Repo Name
 	 * @param name
+	 * @return void
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -40,6 +42,7 @@ public class RepoDataModel {
 	/**
 	 * Sets the ID
 	 * @param id Sets the ID of the Repository
+	 * @return void
 	 */
 	public void setId(long id) {
 		this.id = id;
@@ -54,6 +57,7 @@ public class RepoDataModel {
 	/**
 	 * Sets the Description
 	 * @param description Sets the Description of the Repository
+	 * @return void
 	 */
 	public void setDescription(String description) {
 		this.description = description;
@@ -68,6 +72,7 @@ public class RepoDataModel {
 	/**
 	 * Sets the Language of the Repo
 	 * @param language Sets the Language of the Repository
+	 * @return void
 	 */
 	public void setLanguage(String language) {
 		this.language = language;
@@ -82,6 +87,7 @@ public class RepoDataModel {
 	/**
 	 * Sets the URL
 	 * @param url Sets the URL of the Repository
+	 * @return void
 	 */
 	public void setUrl(String url) {
 		this.url = url;
@@ -96,6 +102,7 @@ public class RepoDataModel {
 	/**
 	 * Sets the Clone URL
 	 * @param cloneUrl Sets the CloneURL of the Repository
+	 * @return void
 	 */
 	public void setCloneUrl(String cloneUrl) {
 		this.cloneUrl = cloneUrl;
@@ -110,6 +117,7 @@ public class RepoDataModel {
 	/**
 	 * Sets the Created Date
 	 * @param createdOn Sets the Created Date for the Repository
+	 * @return void
 	 */
 	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
@@ -124,6 +132,7 @@ public class RepoDataModel {
 	/**
 	 * Sets the Last Updated Date
 	 * @param lastUpdatedOn Sets the Last Updated Date
+	 * @return void
 	 */
 	public void setLastUpdatedOn(Date lastUpdatedOn) {
 		this.lastUpdatedOn = lastUpdatedOn;
@@ -138,6 +147,7 @@ public class RepoDataModel {
 	/**
 	 * Sets the Contributors list
 	 * @param contributors Sets the List of Contributors for the Repository
+	 * @return void
 	 */
 	public void setContributors(List<RepoContributorModel> contributors) {
 		this.contributors = contributors;
@@ -152,6 +162,7 @@ public class RepoDataModel {
 	/**
 	 * Sets the List of Repo Issues
 	 * @param issues Sets the Issues of the Repository
+	 * @return void
 	 */
 	public void setIssues(List<RepoIssueModel> issues) {
 		this.issues = issues;
@@ -166,6 +177,7 @@ public class RepoDataModel {
 	/**
 	 * Sets the List of commits
 	 * @param commits Sets the commits for the Repository
+	 * @return void
 	 */
 	public void setCommits(List<RepoCommitModel> commits) {
 		this.commits = commits;

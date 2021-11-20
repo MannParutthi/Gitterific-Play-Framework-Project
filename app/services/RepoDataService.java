@@ -26,14 +26,16 @@ import play.mvc.Http.Session;
 /**
  * Service Class for Repository Data
  *
+ * @author Manan Dineshbhai Paruthi
+ *
  */
 public class RepoDataService {
-	
+
 	private RepositoryService repositoryService;
 	private IssueService issueService;
 	private CommitService commitService;
 	private GitHubClient gitHubClient;
-	
+
 	/**
 	 * Default Constructor
 	 */
@@ -43,62 +45,69 @@ public class RepoDataService {
 		this.issueService = new IssueService(gitHubClient);
 		this.commitService = new CommitService(gitHubClient);
 	}
+
 	/**
 	 * Returns the list of Repository Data for the given username
+	 * 
 	 * @param userName Username to get the Repo Data
-	 * @return Returns the Repository Data for the given username
+	 * @param repoName Repository name 
+	 * @return Returns the Repository Data for the given User name and Repository name 
 	 */
-	public CompletionStage<List<RepoDataModel>> getRepoData(String userName) {
-		return CompletableFuture.supplyAsync(() -> {		
-			List<RepoDataModel> repoData = new ArrayList<RepoDataModel>();
+	public CompletionStage<RepoDataModel> getRepoData(String userName, String repoName) {
+		return CompletableFuture.supplyAsync(() -> {
+			RepoDataModel repoData = new RepoDataModel();
 			try {
-				List<Repository> repoList = repositoryService.getRepositories(userName);	
-				for (Repository repository : repoList) {
-					RepoDataModel repoDetails = new RepoDataModel();
-					repoDetails.setName(repository.getName());
-					repoDetails.setId(repository.getId());
-					repoDetails.setDescription(repository.getDescription());
-					repoDetails.setLanguage(repository.getLanguage());
-					repoDetails.setUrl(repository.getHtmlUrl());
-					repoDetails.setCloneUrl(repository.getCloneUrl());
-					repoDetails.setCreatedOn(repository.getCreatedAt());
-					repoDetails.setLastUpdatedOn(repository.getUpdatedAt());
-					
-					List<RepoContributorModel> repoContributorList = new ArrayList<RepoContributorModel>();
-					List<Contributor> contributorList = repositoryService.getContributors(repository, false);
-					for (Contributor contributor : contributorList) {
-						RepoContributorModel repoContributorDetails = new RepoContributorModel();
-						repoContributorDetails.setLoginName(contributor.getLogin());
-						repoContributorDetails.setUrl(contributor.getUrl());
-						repoContributorList.add(repoContributorDetails);
-					}
-					repoDetails.setContributors(repoContributorList);
-					
-					List<RepoIssueModel> repoIssueList = new ArrayList<RepoIssueModel>();
-					List<Issue> issueList = issueService.getIssues(repository, null).stream().limit(20).collect(Collectors.toList());
-					for (Issue issue : issueList) {
-						RepoIssueModel repoIssueDetails = new RepoIssueModel();
-						repoIssueDetails.setTitle(issue.getTitle());
-						repoIssueDetails.setUrl(issue.getUrl());
-						repoIssueList.add(repoIssueDetails);
-					}
-					repoDetails.setIssues(repoIssueList);
-	
-					List<RepoCommitModel> repoCommitList = new ArrayList<RepoCommitModel>();
-					List<RepositoryCommit> commitList = Arrays.asList();
-					if (repository.getSize() > 0) {
-						commitList = commitService.getCommits(repository);
-					}
-					for (RepositoryCommit commit : commitList) {
-						RepoCommitModel repoCommitDetails = new RepoCommitModel();
-						repoCommitDetails.setLoginName(commit.getAuthor().getLogin());
-						repoCommitDetails.setUrl(commit.getUrl());
-						repoCommitList.add(repoCommitDetails);
-					}
-					repoDetails.setCommits(repoCommitList);
-					
-					repoData.add(repoDetails);
-				} 				
+				Repository repository = repositoryService.getRepository(userName, repoName);
+				repoData.setName(repository.getName());
+				repoData.setId(repository.getId());
+				repoData.setDescription(repository.getDescription());
+				repoData.setLanguage(repository.getLanguage());
+				repoData.setUrl(repository.getHtmlUrl());
+				repoData.setCloneUrl(repository.getCloneUrl());
+				repoData.setCreatedOn(repository.getCreatedAt());
+				repoData.setLastUpdatedOn(repository.getUpdatedAt());
+
+				List<RepoContributorModel> repoContributorList = new ArrayList<RepoContributorModel>();
+				List<Contributor> contributorList = repositoryService.getContributors(repository, false);
+				for (Contributor contributor : contributorList) {
+					RepoContributorModel repoContributorDetails = new RepoContributorModel();
+					repoContributorDetails.setLoginName(contributor.getLogin());
+					repoContributorDetails.setUrl(contributor.getUrl());
+					repoContributorList.add(repoContributorDetails);
+				}
+				if(repoContributorList.size() > 0) {
+					repoData.setContributors(repoContributorList);repoData.setContributors(repoContributorList);
+				}
+				else {
+					repoData.setContributors(Arrays.asList());
+				}
+				System.out.println("getContributors() ==> " + repoData.getContributors());
+				
+
+				List<RepoIssueModel> repoIssueList = new ArrayList<RepoIssueModel>();
+				List<Issue> issueList = issueService.getIssues(repository, null).stream().limit(20)
+						.collect(Collectors.toList());
+				for (Issue issue : issueList) {
+					RepoIssueModel repoIssueDetails = new RepoIssueModel();
+					repoIssueDetails.setTitle(issue.getTitle());
+					repoIssueDetails.setUrl(issue.getUrl());
+					repoIssueList.add(repoIssueDetails);
+				}
+				repoData.setIssues(repoIssueList);
+
+				List<RepoCommitModel> repoCommitList = new ArrayList<RepoCommitModel>();
+				List<RepositoryCommit> commitList = Arrays.asList();
+				if (repository.getSize() > 0) {
+					commitList = commitService.getCommits(repository);
+				}
+				for (RepositoryCommit commit : commitList) {
+					RepoCommitModel repoCommitDetails = new RepoCommitModel();
+					repoCommitDetails.setLoginName(commit.getAuthor().getLogin());
+					repoCommitDetails.setUrl(commit.getUrl());
+					repoCommitList.add(repoCommitDetails);
+				}
+				repoData.setCommits(repoCommitList);
+
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

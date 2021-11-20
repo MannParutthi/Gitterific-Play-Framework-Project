@@ -35,6 +35,12 @@ package controllers {
       Call("GET", _prefix + { _defaultPrefix } + "userData/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("userName", userName)))
     }
   
+    // @LINE:18
+    def getRepoData(userName:String, repoName:String): Call = {
+      
+      Call("GET", _prefix + { _defaultPrefix } + "repoData/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("userName", userName)) + "/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("repoName", repoName)))
+    }
+  
     // @LINE:20
     def getSearchResults(): Call = {
       
@@ -45,12 +51,6 @@ package controllers {
     def getUserProfile(name:String): Call = {
       
       Call("GET", _prefix + { _defaultPrefix } + "git/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("name", name)))
-    }
-  
-    // @LINE:18
-    def getRepoData(userName:String): Call = {
-      
-      Call("GET", _prefix + { _defaultPrefix } + "repoData/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("userName", userName)))
     }
   
     // @LINE:6

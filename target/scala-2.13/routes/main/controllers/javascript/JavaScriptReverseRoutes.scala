@@ -48,6 +48,16 @@ package controllers.javascript {
       """
     )
   
+    // @LINE:18
+    def getRepoData: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.HomeController.getRepoData",
+      """
+        function(userName0,repoName1) {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "repoData/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("userName", userName0)) + "/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("repoName", repoName1))})
+        }
+      """
+    )
+  
     // @LINE:20
     def getSearchResults: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.HomeController.getSearchResults",
@@ -64,16 +74,6 @@ package controllers.javascript {
       """
         function(name0) {
           return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "git/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("name", name0))})
-        }
-      """
-    )
-  
-    // @LINE:18
-    def getRepoData: JavaScriptReverseRoute = JavaScriptReverseRoute(
-      "controllers.HomeController.getRepoData",
-      """
-        function(userName0) {
-          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "repoData/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("userName", userName0))})
         }
       """
     )

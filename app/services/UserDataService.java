@@ -17,6 +17,7 @@ import model.UserDetails;
 /**
  * Service class for User Data
  *
+ * @author Harman Preet Kaur
  */
 public class UserDataService {	
 
