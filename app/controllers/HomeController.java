@@ -48,8 +48,8 @@ public class HomeController {
 
 	private SyncCacheApi cacheApi;
 
-	private final SearchForReposService searchForReposService;
-	private final WSClient ws;
+	private SearchForReposService searchForReposService;
+	private WSClient ws;
 	private HashMap<String, List<SearchRepoModel>> cacheMapSearchData;
 	private HashMap<String, ArrayList<LinkedHashMap<String, List<SearchRepoModel>>>> prevSearchSessionData;
 	private ArrayList<LinkedHashMap<String, List<SearchRepoModel>>> prevSearchData;
@@ -93,6 +93,34 @@ public class HomeController {
 
 	public void setRepoIssues(RepoIssues repoIssues) {
 		this.repoIssues = repoIssues;
+	}
+
+	public void setCacheMapSearchData(HashMap<String, List<SearchRepoModel>> cacheMapSearchData) {
+		this.cacheMapSearchData = cacheMapSearchData;
+	}
+
+	public void setPrevSearchSessionData(HashMap<String, ArrayList<LinkedHashMap<String, List<SearchRepoModel>>>> prevSearchSessionData) {
+		this.prevSearchSessionData = prevSearchSessionData;
+	}
+
+	public void setPrevSearchData(ArrayList<LinkedHashMap<String, List<SearchRepoModel>>> prevSearchData) {
+		this.prevSearchData = prevSearchData;
+	}
+
+	public void setCacheApi(SyncCacheApi cacheApi) {
+		this.cacheApi = cacheApi;
+	}
+
+	public void setWs(WSClient ws) {
+		this.ws = ws;
+	}
+
+	public void setFormFactory(FormFactory formFactory) {
+		this.formFactory = formFactory;
+	}
+
+	public void setSearchForReposService(SearchForReposService searchForReposService) {
+		this.searchForReposService = searchForReposService;
 	}
 
 	/**
@@ -146,7 +174,7 @@ public class HomeController {
 		}
 		
 		
-		Form<SearchDTO> form = formFactory.form(SearchDTO.class).bindFromRequest(request);
+		// Form<SearchDTO> form = formFactory.form(SearchDTO.class).bindFromRequest(request);
 		String searchKeyword = request.queryString("searchTerm").get();
 
 		CompletionStage<Result> resultCompletionStage;
@@ -317,4 +345,5 @@ public class HomeController {
 		}
 		return resultCompletionStage;
 	}
+
 }
