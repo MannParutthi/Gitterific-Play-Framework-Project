@@ -39,7 +39,7 @@
   					    		@for(repo <- data.getRepoName()) {
   					    			<ol type="A">
   					    				<li>				    					
-  					    						<li><h4>Repo Name : <a href='@routes.HomeController.getRepoData(data.getName(),repo)'>@repo</a></h4></li>
+  					    						<li><h4>Repo Name : <a href='@routes.HomeController.getRepoData(data.getLogin(), repo)'>@repo</a></h4></li>
   					    				</li>
   					    			</ol>
   					    		}

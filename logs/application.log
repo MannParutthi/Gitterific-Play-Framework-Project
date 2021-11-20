@@ -1,59 +1,12 @@
-2021-11-19 21:21:37,664 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-5 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+2021-11-19 22:09:21,202 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-6 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
 
     play.filters.csrf.CSRFFilter
     play.filters.headers.SecurityHeadersFilter
     play.filters.hosts.AllowedHostsFilter
     play.filters.csrf.CSRFFilter
 
-2021-11-19 21:21:37,699 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-5 - Application started (Dev) (no global state)
-2021-11-19 21:21:39,186 [ERROR] from play.api.http.DefaultHttpErrorHandler in application-akka.actor.default-dispatcher-8 - 
-
-! @7lma5ahio - Internal server error, for (GET) [/userData/harman8] ->
- 
-play.api.PlayException: Execution exception[[CompletionException: java.lang.NullPointerException]]
-	at play.api.http.HttpErrorHandlerExceptions$.$anonfun$convertToPlayException$3(HttpErrorHandler.scala:388)
-	at scala.Option.getOrElse(Option.scala:201)
-	at play.api.http.HttpErrorHandlerExceptions$.convertToPlayException(HttpErrorHandler.scala:388)
-	at play.api.http.HttpErrorHandlerExceptions$.throwableToUsefulException(HttpErrorHandler.scala:373)
-	at play.api.http.DefaultHttpErrorHandler.onServerError(HttpErrorHandler.scala:264)
-	at play.core.server.AkkaHttpServer$$anonfun$2.applyOrElse(AkkaHttpServer.scala:430)
-	at play.core.server.AkkaHttpServer$$anonfun$2.applyOrElse(AkkaHttpServer.scala:422)
-	at scala.concurrent.impl.Promise$Transformation.run(Promise.scala:454)
-	at akka.dispatch.BatchingExecutor$AbstractBatch.processBatch(BatchingExecutor.scala:63)
-	at akka.dispatch.BatchingExecutor$BlockableBatch.$anonfun$run$1(BatchingExecutor.scala:100)
-	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
-	at scala.concurrent.BlockContext$.withBlockContext(BlockContext.scala:94)
-	at akka.dispatch.BatchingExecutor$BlockableBatch.run(BatchingExecutor.scala:100)
-	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:49)
-	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(ForkJoinExecutorConfigurator.scala:48)
-	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:289)
-	at java.util.concurrent.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1067)
-	at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1703)
-	at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:172)
-Caused by: java.util.concurrent.CompletionException: java.lang.NullPointerException
-	at java.util.concurrent.CompletableFuture.encodeThrowable(CompletableFuture.java:273)
-	at java.util.concurrent.CompletableFuture.completeThrowable(CompletableFuture.java:280)
-	at java.util.concurrent.CompletableFuture.uniApply(CompletableFuture.java:618)
-	at java.util.concurrent.CompletableFuture$UniApply.tryFire(CompletableFuture.java:591)
-	at java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:488)
-	at java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1609)
-	at java.util.concurrent.CompletableFuture$AsyncSupply.exec(CompletableFuture.java:1596)
-	... 4 common frames omitted
-Caused by: java.lang.NullPointerException: null
-	at play.utils.UriEncoding$.encodePathSegment(UriEncoding.scala:51)
-	at play.core.routing.package$.dynamicString(package.scala:14)
-	at controllers.ReverseHomeController.getRepoData(ReverseRoutes.scala:41)
-	at views.html.userData$.$anonfun$apply$1(userData.template.scala:73)
-	at scala.collection.StrictOptimizedIterableOps.map(StrictOptimizedIterableOps.scala:99)
-	at scala.collection.StrictOptimizedIterableOps.map$(StrictOptimizedIterableOps.scala:86)
-	at scala.collection.convert.JavaCollectionWrappers$JListWrapper.map(JavaCollectionWrappers.scala:103)
-	at views.html.userData$.apply(userData.template.scala:70)
-	at views.html.userData$.render(userData.template.scala:87)
-	at views.html.userData.render(userData.template.scala)
-	at controllers.HomeController.lambda$getUserData$8(HomeController.java:304)
-	at java.util.concurrent.CompletableFuture.uniApply(CompletableFuture.java:616)
-	... 8 common frames omitted
-2021-11-19 21:21:45,434 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-48-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 35000 milliseconds timeout
-2021-11-19 21:21:45,434 [INFO] from play.core.server.AkkaHttpServer in pool-48-thread-1 - Stopping Akka HTTP server...
-2021-11-19 21:21:45,434 [INFO] from play.core.server.AkkaHttpServer in play-dev-mode-akka.actor.internal-dispatcher-3 - Terminating server binding for /0:0:0:0:0:0:0:0:9000
-2021-11-19 21:21:45,511 [INFO] from play.core.server.AkkaHttpServer in play-dev-mode-akka.actor.internal-dispatcher-11 - Running provided shutdown stop hooks
+2021-11-19 22:09:21,235 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-6 - Application started (Dev) (no global state)
+2021-11-19 22:13:15,339 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-44-thread-10 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 35000 milliseconds timeout
+2021-11-19 22:13:15,342 [INFO] from play.core.server.AkkaHttpServer in pool-44-thread-10 - Stopping Akka HTTP server...
+2021-11-19 22:13:15,346 [INFO] from play.core.server.AkkaHttpServer in play-dev-mode-akka.actor.internal-dispatcher-22 - Terminating server binding for /0:0:0:0:0:0:0:0:9000
+2021-11-19 22:13:15,386 [INFO] from play.core.server.AkkaHttpServer in play-dev-mode-akka.actor.internal-dispatcher-23 - Running provided shutdown stop hooks
