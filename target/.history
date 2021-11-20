@@ -442,6 +442,7 @@ compile
 run
 test
 jacoco
+<<<<<<< HEAD
 test
 exit
 test
@@ -462,3 +463,14 @@ run
 test
 jacoco
 test
+=======
+eclipse
+clean
+compile
+test
+jacoco
+run
+clean
+test
+run
+>>>>>>> c4e163bdfc25a71d2a379daf7b0c520f0faa7303

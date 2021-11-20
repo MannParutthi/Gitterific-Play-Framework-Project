@@ -7,30 +7,24 @@
 			</head>
 			<body>
 				<div class="container">
-  					<div class="jumbotron">
-    					<h1 >Gitterific</h1>
-  					</div>
-				</div>
-				<div class="container">
 					@for(mapOfSearchAndResult <- arrayListOfResult) {
 						@for((keyword,repoList) <- mapOfSearchAndResult) {
-						<p> @keyword </p>
+						<p>Search Term : @keyword </p>
 							<ul>
 							@for(repo <- repoList) {
 								<li>
 									<ol type="1">
-										<li><h1>OWNER: <a href='@routes.HomeController.getUserData(repo.getUserName())'>@repo.getUserName()</a></h1></li>
-										<li><h1>REPO NAME: <a href='@routes.HomeController.getRepoData(repo.getUserName(), repo.getRepoName())'>@repo.getRepoName()</a></h1></li>
-										<li>
+										<li><h1>User: <a href='@routes.HomeController.getUserData(repo.getUserName())'>@repo.getUserName()</a> / Repo : <a href='@routes.HomeController.getRepoData(repo.getUserName(), repo.getRepoName())'>@repo.getRepoName()</a></h1></li>
+											<span>Topics : </span>
 											@for(topic <- repo.getTopics()) {
-												<p>@topic</p>
-											}
-										</li>
+												<span>@topic ,</span>
+											}										
 									</ol>
-								</li>
-								<hr>
-							}
+								</li>	
+								</br>							
+							}					
 							</ul>
+							<hr>
 						}
 					}
  				</div>

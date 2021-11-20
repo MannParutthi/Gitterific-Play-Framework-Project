@@ -24,6 +24,7 @@ import services.UserDataService;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -158,7 +159,7 @@ public class HomeController {
 						LinkedHashMap<String, List<SearchRepoModel>> currSearchData = new LinkedHashMap<String, List<SearchRepoModel>>();
 						currSearchData.put(searchKeyword, searchRepoList);
 						prevSearchData.add(currSearchData);
-						
+						Collections.reverse(prevSearchData);
 						if(isSessionPresent) {
 							return ok(views.html.searchResults.render(prevSearchData)); 
 						}
