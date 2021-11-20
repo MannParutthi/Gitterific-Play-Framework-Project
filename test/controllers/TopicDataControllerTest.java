@@ -111,8 +111,8 @@ public class TopicDataControllerTest{
 			Request request1 = Helpers.fakeRequest().method("GET").uri("/topicData/Java").build();
 			res1 = topicDataController.getTopicData(request1, "android").toCompletableFuture().get();
 			
-			//Request request2 = Helpers.fakeRequest().method("GET").uri("topicData/Java").session("Java","randomKeyForTesting").build();
-			//res2 = topicDataController.getTopicData(request2, "Java").toCompletableFuture().get();
+			Request request2 = Helpers.fakeRequest().method("GET").uri("topicData/Java").session("Java","TestingTopicData").build();
+			res2 = topicDataController.getTopicData(request2, "Java").toCompletableFuture().get();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
