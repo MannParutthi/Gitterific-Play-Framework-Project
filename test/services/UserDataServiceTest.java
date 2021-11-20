@@ -10,6 +10,7 @@ import play.test.Helpers;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.ExecutionException;
@@ -17,6 +18,7 @@ import java.util.concurrent.ExecutionException;
 import static play.mvc.Results.ok;
 
 import org.eclipse.egit.github.core.User;
+import org.eclipse.egit.github.core.service.RepositoryService;
 import org.eclipse.egit.github.core.service.UserService;
 import org.eclipse.jetty.http.HttpStatus;
 import org.junit.Assert;
@@ -48,9 +50,13 @@ public class UserDataServiceTest {
 	@Mock
 	UserService userService;
 	
+	@Mock
+	RepositoryService repositoryService;
+	
 //	static
 //	UserDetails userDetails;
 	
+	//@Mock
 	static User user;
 	
 	/**
@@ -81,32 +87,7 @@ public class UserDataServiceTest {
 		user.setTotalPrivateRepos(0);
 	}
 
-//	@Test
-//	public void testGetUser() {
-//
-//		when(userDataService.getUserData(anyString())).thenReturn(CompletableFuture.supplyAsync(() -> userDetails));
-//		Result res1=null,res2 = null;
-//		UserDetails ud = null;
-//		try {
-//		//	Request requestWithoutSession = Helpers.fakeRequest().method("GET").uri("/userData/harman8").build();
-//		//	res1 = userDataController.getUserData(requestWithoutSession,"harman8").toCompletableFuture().get();
-//			Request requestWithSession = Helpers.fakeRequest().method("GET").uri("/userData/harman8").session("harman8", "randomKeyTesting").build();
-//			res2 = userDataController.getUserData(requestWithSession,"harman8").toCompletableFuture().get();
-//		//	ud = userDataService.getUserData("harman8").toCompletableFuture().get();
-//		//	System.out.println(ud.getName());
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (ExecutionException e) {
-//			// 
-//			e.printStackTrace();
-//		}
-//		//System.out.println(a);
-//		
-//		//assertEquals( HttpStatus.OK_200,res1.status());
-//		assertEquals( HttpStatus.OK_200,res2.status());
-//
-//	}
+
 	
 	/**
 	 * This method test the getUser service 
