@@ -75,13 +75,7 @@ public class RepoDataService {
 					repoContributorDetails.setUrl(contributor.getUrl());
 					repoContributorList.add(repoContributorDetails);
 				}
-				if(repoContributorList.size() > 0) {
-					repoData.setContributors(repoContributorList);repoData.setContributors(repoContributorList);
-				}
-				else {
-					repoData.setContributors(Arrays.asList());
-				}
-				System.out.println("getContributors() ==> " + repoData.getContributors());
+				repoData.setContributors(repoContributorList);repoData.setContributors(repoContributorList);
 				
 
 				List<RepoIssueModel> repoIssueList = new ArrayList<RepoIssueModel>();

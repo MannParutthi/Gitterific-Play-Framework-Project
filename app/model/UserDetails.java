@@ -1,7 +1,6 @@
 package model;
 
 import java.util.Date;
-import java.util.List;
 
 import org.eclipse.egit.github.core.UserPlan;
 
@@ -51,17 +50,6 @@ public class UserDetails {
 	private String url;
 
 	private UserPlan plan;
-	
-	private List<String> repoName;
-
-
-	public List<String> getRepoName() {
-		return repoName;
-	}
-
-	public void setRepoName(List<String> repoName) {
-		this.repoName = repoName;
-	}
 
 	public boolean isHireable() {
 		return hireable;

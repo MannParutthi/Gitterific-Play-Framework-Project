@@ -1,14 +1,25 @@
+<<<<<<< HEAD
 2021-11-19 20:51:52,312 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-5 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+=======
+2021-11-19 20:48:44,809 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-10 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+>>>>>>> 1c6fba6160eb599ec9417fffc5f27cdf4758d74f
 
     play.filters.csrf.CSRFFilter
     play.filters.headers.SecurityHeadersFilter
     play.filters.hosts.AllowedHostsFilter
     play.filters.csrf.CSRFFilter
 
+<<<<<<< HEAD
 2021-11-19 20:51:52,347 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-5 - Application started (Dev) (no global state)
 2021-11-19 20:52:06,331 [ERROR] from play.api.http.DefaultHttpErrorHandler in application-akka.actor.default-dispatcher-8 - 
 
 ! @7lma1dl46 - Internal server error, for (GET) [/userData/CyC2018] ->
+=======
+2021-11-19 20:48:44,867 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-10 - Application started (Dev) (no global state)
+2021-11-19 20:48:56,992 [ERROR] from play.api.http.DefaultHttpErrorHandler in application-akka.actor.default-dispatcher-7 - 
+
+! @7lma1311j - Internal server error, for (GET) [/repoData/jacoco/jacoco] ->
+>>>>>>> 1c6fba6160eb599ec9417fffc5f27cdf4758d74f
  
 play.api.PlayException: Execution exception[[CompletionException: java.lang.NullPointerException]]
 	at play.api.http.HttpErrorHandlerExceptions$.$anonfun$convertToPlayException$3(HttpErrorHandler.scala:388)
@@ -40,6 +51,7 @@ Caused by: java.util.concurrent.CompletionException: java.lang.NullPointerExcept
 	at java.util.concurrent.CompletableFuture$AsyncSupply.exec(CompletableFuture.java:1596)
 	... 4 common frames omitted
 Caused by: java.lang.NullPointerException: null
+<<<<<<< HEAD
 	at play.utils.UriEncoding$.encodePathSegment(UriEncoding.scala:51)
 	at play.core.routing.package$.dynamicString(package.scala:14)
 	at controllers.ReverseHomeController.getRepoData(ReverseRoutes.scala:41)
@@ -52,6 +64,13 @@ Caused by: java.lang.NullPointerException: null
 	at views.html.userData.render(userData.template.scala)
 	at controllers.HomeController.lambda$getUserData$8(HomeController.java:303)
 	at java.util.concurrent.CompletableFuture.uniApply(CompletableFuture.java:616)
+=======
+	at views.html.repoData$.apply(repoData.template.scala:57)
+	at views.html.repoData$.render(repoData.template.scala:104)
+	at views.html.repoData.render(repoData.template.scala)
+	at controllers.HomeController.lambda$getRepoData$3(HomeController.java:233)
+	at java.base/java.util.concurrent.CompletableFuture$UniApply.tryFire(CompletableFuture.java:642)
+>>>>>>> 1c6fba6160eb599ec9417fffc5f27cdf4758d74f
 	... 8 common frames omitted
 2021-11-19 20:52:14,575 [ERROR] from play.api.http.DefaultHttpErrorHandler in application-akka.actor.default-dispatcher-8 - 
 

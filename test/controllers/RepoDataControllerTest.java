@@ -56,7 +56,7 @@ public class RepoDataControllerTest {
 	@Mock
 	CommitService commitService;
 
-	public static List<RepoDataModel> repoList;
+	public static RepoDataModel repoOneDataModel;
 
 	/**
 	 * This method is used to setup test data for testing
@@ -66,9 +66,7 @@ public class RepoDataControllerTest {
 	 */
 	@BeforeClass
 	public static void setUp() {
-		repoList = new ArrayList<RepoDataModel>();
-
-		RepoDataModel repoOneDataModel = new RepoDataModel();
+		repoOneDataModel = new RepoDataModel();
 		repoOneDataModel.setUrl("https://github.com/MannParutthi/COMP-6481");
 		repoOneDataModel.setName("COMP-6481");
 		repoOneDataModel.setId(410654618);
@@ -110,8 +108,6 @@ public class RepoDataControllerTest {
 				"https://api.github.com/repos/MannParutthi/COMP-6481/commits/8eeb1c82596f8a87c0c1a52b521d115aca5f018f");
 		repoOneDataModel.setCommits(Arrays.asList(repoOneCommitOneModel, repoOneCommitTwoModel, repoOneCommitThreeModel,
 				repoOneCommitFourModel, repoOneCommitFiveModel));
-
-		repoList.add(repoOneDataModel);
 	}
 	
 	/**
@@ -124,21 +120,21 @@ public class RepoDataControllerTest {
 	public void test_getRepoData() throws IOException {
 
 		// Mocking
-		when(repoDataService.getRepoData("MannParutthi")).thenReturn((CompletableFuture.supplyAsync(() -> repoList)));
+		when(repoDataService.getRepoData("MannParutthi", "COMP-6481")).thenReturn((CompletableFuture.supplyAsync(() -> repoOneDataModel)));
 
-		List<RepoDataModel> repoData = null;
+		RepoDataModel repoData = null;
 		Result res1 = null;
 		Result res2 = null;
 		try {
-			repoData = repoDataService.getRepoData("MannParutthi").toCompletableFuture().get();
+			repoData = repoDataService.getRepoData("MannParutthi", "COMP-6481").toCompletableFuture().get();
 			
-			Request request1 = Helpers.fakeRequest().method("GET").uri("/repoData/MannParutthi").build();
-			res1 = repoDataController.getRepoData(request1, "MannParutthi").toCompletableFuture().get();
+			Request request1 = Helpers.fakeRequest().method("GET").uri("/repoData/MannParutthi/COMP-6481").build();
+			res1 = repoDataController.getRepoData(request1, "MannParutthi", "COMP-6481").toCompletableFuture().get();
 			
-			Request request2 = Helpers.fakeRequest().method("GET").uri("/repoData/MannParutthi").session("MannParutthi", "randomKeyForTesting").build();
-			res2 = repoDataController.getRepoData(request2, "MannParutthi").toCompletableFuture().get();
+			Request request2 = Helpers.fakeRequest().method("GET").uri("/repoData/MannParutthi/COMP-6481").session("MannParutthiCOMP-6481", "randomKeyForTesting").build();
+			res2 = repoDataController.getRepoData(request2, "MannParutthi", "COMP-6481").toCompletableFuture().get();
 			
-			List<RepoDataModel> rData = repoDataService.getRepoData("MannParutthi").toCompletableFuture().get();
+			RepoDataModel rData = repoDataService.getRepoData("MannParutthi", "COMP-6481").toCompletableFuture().get();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -147,12 +143,12 @@ public class RepoDataControllerTest {
 			e.printStackTrace();
 		} // (List<RepoDataModel>) repoDataController.getRepoData(null, "MannParutthi");
 
-		System.out.println("==> " + repoList.get(0).getId() + "==> " + repoData.get(0).getId());
+		System.out.println("==> " + repoOneDataModel.getId() + "==> " + repoOneDataModel.getId());
 
-		assertEquals(repoList.get(0).getId(), repoData.get(0).getId());
+		assertEquals(repoOneDataModel.getId(), repoOneDataModel.getId());
 		assertEquals(HttpStatus.OK_200, res1.status());
 		assertEquals(HttpStatus.OK_200, res2.status());
-		assertEquals(repoData.isEmpty(), false);
+		assertEquals(repoData.getId(), 410654618);
 	}
 
 	/**

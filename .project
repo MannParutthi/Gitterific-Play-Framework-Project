@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>gitterific-latest</name>
+	<name>play-java-hello-world-tutorial</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -16,7 +17,7 @@
 	</natures>
 	<filteredResources>
 		<filter>
-			<id>1637370448792</id>
+			<id>1637374019762</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
