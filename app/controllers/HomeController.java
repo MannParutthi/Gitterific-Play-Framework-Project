@@ -35,6 +35,13 @@ import static play.mvc.Results.ok;
 /**
  * This controller contains an action to handle HTTP requests to the
  * application's home page.
+ * 
+ * 
+ * @author Harman Preet Kaur
+ * @author Manan Dineshbhai Paruthi
+ * @author Yashwanth Gundlapally
+ * @author Kevinkumar Patel
+ * 
  */
 public class HomeController {
 
@@ -88,6 +95,10 @@ public class HomeController {
 	 * in the <code>routes</code> file means that this method will be called when
 	 * the application receives a <code>GET</code> request with a path of
 	 * <code>/</code>.
+	 * 
+	 * @param Http.Request  Takes the Http request as a parameter
+	 * @return Result Returns that will be used for rendering in view page
+	 * 
 	 */
 	public Result index(Http.Request request) {
 		return Results.ok(views.html.index.render(formFactory.form(SearchDTO.class), messagesApi.preferred(request)));
@@ -97,7 +108,7 @@ public class HomeController {
 	 * Generates the user profile for a given user
 	 * 
 	 * @param name Username
-	 * @return Returns the User Profile for the given username
+	 * @return CompletionStage<Result> Returns the User Profile for the given username
 	 */
 	public CompletionStage<Result> getUserProfile(String name) {
 		WSRequest requestUser = ws.url("https://api.github.com/users/defunkt");
@@ -109,7 +120,7 @@ public class HomeController {
 	 * This method handles the session management for the home page
 	 * 
 	 * @param request Http Request for session managing
-	 * @return Returns the Search Results
+	 * @return CompletionStage<Result> Returns the Search Results
 	 */
 //	@Cached(key="search")
 	public CompletionStage<Result> getSearchResults(Http.Request request) {
@@ -178,10 +189,10 @@ public class HomeController {
 	 * This method is used to generate a random string which is used in session
 	 * management
 	 * 
-	 * @return RandomString Returns the Random String which is used in session
+	 * @return String Returns the Random String which is used in session
 	 *         management
 	 */
-	protected String getCurrentTimeStamp() {
+	public String getCurrentTimeStamp() {
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		return timestamp.toString();
 	}
@@ -189,9 +200,9 @@ public class HomeController {
 	/**
 	 * This method return the RandomString used in session management
 	 * 
-	 * @return RandomString Returns a string that is used in session management
+	 * @return String Returns a string that is used in session management
 	 */
-	protected String getSaltString() {
+	public String getSaltString() {
 		String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
 		StringBuilder salt = new StringBuilder();
 		Random rnd = new Random();
@@ -205,6 +216,7 @@ public class HomeController {
 	
 	/**
 	 * This method provides the repository data for a given user
+	 * 
 	 * @param request The request parameter the handle the session 
 	 * @param userName Username to get the Repo Details
 	 * @param repoName - Repository Name
@@ -234,7 +246,7 @@ public class HomeController {
 	 * 
 	 * @param userName Username to get the Repo Issues
 	 * @param repo	Repository Name to get the Repo Issues
-	 * @return	Returns the Repo Issues for the given Username and Repository
+	 * @return CompletionStage<Result> Returns the Repo Issues for the given Username and Repository
 	 */
 	public CompletionStage<Result> getRepoIssues(String userName,String repo) {
 		System.out.println(userName + "," + repo);
@@ -246,7 +258,7 @@ public class HomeController {
 	 * This method provides the repository data for a given user
 	 * @param request The request parameter the handle the session 
 	 * @param userName Username to get the Repo Details
-	 * @return Returns the Repository Data for the given Username
+	 * @return CompletionStage<Result> Returns the Repository Data for the given Username
 	 */
 	public CompletionStage<Result> getTopicData(Http.Request request, String topicName) {
 		topicDataModelMap.put("Testing branch", Arrays.asList()); // for testing
@@ -269,22 +281,10 @@ public class HomeController {
 		return result;
 	}
 	
-	
-	/**
-	 * This method gets the repository results for the given topic
-	 *  
-	 * @param keyword Keyword used for searching the given Topic
-	 * @return Returns the list of all Topics Data that are filtered with the given topic
-	 */
-//	public CompletionStage<Result> getTopicData(HttpString keyword) {
-//		CompletionStage<Result> resultCompletionStage = topicDataService.getRepositoryData(keyword).thenApply(data -> ok(views.html.topicData.render(data)));		
-//		return resultCompletionStage;
-//	}
-	
 	/**
 	 * This method get the User Data for a given username
 	 * @param userName This username is used to get the data of the User
-	 * @return Returns the data of the given User
+	 * @return CompletionStage<Result> Returns the data of the given User
 	 */
 	public CompletionStage<Result> getUserData(Http.Request request, String userName) {
 		sessionMapUserData.put("randomKeyTesting", new UserDetails());

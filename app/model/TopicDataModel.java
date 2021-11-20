@@ -4,6 +4,8 @@ import java.util.Date;
 
 /**
  * Model Class for Topic 
+ * 
+ * @author Yashwanth Gundlapally
  *
  */
 public class TopicDataModel {
@@ -27,6 +29,7 @@ public class TopicDataModel {
 	/**
 	 * Sets the name of the Topic
 	 * @param name Sets the Name of the Topic
+	 * @return void
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -41,6 +44,7 @@ public class TopicDataModel {
 	/**
 	 * Sets the ID of the Topic
 	 * @param id Sets the ID for the Topic
+	 * @return void
 	 */
 	public void setId(String id) {
 		Id = id;
@@ -55,6 +59,7 @@ public class TopicDataModel {
 	/**
 	 * Sets the Language of the Topic
 	 * @param language Sets the Language for the topic
+	 * @return void
 	 */
 	public void setLanguage(String language) {
 		this.language = language;
@@ -69,6 +74,7 @@ public class TopicDataModel {
 	/**
 	 * Sets the Description for the topic
 	 * @param description Sets the Description for the topic
+	 * @return void
 	 */
 	public void setDescription(String description) {
 		this.description = description;
@@ -83,6 +89,7 @@ public class TopicDataModel {
 	/**
 	 * Sets the Owner of the Topic
 	 * @param owner Sets the Owner 
+	 * @return void
 	 */
 	public void setOwner(String owner) {
 		this.owner = owner;
@@ -97,6 +104,7 @@ public class TopicDataModel {
 	/**
 	 * Sets the URL of the Topic
 	 * @param url used for setting the URL
+	 * @return void
 	 */
 	public void setUrl(String url) {
 		this.url = url;
@@ -111,6 +119,7 @@ public class TopicDataModel {
 	/**
 	 * Sets the Created Date for a Topic
 	 * @param createdAt used for setting the Created Date for the topic
+	 * @return void
 	 */
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
@@ -125,6 +134,7 @@ public class TopicDataModel {
 	/**
 	 * Sets the Topic Pushed Date
 	 * @param pushedAt Used for setting the Pushed Date
+	 * @return void
 	 */
 	public void setPushedAt(Date pushedAt) {
 		this.pushedAt = pushedAt;
@@ -139,6 +149,7 @@ public class TopicDataModel {
 	/**
 	 * Sets the Topic size
 	 * @param size used for setting the size of the topic
+	 * @return void
 	 */
 	public void setSize(int size) {
 		this.size = size;
@@ -154,7 +165,4 @@ public class TopicDataModel {
 				+ ", owner=" + owner + ", url=" + url + ", size=" + size + ", createdAt=" + createdAt + ", pushedAt="
 				+ pushedAt + "]";
 	}
-	
-	
-	
 }

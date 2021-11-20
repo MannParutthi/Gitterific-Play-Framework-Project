@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
+<<<<<<< HEAD
 	<name>play-java-hello-world-tutorial</name>
 	<comment></comment>
 	<projects>
@@ -27,3 +27,17 @@
 		</filter>
 	</filteredResources>
 </projectDescription>
+=======
+  <name>play-java-hello-world-tutorial</name>
+  <buildSpec>
+    <buildCommand>
+      <name>org.scala-ide.sdt.core.scalabuilder</name>
+    </buildCommand>
+  </buildSpec>
+  <natures>
+    <nature>org.scala-ide.sdt.core.scalanature</nature>
+    <nature>org.eclipse.jdt.core.javanature</nature>
+  </natures>
+  <linkedResources> </linkedResources>
+</projectDescription>
+>>>>>>> c1d7a84ebe07a6d5ef93951d1264f392a26429ff
