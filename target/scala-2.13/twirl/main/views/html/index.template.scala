@@ -41,16 +41,14 @@ Seq[Any](format.raw/*4.83*/("""
 			</head>
 			<body>
 				<div class="container">
-  					<div class="jumbotron">
-    					<h1>Gitterific</h1>
-  					</div>
   					
   					
-					"""),_display_(/*18.7*/helper/*18.13*/.form(action = routes.HomeController.getSearchResults())/*18.69*/ {_display_(Seq[Any](format.raw/*18.71*/("""
-    					"""),_display_(/*19.11*/helper/*19.17*/.inputText(newSearchForm("searchTerm"))),format.raw/*19.56*/("""
-    					"""),format.raw/*20.10*/("""<button type="submit" class="btn btn-primary btn-block">Search</button>
-					""")))}),format.raw/*21.7*/("""
-				"""),format.raw/*22.5*/("""</div>
+  					
+					"""),_display_(/*16.7*/helper/*16.13*/.form(action = routes.HomeController.getSearchResults())/*16.69*/ {_display_(Seq[Any](format.raw/*16.71*/("""
+    					"""),_display_(/*17.11*/helper/*17.17*/.inputText(newSearchForm("searchTerm"))),format.raw/*17.56*/("""
+    					"""),format.raw/*18.10*/("""<button type="submit" class="btn btn-primary btn-block">Search</button>
+					""")))}),format.raw/*19.7*/("""
+				"""),format.raw/*20.5*/("""</div>
   			</body>
   		</html>
 """)))}))
@@ -70,9 +68,9 @@ Seq[Any](format.raw/*4.83*/("""
               /*
                   -- GENERATED --
                   SOURCE: app/views/index.scala.html
-                  HASH: 42e92cfae705b331abc941aff977b79121164207
-                  MATRIX: 610->1|633->19|669->50|1034->75|1210->156|1238->159|1275->188|1314->190|1346->196|1603->427|1618->433|1683->489|1723->491|1762->503|1777->509|1837->548|1876->559|1985->638|2018->644
-                  LINES: 23->1|24->2|25->3|30->4|35->4|36->5|36->5|36->5|37->6|49->18|49->18|49->18|49->18|50->19|50->19|50->19|51->20|52->21|53->22
+                  HASH: 78a27bbd37980525a2653e31b3bbdcba701ecc86
+                  MATRIX: 610->1|633->19|669->50|1034->75|1210->156|1238->159|1275->188|1314->190|1346->196|1535->359|1550->365|1615->421|1655->423|1694->435|1709->441|1769->480|1808->491|1917->570|1950->576
+                  LINES: 23->1|24->2|25->3|30->4|35->4|36->5|36->5|36->5|37->6|47->16|47->16|47->16|47->16|48->17|48->17|48->17|49->18|50->19|51->20
                   -- GENERATED --
               */
           

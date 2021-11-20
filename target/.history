@@ -442,3 +442,12 @@ compile
 run
 test
 jacoco
+eclipse
+clean
+compile
+test
+jacoco
+run
+clean
+test
+run
