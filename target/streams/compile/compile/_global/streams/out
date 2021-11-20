@@ -1,2 +1,0 @@
-[error] D:\MAIN\APP_Project_G7\app\controllers\HomeController.java:220:1: local variables referenced from a lambda expression must be final or effectively final
-[error] userName

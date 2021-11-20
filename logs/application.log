@@ -1,14 +1,14 @@
-2021-11-19 20:06:54,307 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-5 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+2021-11-19 20:48:44,809 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-10 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
 
     play.filters.csrf.CSRFFilter
     play.filters.headers.SecurityHeadersFilter
     play.filters.hosts.AllowedHostsFilter
     play.filters.csrf.CSRFFilter
 
-2021-11-19 20:06:54,365 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-5 - Application started (Dev) (no global state)
-2021-11-19 20:06:56,188 [ERROR] from play.api.http.DefaultHttpErrorHandler in application-akka.actor.default-dispatcher-6 - 
+2021-11-19 20:48:44,867 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-10 - Application started (Dev) (no global state)
+2021-11-19 20:48:56,992 [ERROR] from play.api.http.DefaultHttpErrorHandler in application-akka.actor.default-dispatcher-7 - 
 
-! @7lm9lfg21 - Internal server error, for (GET) [/repoData/exussum12/coverageChecker] ->
+! @7lma1311j - Internal server error, for (GET) [/repoData/jacoco/jacoco] ->
  
 play.api.PlayException: Execution exception[[CompletionException: java.lang.NullPointerException]]
 	at play.api.http.HttpErrorHandlerExceptions$.$anonfun$convertToPlayException$3(HttpErrorHandler.scala:388)
@@ -43,6 +43,6 @@ Caused by: java.lang.NullPointerException: null
 	at views.html.repoData$.apply(repoData.template.scala:57)
 	at views.html.repoData$.render(repoData.template.scala:104)
 	at views.html.repoData.render(repoData.template.scala)
-	at controllers.HomeController.lambda$getRepoData$3(HomeController.java:221)
+	at controllers.HomeController.lambda$getRepoData$3(HomeController.java:233)
 	at java.base/java.util.concurrent.CompletableFuture$UniApply.tryFire(CompletableFuture.java:642)
 	... 8 common frames omitted

@@ -56,11 +56,10 @@ public class RepoDataServiceTest {
 	@Mock
 	CommitService commitService;
 
-	public static List<Repository> repoDataList;
+	public static Repository repoData;
 	public static List<Contributor> repoContributorList;
 	public static List<Issue> repoIssueList;
 	public static List<RepositoryCommit> repoCommitList;
-	public static Repository repo;
 
 	/**
 	 * This method is used for setting up the test data for testing
@@ -70,18 +69,17 @@ public class RepoDataServiceTest {
 	 */
 	@BeforeClass
 	public static void setUp() {
-		repoDataList = new ArrayList<Repository>();
-		repo = new Repository();
-		repo.setName("SOEN6441");
-		repo.setId(1);
-		repo.setDescription("SOEN6441 Project");
-		repo.setLanguage("JAVA");
-		repo.setHtmlUrl("https://github.com/MannParutthi/SOEN6441");
-		repo.setCloneUrl("https://github.com/MannParutthi/SOEN6441.git");
-		repo.setCreatedAt(new Date("Sun Sep 26 16:23:40 EDT 2021"));
-		repo.setUpdatedAt(new Date("Sun Sep 26 17:04:56 EDT 2021"));
-		repo.setSize(1);
-		repoDataList.add(repo);
+		repoData = new Repository();
+		repoData.setName("SOEN6441");
+		repoData.setId(1);
+		repoData.setDescription("SOEN6441 Project");
+		repoData.setLanguage("JAVA");
+		repoData.setHtmlUrl("https://github.com/MannParutthi/SOEN6441");
+		repoData.setCloneUrl("https://github.com/MannParutthi/SOEN6441.git");
+		repoData.setCreatedAt(new Date("Sun Sep 26 16:23:40 EDT 2021"));
+		repoData.setUpdatedAt(new Date("Sun Sep 26 17:04:56 EDT 2021"));
+		repoData.setSize(1);
+
 		
 		repoContributorList = new ArrayList<Contributor>();
 		Contributor contributor = new Contributor();
@@ -113,15 +111,15 @@ public class RepoDataServiceTest {
 
 		
 		try {
-			when(repositoryService.getRepositories("MannParutthi")).thenReturn(repoDataList);
-			when(repositoryService.getContributors(repo, false)).thenReturn(repoContributorList);
-			when(issueService.getIssues(repo, null)).thenReturn(repoIssueList);
-			when(commitService.getCommits(repo)).thenReturn(repoCommitList);
+			when(repositoryService.getRepository("MannParutthi", "COMP-6481")).thenReturn(repoData);
+			when(repositoryService.getContributors(repoData, false)).thenReturn(repoContributorList);
+			when(issueService.getIssues(repoData, null)).thenReturn(repoIssueList);
+			when(commitService.getCommits(repoData)).thenReturn(repoCommitList);
 			
-			List<RepoDataModel> repoData = repoDataService.getRepoData("MannParutthi").toCompletableFuture().get();
-			assertEquals(repoData.isEmpty(), false);
-			assertEquals(repoData.get(0).getIssues().get(0).getTitle(), "Null Pointer Exception");
-			assertEquals(repoData.get(0).getIssues().get(0).getUrl(), "https://api.github.com/users/MannParutthi");
+			RepoDataModel repoData = repoDataService.getRepoData("MannParutthi", "COMP-6481").toCompletableFuture().get();
+			assertEquals(repoData.getId(), 1);
+			assertEquals(repoData.getIssues().get(0).getTitle(), "Null Pointer Exception");
+			assertEquals(repoData.getIssues().get(0).getUrl(), "https://api.github.com/users/MannParutthi");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

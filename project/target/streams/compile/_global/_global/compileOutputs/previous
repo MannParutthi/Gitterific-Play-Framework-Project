@@ -1,9 +1,1 @@
-<<<<<<< HEAD
 ["sbt.Task[scala.collection.Seq[java.nio.file.Path]]",["E:\\APP_Project_G7\\project\\target\\streams\\compile\\compileOutputs\\_global\\streams\\inc_compile_2.12.zip"]]
-=======
-<<<<<<< HEAD
-["sbt.Task[scala.collection.Seq[java.nio.file.Path]]",["D:\\CODING\\APP Project\\APP_Project_G7\\project\\target\\streams\\compile\\compileOutputs\\_global\\streams\\inc_compile_2.12.zip"]]
-=======
-["sbt.Task[scala.collection.Seq[java.nio.file.Path]]",["D:\\MAIN\\APP_Project_G7\\project\\target\\streams\\compile\\compileOutputs\\_global\\streams\\inc_compile_2.12.zip"]]
->>>>>>> 411744c082ee80cf0d368e368c8fe39c313f11df
->>>>>>> c1d7a84ebe07a6d5ef93951d1264f392a26429ff

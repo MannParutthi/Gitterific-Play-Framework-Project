@@ -1,18 +1,4 @@
-<<<<<<< HEAD
 [0m[[0m[0mdebug[0m] [0m[0m"not up to date. inChanged = true, force = false[0m
 [0m[[0m[0mdebug[0m] [0m[0mUpdating ProjectRef(uri("file:/E:/APP_Project_G7/project/"), "app_project_g7-build")...[0m
 [0m[[0m[0mdebug[0m] [0m[0mDone updating ProjectRef(uri("file:/E:/APP_Project_G7/project/"), "app_project_g7-build")[0m
 [0m[[0m[33mwarn[0m] [0m[0mThere may be incompatibilities among your library dependencies; run 'evicted' to see detailed eviction warnings.[0m
-=======
-<<<<<<< HEAD
-[0m[[0m[0mdebug[0m] [0m[0m"not up to date. inChanged = true, force = false[0m
-[0m[[0m[0mdebug[0m] [0m[0mUpdating ProjectRef(uri("file:/D:/CODING/APP%20Project/APP_Project_G7/project/"), "app_project_g7-build")...[0m
-[0m[[0m[0mdebug[0m] [0m[0mDone updating ProjectRef(uri("file:/D:/CODING/APP%20Project/APP_Project_G7/project/"), "app_project_g7-build")[0m
-[0m[[0m[33mwarn[0m] [0m[0mThere may be incompatibilities among your library dependencies; run 'evicted' to see detailed eviction warnings.[0m
-=======
-[debug] "not up to date. inChanged = true, force = false
-[debug] Updating ProjectRef(uri("file:/D:/MAIN/APP_Project_G7/project/"), "app_project_g7-build")...
-[debug] Done updating ProjectRef(uri("file:/D:/MAIN/APP_Project_G7/project/"), "app_project_g7-build")
-[warn] There may be incompatibilities among your library dependencies; run 'evicted' to see detailed eviction warnings.
->>>>>>> 411744c082ee80cf0d368e368c8fe39c313f11df
->>>>>>> c1d7a84ebe07a6d5ef93951d1264f392a26429ff

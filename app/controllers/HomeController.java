@@ -223,13 +223,14 @@ public class HomeController {
 	 * @return Returns the Repository Data for the given Username
 	 */
 	public CompletionStage<Result> getRepoData(Http.Request request, String userName, String repoName) {
+		System.out.println("key => " + userName+repoName);
 		sessionMapRepoData.put("randomKeyForTesting", null); // for testing
 		CompletionStage<Result> resultCompletionStage;
 		if (!request.session().get(userName+repoName).isPresent() || this.sessionMapRepoData.get(request.session().get(userName+repoName).get()) == null) {
 			resultCompletionStage = repoDataService.getRepoData(userName, repoName).thenApply(repoDetails -> {
 				String randomKey = getSaltString();
 				this.sessionMapRepoData.put(randomKey, repoDetails);
-				System.out.println("repoData ==> " + repoDetails.toString() + repoDetails.getCommits()  + repoDetails.getIssues() + repoDetails.getContributors());
+				System.out.println("repoData ==> " + repoDetails.getContributors());
 				return ok(views.html.repoData.render(repoDetails)).addingToSession(request, userName+repoName, randomKey);
 			});
 		} else {
