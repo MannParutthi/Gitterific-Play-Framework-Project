@@ -35,6 +35,14 @@
 					<h4>TotalPrivateRepos : @data.getTotalPrivateRepos()</h4>
 					<h4>Type : @data.getType()</h4>
 					<h4>Url : @data.getUrl()</h4>
+
+  					    		@for(repo <- data.getRepoName()) {
+  					    			<ol type="A">
+  					    				<li>				    					
+  					    						<li><h4>Repo Name : <a href='@routes.HomeController.getRepoData(data.getLogin(), repo)'>@repo</a></h4></li>
+  					    				</li>
+  					    			</ol>
+  					    		}
  				</div>
   			</body>
   		</html>

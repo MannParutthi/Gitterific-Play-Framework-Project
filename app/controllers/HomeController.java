@@ -24,6 +24,7 @@ import services.UserDataService;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -54,7 +55,7 @@ public class HomeController {
 	private ArrayList<LinkedHashMap<String, List<SearchRepoModel>>> prevSearchData;
 	boolean isSessionPresent;
 	private final RepoDataService repoDataService;
-	private HashMap<String, List<RepoDataModel>> sessionMapRepoData;
+	private HashMap<String, RepoDataModel> sessionMapRepoData;
 	private RepoIssues repoIssues;
 	private final TopicDataService topicDataService;
 	private HashMap<String, List<TopicDataModel>> topicDataModelMap;
@@ -82,12 +83,16 @@ public class HomeController {
 		cacheMapSearchData = new HashMap<>();
 		prevSearchSessionData = new HashMap<String,ArrayList<LinkedHashMap<String, List<SearchRepoModel>>>>();
 		this.repoDataService = repoDataService;
-		sessionMapRepoData = new HashMap<String, List<RepoDataModel>>();
+		sessionMapRepoData = new HashMap<String, RepoDataModel>();
 		this.repoIssues = repoIssues;
 		this.topicDataService = topicDataService;
 		topicDataModelMap = new HashMap<String, List<TopicDataModel>>();
 		this.userDataService = userDataService;
 		sessionMapUserData = new HashMap<String, UserDetails>();
+	}
+
+	public void setRepoIssues(RepoIssues repoIssues) {
+		this.repoIssues = repoIssues;
 	}
 
 	/**
@@ -158,7 +163,7 @@ public class HomeController {
 						LinkedHashMap<String, List<SearchRepoModel>> currSearchData = new LinkedHashMap<String, List<SearchRepoModel>>();
 						currSearchData.put(searchKeyword, searchRepoList);
 						prevSearchData.add(currSearchData);
-						
+						Collections.reverse(prevSearchData);
 						if(isSessionPresent) {
 							return ok(views.html.searchResults.render(prevSearchData)); 
 						}
@@ -219,20 +224,23 @@ public class HomeController {
 	 * 
 	 * @param request The request parameter the handle the session 
 	 * @param userName Username to get the Repo Details
-	 * @return CompletionStage<Result> Returns the Repository Data for the given Username
+	 * @param repoName - Repository Name
+	 * @return Returns the Repository Data for the given Username
 	 */
-	public CompletionStage<Result> getRepoData(Http.Request request, String userName) {
-		sessionMapRepoData.put("randomKeyForTesting", Arrays.asList()); // for testing
+	public CompletionStage<Result> getRepoData(Http.Request request, String userName, String repoName) {
+		System.out.println("key => " + userName+repoName);
+		sessionMapRepoData.put("randomKeyForTesting", null); // for testing
 		CompletionStage<Result> resultCompletionStage;
-		if (!request.session().get(userName).isPresent() || this.sessionMapRepoData.get(request.session().get(userName).get()) == null) {
-			resultCompletionStage = repoDataService.getRepoData(userName).thenApply(repoList -> {
+		if (!request.session().get(userName+repoName).isPresent() || this.sessionMapRepoData.get(request.session().get(userName+repoName).get()) == null) {
+			resultCompletionStage = repoDataService.getRepoData(userName, repoName).thenApply(repoDetails -> {
 				String randomKey = getSaltString();
-				this.sessionMapRepoData.put(randomKey, repoList);
-				return ok(views.html.repoData.render(repoList)).addingToSession(request, userName, randomKey);
+				this.sessionMapRepoData.put(randomKey, repoDetails);
+				System.out.println("repoData ==> " + repoDetails.getContributors());
+				return ok(views.html.repoData.render(repoDetails)).addingToSession(request, userName+repoName, randomKey);
 			});
 		} else {
-			String key = request.session().get(userName).get();
-			List<RepoDataModel> repoData = this.sessionMapRepoData.get(key);
+			String key = request.session().get(userName+repoName).get();
+			RepoDataModel repoData = this.sessionMapRepoData.get(key);
 			System.out.println("inside session ==> " + key);
 			resultCompletionStage = CompletableFuture.supplyAsync(() -> ok(views.html.repoData.render(repoData)));
 		}
@@ -249,7 +257,7 @@ public class HomeController {
 	public CompletionStage<Result> getRepoIssues(String userName,String repo) {
 		System.out.println(userName + "," + repo);
 		return repoIssues.getIssueReportFromRepo(userName,repo)
-				.thenApply(output -> ok(views.html.repoIssueShow.render(output)));
+				.thenApplyAsync(output -> ok(views.html.repoIssueShow.render(output)));
 	}
 	
 	/**

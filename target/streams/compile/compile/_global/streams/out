@@ -1,2 +1,4 @@
-[error] D:\MAIN\APP_Project_G7\app\controllers\HomeController.java:220:1: local variables referenced from a lambda expression must be final or effectively final
-[error] userName
+[0m[[0m[31merror[0m] [0m[0mE:\APP_Project_G7\app\controllers\HomeController.java:164:1: 'void' type not allowed here[0m
+[0m[[0m[31merror[0m] [0m[0mCollections.reverse(prevSearchData)[0m
+[0m[[0m[31merror[0m] [0m[0mE:\APP_Project_G7\app\controllers\HomeController.java:167:1: 'void' type not allowed here[0m
+[0m[[0m[31merror[0m] [0m[0mCollections.reverse(prevSearchData)[0m

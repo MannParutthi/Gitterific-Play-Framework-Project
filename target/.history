@@ -404,5 +404,78 @@ jacoco
 compile
 run
 ;set _root_.scala.collection.Seq(historyPath := None,shellPrompt := { _ => "" },SettingKey[_root_.scala.Option[_root_.sbt.File]]("sbtStructureOutputFile") in _root_.sbt.Global := _root_.scala.Some(_root_.sbt.file("C:/Users/KEVINP~1/AppData/Local/Temp/sbt-structure.xml")),SettingKey[_root_.java.lang.String]("sbtStructureOptions") in _root_.sbt.Global := "download, resolveClassifiers");apply -cp "C:/Users/Kevin Patel/AppData/Roaming/JetBrains/IntelliJIdea2021.2/plugins/Scala/repo/org/jetbrains/scala/sbt-structure-extractor_2.12_1.0/2021.1.1/sbt-structure-extractor-2021.1.1.jar" org.jetbrains.sbt.CreateTasks;*/*:dumpStructure
+<<<<<<< HEAD
+run
+eclipse
+run
+exit
+=======
+<<<<<<< HEAD
+eclipse
+compile
+run
+eclipse
+exit
+eclipse
+compile
+run
+compile
+run
+=======
 >>>>>>> 411744c082ee80cf0d368e368c8fe39c313f11df
+<<<<<<< HEAD
 jacoco
+=======
+>>>>>>> c1d7a84ebe07a6d5ef93951d1264f392a26429ff
+>>>>>>> 298d530b0aea8a7ce4ae897d2188353cfa1051b7
+;set _root_.scala.collection.Seq(historyPath := None,shellPrompt := { _ => "" },SettingKey[_root_.scala.Option[_root_.sbt.File]]("sbtStructureOutputFile") in _root_.sbt.Global := _root_.scala.Some(_root_.sbt.file("C:/Users/KEVINP~1/AppData/Local/Temp/sbt-structure.xml")),SettingKey[_root_.java.lang.String]("sbtStructureOptions") in _root_.sbt.Global := "download, resolveClassifiers");apply -cp "C:/Users/Kevin Patel/AppData/Roaming/JetBrains/IntelliJIdea2021.2/plugins/Scala/repo/org/jetbrains/scala/sbt-structure-extractor_2.12_1.0/2021.1.1/sbt-structure-extractor-2021.1.1.jar" org.jetbrains.sbt.CreateTasks;*/*:dumpStructure
+compile
+run
+compile
+run
+exit
+run
+exit
+compile
+run
+test
+exit
+eclipse
+test
+compile
+run
+test
+jacoco
+<<<<<<< HEAD
+test
+exit
+test
+jacoco
+exit
+run
+compile
+run
+compile
+run
+test
+jacoco
+compile
+run
+clean
+compile
+run
+test
+jacoco
+test
+=======
+eclipse
+clean
+compile
+test
+jacoco
+run
+clean
+test
+run
+>>>>>>> c4e163bdfc25a71d2a379daf7b0c520f0faa7303
+>>>>>>> 0fff2142cdc9db1584c33eadcffdf4e28bdded56

@@ -15,6 +15,6 @@ GET 	/userData/:userName			controllers.HomeController.getUserData(request: Reque
 GET		/repoIssues/:userName/:repoName       controllers.HomeController.getRepoIssues(userName: String, repoName: String)
 GET 	/topicData/:topic			controllers.HomeController.getTopicData(request: Request, topic: String)
 
-GET		/repoData/:userName			controllers.HomeController.getRepoData(request: Request, userName: String)
+GET		/repoData/:userName/:repoName			controllers.HomeController.getRepoData(request: Request, userName: String, repoName: String)
 
 GET		/searchResult				controllers.HomeController.getSearchResults(request: Request)

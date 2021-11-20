@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 ["sbt.Task[scala.collection.Seq[java.nio.file.Path]]",["D:\\CODING\\APP Project\\APP_Project_G7\\project\\target\\streams\\compile\\compileOutputs\\_global\\streams\\inc_compile_2.12.zip"]]
+=======
+["sbt.Task[scala.collection.Seq[java.nio.file.Path]]",["E:\\APP_PROJECT_G7_LATEST\\project\\target\\streams\\compile\\compileOutputs\\_global\\streams\\inc_compile_2.12.zip"]]
+>>>>>>> 0fff2142cdc9db1584c33eadcffdf4e28bdded56

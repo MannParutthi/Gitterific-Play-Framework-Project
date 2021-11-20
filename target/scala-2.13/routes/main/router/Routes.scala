@@ -45,7 +45,7 @@ class Routes(
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """userData/""" + "$" + """userName<[^/]+>""", """controllers.HomeController.getUserData(request:Request, userName:String)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """repoIssues/""" + "$" + """userName<[^/]+>/""" + "$" + """repoName<[^/]+>""", """controllers.HomeController.getRepoIssues(userName:String, repoName:String)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """topicData/""" + "$" + """topic<[^/]+>""", """controllers.HomeController.getTopicData(request:Request, topic:String)"""),
-    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """repoData/""" + "$" + """userName<[^/]+>""", """controllers.HomeController.getRepoData(request:Request, userName:String)"""),
+    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """repoData/""" + "$" + """userName<[^/]+>/""" + "$" + """repoName<[^/]+>""", """controllers.HomeController.getRepoData(request:Request, userName:String, repoName:String)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """searchResult""", """controllers.HomeController.getSearchResults(request:Request)"""),
     Nil
   ).foldLeft(List.empty[(String,String,String)]) { (s,e) => e.asInstanceOf[Any] match {
@@ -170,19 +170,19 @@ class Routes(
 
   // @LINE:18
   private[this] lazy val controllers_HomeController_getRepoData6_route = Route("GET",
-    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("repoData/"), DynamicPart("userName", """[^/]+""",true)))
+    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("repoData/"), DynamicPart("userName", """[^/]+""",true), StaticPart("/"), DynamicPart("repoName", """[^/]+""",true)))
   )
   private[this] lazy val controllers_HomeController_getRepoData6_invoker = createInvoker(
     
     (req:play.mvc.Http.Request) =>
-      HomeController_1.getRepoData(fakeValue[play.mvc.Http.Request], fakeValue[String]),
+      HomeController_1.getRepoData(fakeValue[play.mvc.Http.Request], fakeValue[String], fakeValue[String]),
     play.api.routing.HandlerDef(this.getClass.getClassLoader,
       "router",
       "controllers.HomeController",
       "getRepoData",
-      Seq(classOf[play.mvc.Http.Request], classOf[String]),
+      Seq(classOf[play.mvc.Http.Request], classOf[String], classOf[String]),
       "GET",
-      this.prefix + """repoData/""" + "$" + """userName<[^/]+>""",
+      this.prefix + """repoData/""" + "$" + """userName<[^/]+>/""" + "$" + """repoName<[^/]+>""",
       """""",
       Seq()
     )
@@ -252,9 +252,9 @@ class Routes(
   
     // @LINE:18
     case controllers_HomeController_getRepoData6_route(params@_) =>
-      call(params.fromPath[String]("userName", None)) { (userName) =>
+      call(params.fromPath[String]("userName", None), params.fromPath[String]("repoName", None)) { (userName, repoName) =>
         controllers_HomeController_getRepoData6_invoker.call(
-          req => HomeController_1.getRepoData(req, userName))
+          req => HomeController_1.getRepoData(req, userName, repoName))
       }
   
     // @LINE:20
