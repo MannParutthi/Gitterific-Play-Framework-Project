@@ -91,6 +91,10 @@ public class HomeController {
 		sessionMapUserData = new HashMap<String, UserDetails>();
 	}
 
+	public void setRepoIssues(RepoIssues repoIssues) {
+		this.repoIssues = repoIssues;
+	}
+
 	/**
 	 * An action that renders an HTML page with a welcome message. The configuration
 	 * in the <code>routes</code> file means that this method will be called when
@@ -253,7 +257,7 @@ public class HomeController {
 	public CompletionStage<Result> getRepoIssues(String userName,String repo) {
 		System.out.println(userName + "," + repo);
 		return repoIssues.getIssueReportFromRepo(userName,repo)
-				.thenApply(output -> ok(views.html.repoIssueShow.render(output)));
+				.thenApplyAsync(output -> ok(views.html.repoIssueShow.render(output)));
 	}
 	
 	/**
