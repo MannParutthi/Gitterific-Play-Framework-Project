@@ -1,11 +1,15 @@
 package services;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
+import org.eclipse.egit.github.core.Repository;
 import org.eclipse.egit.github.core.User;
 import org.eclipse.egit.github.core.client.GitHubClient;
+import org.eclipse.egit.github.core.service.RepositoryService;
 import org.eclipse.egit.github.core.service.UserService;
 
 import model.UserDetails;
@@ -19,6 +23,7 @@ public class UserDataService {
 	private UserService userService;
 	private GitHubClient gitHubClient;
 	private UserDetails userDetails;
+	private RepositoryService repositoryService;
 	
 	/**
 	 * Default Constructor
@@ -26,7 +31,7 @@ public class UserDataService {
 	public UserDataService() {
 		gitHubClient = new GitHubClient();
 		this.userService = new UserService(gitHubClient);
-		
+		this.repositoryService = new RepositoryService(gitHubClient);
 	}
 	
 	/**
@@ -40,6 +45,12 @@ public class UserDataService {
 			User user = null;
 			try {
 				user = userService.getUser(login);
+				List<Repository> repoList = repositoryService.getRepositories(login);
+				List<String> listOfRepoNames = new ArrayList<String>();
+				for (Repository repository : repoList) {
+					listOfRepoNames.add(repository.getName());
+				}
+				userDetails.setRepoName(listOfRepoNames);
 				userDetails.setEmail(user.getEmail());
 				userDetails.setId(user.getId());
 				userDetails.setLocation(user.getLocation());

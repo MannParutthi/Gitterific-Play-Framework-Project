@@ -1,4 +1,4 @@
-[debug] Copy resource mappings: 
-[debug] 	(D:\MAIN\APP_Project_G7\conf\application.conf,D:\MAIN\APP_Project_G7\target\scala-2.13\classes\application.conf)
-[debug] 	(D:\MAIN\APP_Project_G7\conf\logback.xml,D:\MAIN\APP_Project_G7\target\scala-2.13\classes\logback.xml)
-[debug] 	(D:\MAIN\APP_Project_G7\conf\routes,D:\MAIN\APP_Project_G7\target\scala-2.13\classes\routes)
+[0m[[0m[0mdebug[0m] [0m[0mCopy resource mappings: [0m
+[0m[[0m[0mdebug[0m] [0m[0m	(D:\app_project\APP_Project_G7\conf\application.conf,D:\app_project\APP_Project_G7\target\scala-2.13\classes\application.conf)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	(D:\app_project\APP_Project_G7\conf\logback.xml,D:\app_project\APP_Project_G7\target\scala-2.13\classes\logback.xml)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	(D:\app_project\APP_Project_G7\conf\routes,D:\app_project\APP_Project_G7\target\scala-2.13\classes\routes)[0m
