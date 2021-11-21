@@ -7,6 +7,7 @@ import model.RepoCommitModel;
 import model.RepoContributorModel;
 import model.RepoDataModel;
 import model.RepoIssueModel;
+import model.UserDetails;
 
 public class DummyResponseForTesting {
 
@@ -56,6 +57,28 @@ public class DummyResponseForTesting {
 		repoOneDataModel.setCommits(Arrays.asList(repoOneCommitOneModel, repoOneCommitTwoModel, repoOneCommitThreeModel,
 				repoOneCommitFourModel, repoOneCommitFiveModel));
 		return repoOneDataModel;
+	}
+	
+	public static UserDetails getUserData() {
+		UserDetails userDetails = new UserDetails();
+		userDetails.setName("test");
+		userDetails.setId(44037806);
+		userDetails.setAvatarUrl("https://avatars.githubusercontent.com/u/44037806?v=4");
+		userDetails.setBlog("http://fabien.potencier.org/");
+		userDetails.setCollaborators(3);
+		userDetails.setCompany("Symfony/Blackfire");
+		userDetails.setFollowers(700);
+		userDetails.setFollowing(20);
+		userDetails.setHireable(false);
+		userDetails.setHtmlUrl("https://github.com/fabpot");
+		userDetails.setPublicRepos(8);
+		userDetails.setPublicGists(10);
+		userDetails.setUrl("https://api.github.com/users/fabpot");
+		userDetails.setType("User");
+		userDetails.setPrivateGists(0);
+		userDetails.setTotalPrivateRepos(0);
+		userDetails.setRepoName(Arrays.asList("git"));
+		return userDetails;
 	}
 
 }

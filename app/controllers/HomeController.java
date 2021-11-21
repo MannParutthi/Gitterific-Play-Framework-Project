@@ -318,7 +318,7 @@ public class HomeController {
 	 * @return CompletionStage<Result> Returns the data of the given User
 	 */
 	public CompletionStage<Result> getUserData(Http.Request request, String userName) {
-		sessionMapUserData.put("randomKeyTest", new UserDetails());
+		sessionMapUserData.put("randomKeyTest1995", DummyResponseForTesting.getUserData());
 		System.out.println("hi--------------------------------------");
 		System.out.println(this.sessionMapUserData);
 		System.out.println(request.session().get(userName));
