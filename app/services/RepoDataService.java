@@ -24,7 +24,7 @@ import model.RepoIssueModel;
 import play.mvc.Http.Session;
 
 /**
- * Service Class for Repository Data
+ * This RepoDataService class is used to interact with API and get the Repository Data
  *
  * @author Manan Dineshbhai Paruthi
  *
@@ -47,7 +47,7 @@ public class RepoDataService {
 	}
 
 	/**
-	 * Returns the list of Repository Data for the given username
+	 * This method is used to return the list of Repository Data for the given username from API
 	 * 
 	 * @param userName Username to get the Repo Data
 	 * @param repoName Repository name 

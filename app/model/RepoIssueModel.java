@@ -1,7 +1,7 @@
 package model;
 
 /**
- * Model class for Repo Issue
+ * This is the Model class for Repo Issue
  *
  * @author Kevinkumar Patel
  */
@@ -9,7 +9,7 @@ public class RepoIssueModel {
 	private String title, url;
 
 	/**
-	 * Gets the Title
+	 * This method gets the title
 	 * @return Returns the title
 	 */
 	public String getTitle() {
@@ -17,7 +17,7 @@ public class RepoIssueModel {
 	}
 
 	/**
-	 * Sets the Title
+	 * This method sets the Title
 	 * @param title Sets the Title
 	 * @return void
 	 */
@@ -26,7 +26,7 @@ public class RepoIssueModel {
 	}
 
 	/**
-	 * Gets the URL
+	 * This method gets the URL
 	 * @return Returns the URL
 	 */
 	public String getUrl() {
@@ -34,7 +34,7 @@ public class RepoIssueModel {
 	}
 	
 	/**
-	 * Sets the URL
+	 * This method sets the URL
 	 * @param url Sets the URL
 	 * @return void
 	 */

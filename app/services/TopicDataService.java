@@ -15,7 +15,7 @@ import org.eclipse.egit.github.core.service.RepositoryService;
 import model.TopicDataModel;
 
 /**
- * Service Class for Topic Data 
+ * This TopicDataService Class is used to interact with API and get the repositories of matching topic 
  * 
  * @author Yashwanth Gundlapally
  *
