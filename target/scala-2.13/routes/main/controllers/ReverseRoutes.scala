@@ -17,40 +17,34 @@ package controllers {
     }
 
   
-    // @LINE:15
+    // @LINE:14
     def getRepoIssues(userName:String, repoName:String): Call = {
       
       Call("GET", _prefix + { _defaultPrefix } + "repoIssues/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("userName", userName)) + "/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("repoName", repoName)))
     }
   
-    // @LINE:16
+    // @LINE:15
     def getTopicData(topic:String): Call = {
       
       Call("GET", _prefix + { _defaultPrefix } + "topicData/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("topic", topic)))
     }
   
-    // @LINE:13
+    // @LINE:12
     def getUserData(userName:String): Call = {
       
       Call("GET", _prefix + { _defaultPrefix } + "userData/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("userName", userName)))
     }
   
-    // @LINE:18
+    // @LINE:17
     def getRepoData(userName:String, repoName:String): Call = {
       
       Call("GET", _prefix + { _defaultPrefix } + "repoData/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("userName", userName)) + "/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("repoName", repoName)))
     }
   
-    // @LINE:20
+    // @LINE:19
     def getSearchResults(): Call = {
       
       Call("GET", _prefix + { _defaultPrefix } + "searchResult")
-    }
-  
-    // @LINE:11
-    def getUserProfile(name:String): Call = {
-      
-      Call("GET", _prefix + { _defaultPrefix } + "git/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("name", name)))
     }
   
     // @LINE:6

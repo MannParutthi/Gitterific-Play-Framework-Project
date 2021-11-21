@@ -1,133 +1,101 @@
-2021-11-19 23:07:47,838 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-7 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+2021-11-20 19:10:42,354 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-7 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
 
     play.filters.csrf.CSRFFilter
     play.filters.headers.SecurityHeadersFilter
     play.filters.hosts.AllowedHostsFilter
     play.filters.csrf.CSRFFilter
 
-2021-11-19 23:07:47,894 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-7 - Application started (Dev) (no global state)
-2021-11-19 23:09:51,078 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-8 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
-
-    play.filters.csrf.CSRFFilter
-    play.filters.headers.SecurityHeadersFilter
-    play.filters.hosts.AllowedHostsFilter
-    play.filters.csrf.CSRFFilter
-
-2021-11-19 23:09:51,086 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-8 - Application started (Dev) (no global state)
-2021-11-19 23:09:52,336 [ERROR] from play.api.http.DefaultHttpErrorHandler in application-akka.actor.default-dispatcher-6 - 
-
-! @7lmajg2pf - Internal server error, for (GET) [/userData/CyC2018] ->
- 
-play.api.PlayException: Execution exception[[CompletionException: java.lang.NullPointerException]]
-	at play.api.http.HttpErrorHandlerExceptions$.$anonfun$convertToPlayException$3(HttpErrorHandler.scala:388)
-	at scala.Option.getOrElse(Option.scala:201)
-	at play.api.http.HttpErrorHandlerExceptions$.convertToPlayException(HttpErrorHandler.scala:388)
-	at play.api.http.HttpErrorHandlerExceptions$.throwableToUsefulException(HttpErrorHandler.scala:373)
-	at play.api.http.DefaultHttpErrorHandler.onServerError(HttpErrorHandler.scala:264)
-	at play.core.server.AkkaHttpServer$$anonfun$2.applyOrElse(AkkaHttpServer.scala:430)
-	at play.core.server.AkkaHttpServer$$anonfun$2.applyOrElse(AkkaHttpServer.scala:422)
-	at scala.concurrent.impl.Promise$Transformation.run(Promise.scala:454)
-	at akka.dispatch.BatchingExecutor$AbstractBatch.processBatch(BatchingExecutor.scala:63)
-	at akka.dispatch.BatchingExecutor$BlockableBatch.$anonfun$run$1(BatchingExecutor.scala:100)
-	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
-	at scala.concurrent.BlockContext$.withBlockContext(BlockContext.scala:94)
-	at akka.dispatch.BatchingExecutor$BlockableBatch.run(BatchingExecutor.scala:100)
-	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:49)
-	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(ForkJoinExecutorConfigurator.scala:48)
-	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:290)
-	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1020)
-	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1656)
-	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1594)
-	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:177)
-Caused by: java.util.concurrent.CompletionException: java.lang.NullPointerException
-	at java.base/java.util.concurrent.CompletableFuture.encodeThrowable(CompletableFuture.java:314)
-	at java.base/java.util.concurrent.CompletableFuture.completeThrowable(CompletableFuture.java:319)
-	at java.base/java.util.concurrent.CompletableFuture$UniApply.tryFire(CompletableFuture.java:645)
-	at java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)
-	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1705)
-	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.exec(CompletableFuture.java:1692)
-	... 5 common frames omitted
-Caused by: java.lang.NullPointerException: null
-	at play.utils.UriEncoding$.encodePathSegment(UriEncoding.scala:51)
-	at play.core.routing.package$.dynamicString(package.scala:14)
-	at controllers.ReverseHomeController.getRepoData(ReverseRoutes.scala:41)
-	at views.html.userData$.$anonfun$apply$1(userData.template.scala:73)
-	at scala.collection.StrictOptimizedIterableOps.map(StrictOptimizedIterableOps.scala:99)
-	at scala.collection.StrictOptimizedIterableOps.map$(StrictOptimizedIterableOps.scala:86)
-	at scala.collection.convert.JavaCollectionWrappers$JListWrapper.map(JavaCollectionWrappers.scala:103)
-	at views.html.userData$.apply(userData.template.scala:70)
-	at views.html.userData$.render(userData.template.scala:87)
-	at views.html.userData.render(userData.template.scala)
-	at controllers.HomeController.lambda$getUserData$8(HomeController.java:304)
-	at java.base/java.util.concurrent.CompletableFuture$UniApply.tryFire(CompletableFuture.java:642)
-	... 8 common frames omitted
-2021-11-19 23:12:47,140 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-15 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
-
-    play.filters.csrf.CSRFFilter
-    play.filters.headers.SecurityHeadersFilter
-    play.filters.hosts.AllowedHostsFilter
-    play.filters.csrf.CSRFFilter
-
-2021-11-19 23:12:47,149 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-15 - Application started (Dev) (no global state)
-2021-11-19 23:13:48,030 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-7 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
-
-    play.filters.csrf.CSRFFilter
-    play.filters.headers.SecurityHeadersFilter
-    play.filters.hosts.AllowedHostsFilter
-    play.filters.csrf.CSRFFilter
-
-2021-11-19 23:13:48,078 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-7 - Application started (Dev) (no global state)
-2021-11-19 23:27:36,243 [ERROR] from play.api.http.DefaultHttpErrorHandler in play-dev-mode-akka.actor.default-dispatcher-8 - 
-
-! @7lmalogig - Internal server error, for (GET) [/] ->
- 
-play.sbt.PlayExceptions$CompilationException: Compilation error['void' type not allowed here]
-	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:34)
-	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:34)
-	at scala.Option.map(Option.scala:230)
-	at play.sbt.run.PlayReload$.$anonfun$taskFailureHandler$8(PlayReload.scala:131)
-	at scala.Option.map(Option.scala:230)
-	at play.sbt.run.PlayReload$.taskFailureHandler(PlayReload.scala:104)
-	at play.sbt.run.PlayReload$.compileFailure(PlayReload.scala:38)
-	at play.sbt.run.PlayReload$.$anonfun$compile$3(PlayReload.scala:156)
-	at scala.util.Either$LeftProjection.map(Either.scala:573)
-	at play.sbt.run.PlayReload$.compile(PlayReload.scala:156)
-	at play.sbt.run.PlayRun$.$anonfun$playRunTask$4(PlayRun.scala:80)
-	at play.runsupport.Reloader.$anonfun$reload$1(Reloader.scala:496)
-	at play.runsupport.Reloader$$anon$1.run(Reloader.scala:57)
-	at java.base/java.security.AccessController.doPrivileged(Native Method)
-	at play.runsupport.Reloader$.play$runsupport$Reloader$$withReloaderContextClassLoader(Reloader.scala:63)
-	at play.runsupport.Reloader.reload(Reloader.scala:496)
-	at play.core.server.DevServerStart$$anon$1.get(DevServerStart.scala:147)
-	at play.core.server.AkkaHttpServer.handleRequest(AkkaHttpServer.scala:302)
-	at play.core.server.AkkaHttpServer.$anonfun$createServerBinding$1(AkkaHttpServer.scala:224)
-	at akka.stream.impl.fusing.MapAsync$$anon$30.onPush(Ops.scala:1297)
-	at akka.stream.impl.fusing.GraphInterpreter.processPush(GraphInterpreter.scala:541)
-	at akka.stream.impl.fusing.GraphInterpreter.processEvent(GraphInterpreter.scala:495)
-	at akka.stream.impl.fusing.GraphInterpreter.execute(GraphInterpreter.scala:390)
-	at akka.stream.impl.fusing.GraphInterpreterShell.runBatch(ActorGraphInterpreter.scala:625)
-	at akka.stream.impl.fusing.GraphInterpreterShell$AsyncInput.execute(ActorGraphInterpreter.scala:502)
-	at akka.stream.impl.fusing.GraphInterpreterShell.processEvent(ActorGraphInterpreter.scala:600)
-	at akka.stream.impl.fusing.ActorGraphInterpreter.akka$stream$impl$fusing$ActorGraphInterpreter$$processEvent(ActorGraphInterpreter.scala:775)
-	at akka.stream.impl.fusing.ActorGraphInterpreter$$anonfun$receive$1.applyOrElse(ActorGraphInterpreter.scala:790)
-	at akka.actor.Actor.aroundReceive(Actor.scala:537)
-	at akka.actor.Actor.aroundReceive$(Actor.scala:535)
-	at akka.stream.impl.fusing.ActorGraphInterpreter.aroundReceive(ActorGraphInterpreter.scala:691)
-	at akka.actor.ActorCell.receiveMessage(ActorCell.scala:579)
-	at akka.actor.ActorCell.invoke(ActorCell.scala:547)
-	at akka.dispatch.Mailbox.processMailbox(Mailbox.scala:270)
-	at akka.dispatch.Mailbox.run(Mailbox.scala:231)
-	at akka.dispatch.Mailbox.exec(Mailbox.scala:243)
-	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:290)
-	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1020)
-	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1656)
-	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1594)
-	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:177)
-2021-11-19 23:29:21,948 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-13 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
-
-    play.filters.csrf.CSRFFilter
-    play.filters.headers.SecurityHeadersFilter
-    play.filters.hosts.AllowedHostsFilter
-    play.filters.csrf.CSRFFilter
-
-2021-11-19 23:29:21,953 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-13 - Application started (Dev) (no global state)
+2021-11-20 19:10:42,402 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-7 - Application started (Dev) (no global state)
+2021-11-20 19:11:30,133 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
+2021-11-20 19:11:30,139 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-2 - Terminating server binding for /0:0:0:0:0:0:0:0:60298
+2021-11-20 19:11:30,143 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-4 - Running provided shutdown stop hooks
+2021-11-20 19:11:32,122 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
+2021-11-20 19:11:32,122 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-5 - Terminating server binding for /0:0:0:0:0:0:0:0:60429
+2021-11-20 19:11:32,122 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-5 - Running provided shutdown stop hooks
+2021-11-20 19:11:32,854 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
+2021-11-20 19:11:32,854 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-6 - Terminating server binding for /0:0:0:0:0:0:0:0:60497
+2021-11-20 19:11:32,854 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-2 - Running provided shutdown stop hooks
+2021-11-20 19:11:33,092 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
+2021-11-20 19:11:33,092 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-5 - Terminating server binding for /0:0:0:0:0:0:0:0:60565
+2021-11-20 19:11:33,092 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-4 - Running provided shutdown stop hooks
+2021-11-20 19:11:33,795 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
+2021-11-20 19:11:33,795 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-6 - Terminating server binding for /0:0:0:0:0:0:0:0:60632
+2021-11-20 19:11:33,795 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-6 - Running provided shutdown stop hooks
+2021-11-20 19:11:44,911 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
+2021-11-20 19:11:44,911 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-5 - Terminating server binding for /0:0:0:0:0:0:0:0:60972
+2021-11-20 19:11:44,927 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-2 - Running provided shutdown stop hooks
+2021-11-20 19:11:46,258 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
+2021-11-20 19:11:46,258 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-5 - Terminating server binding for /0:0:0:0:0:0:0:0:61103
+2021-11-20 19:11:46,258 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-3 - Running provided shutdown stop hooks
+2021-11-20 19:11:47,026 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
+2021-11-20 19:11:47,026 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-2 - Terminating server binding for /0:0:0:0:0:0:0:0:61171
+2021-11-20 19:11:47,026 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-3 - Running provided shutdown stop hooks
+2021-11-20 19:11:47,264 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
+2021-11-20 19:11:47,264 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-2 - Terminating server binding for /0:0:0:0:0:0:0:0:61239
+2021-11-20 19:11:47,264 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-2 - Running provided shutdown stop hooks
+2021-11-20 19:11:47,954 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
+2021-11-20 19:11:47,954 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-4 - Terminating server binding for /0:0:0:0:0:0:0:0:61306
+2021-11-20 19:11:47,954 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-3 - Running provided shutdown stop hooks
+2021-11-20 19:14:22,221 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
+2021-11-20 19:14:22,225 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-2 - Terminating server binding for /0:0:0:0:0:0:0:0:61655
+2021-11-20 19:14:22,233 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-4 - Running provided shutdown stop hooks
+2021-11-20 19:14:24,170 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
+2021-11-20 19:14:24,172 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-2 - Terminating server binding for /0:0:0:0:0:0:0:0:61786
+2021-11-20 19:14:24,173 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-4 - Running provided shutdown stop hooks
+2021-11-20 19:14:24,894 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
+2021-11-20 19:14:24,895 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-3 - Terminating server binding for /0:0:0:0:0:0:0:0:61855
+2021-11-20 19:14:24,896 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-3 - Running provided shutdown stop hooks
+2021-11-20 19:14:25,173 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
+2021-11-20 19:14:25,174 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-6 - Terminating server binding for /0:0:0:0:0:0:0:0:61923
+2021-11-20 19:14:25,176 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-6 - Running provided shutdown stop hooks
+2021-11-20 19:14:25,896 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
+2021-11-20 19:14:25,896 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-5 - Terminating server binding for /0:0:0:0:0:0:0:0:61990
+2021-11-20 19:14:25,897 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-5 - Running provided shutdown stop hooks
+2021-11-20 19:14:37,816 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
+2021-11-20 19:14:37,820 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-5 - Terminating server binding for /0:0:0:0:0:0:0:0:62333
+2021-11-20 19:14:37,830 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-3 - Running provided shutdown stop hooks
+2021-11-20 19:14:39,140 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
+2021-11-20 19:14:39,141 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-5 - Terminating server binding for /0:0:0:0:0:0:0:0:62464
+2021-11-20 19:14:39,143 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-5 - Running provided shutdown stop hooks
+2021-11-20 19:14:39,852 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
+2021-11-20 19:14:39,853 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-3 - Terminating server binding for /0:0:0:0:0:0:0:0:62532
+2021-11-20 19:14:39,854 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-5 - Running provided shutdown stop hooks
+2021-11-20 19:14:40,075 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
+2021-11-20 19:14:40,075 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-6 - Terminating server binding for /0:0:0:0:0:0:0:0:62600
+2021-11-20 19:14:40,077 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-5 - Running provided shutdown stop hooks
+2021-11-20 19:14:40,760 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
+2021-11-20 19:14:40,761 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-4 - Terminating server binding for /0:0:0:0:0:0:0:0:62667
+2021-11-20 19:14:40,762 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-5 - Running provided shutdown stop hooks
+2021-11-20 19:16:44,198 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
+2021-11-20 19:16:44,202 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-5 - Terminating server binding for /0:0:0:0:0:0:0:0:63018
+2021-11-20 19:16:44,210 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-5 - Running provided shutdown stop hooks
+2021-11-20 19:16:46,207 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
+2021-11-20 19:16:46,207 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-5 - Terminating server binding for /0:0:0:0:0:0:0:0:63149
+2021-11-20 19:16:46,209 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-3 - Running provided shutdown stop hooks
+2021-11-20 19:16:46,929 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
+2021-11-20 19:16:46,930 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-7 - Terminating server binding for /0:0:0:0:0:0:0:0:63217
+2021-11-20 19:16:46,932 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-5 - Running provided shutdown stop hooks
+2021-11-20 19:16:47,200 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
+2021-11-20 19:16:47,201 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-5 - Terminating server binding for /0:0:0:0:0:0:0:0:63285
+2021-11-20 19:16:47,202 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-2 - Running provided shutdown stop hooks
+2021-11-20 19:16:47,944 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
+2021-11-20 19:16:47,944 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-2 - Terminating server binding for /0:0:0:0:0:0:0:0:63352
+2021-11-20 19:16:47,946 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-3 - Running provided shutdown stop hooks
+2021-11-20 19:16:57,714 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
+2021-11-20 19:16:57,719 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-2 - Terminating server binding for /0:0:0:0:0:0:0:0:63692
+2021-11-20 19:16:57,729 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-2 - Running provided shutdown stop hooks
+2021-11-20 19:16:59,069 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
+2021-11-20 19:16:59,070 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-4 - Terminating server binding for /0:0:0:0:0:0:0:0:63823
+2021-11-20 19:16:59,071 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-6 - Running provided shutdown stop hooks
+2021-11-20 19:16:59,801 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
+2021-11-20 19:16:59,802 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-5 - Terminating server binding for /0:0:0:0:0:0:0:0:63891
+2021-11-20 19:16:59,804 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-6 - Running provided shutdown stop hooks
+2021-11-20 19:17:00,034 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
+2021-11-20 19:17:00,035 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-3 - Terminating server binding for /0:0:0:0:0:0:0:0:63959
+2021-11-20 19:17:00,036 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-6 - Running provided shutdown stop hooks
+2021-11-20 19:17:00,724 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
+2021-11-20 19:17:00,725 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-3 - Terminating server binding for /0:0:0:0:0:0:0:0:64026
+2021-11-20 19:17:00,727 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-5 - Running provided shutdown stop hooks
+2021-11-20 19:19:58,999 [INFO] from play.core.server.AkkaHttpServer in play-dev-mode-shutdown-hook-1 - Stopping Akka HTTP server...
+2021-11-20 19:19:59,004 [INFO] from play.core.server.AkkaHttpServer in play-dev-mode-akka.actor.internal-dispatcher-3 - Terminating server binding for /0:0:0:0:0:0:0:0:9000
+2021-11-20 19:19:59,047 [INFO] from play.core.server.AkkaHttpServer in play-dev-mode-akka.actor.internal-dispatcher-21 - Running provided shutdown stop hooks

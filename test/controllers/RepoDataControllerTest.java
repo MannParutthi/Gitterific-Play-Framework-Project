@@ -75,6 +75,7 @@ public class RepoDataControllerTest {
 		repoOneDataModel.setCreatedOn(new Date("Sun Sep 26 16:23:40 EDT 2021"));
 		repoOneDataModel.setLastUpdatedOn(new Date("Sun Sep 26 17:04:56 EDT 2021"));
 		repoOneDataModel.setDescription(null);
+		repoOneDataModel.setOwner("MannParutthi");
 
 		RepoContributorModel repoOneContributorModel = new RepoContributorModel();
 		repoOneContributorModel.setLoginName("MannParutthi");

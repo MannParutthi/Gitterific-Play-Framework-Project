@@ -1,34 +1,3 @@
-eclipse
-compile
-run
-clean
-compile
-run
-<<<<<<< HEAD
-eclipse
-compile
-run
-;set _root_.scala.collection.Seq(historyPath := None,shellPrompt := { _ => "" },SettingKey[_root_.scala.Option[_root_.sbt.File]]("sbtStructureOutputFile") in _root_.sbt.Global := _root_.scala.Some(_root_.sbt.file("C:/Users/KEVINP~1/AppData/Local/Temp/sbt-structure.xml")),SettingKey[_root_.java.lang.String]("sbtStructureOptions") in _root_.sbt.Global := "download, resolveClassifiers");apply -cp "C:/Users/Kevin Patel/AppData/Roaming/JetBrains/IntelliJIdea2021.2/plugins/Scala/repo/org/jetbrains/scala/sbt-structure-extractor_2.12_1.0/2021.1.1/sbt-structure-extractor-2021.1.1.jar" org.jetbrains.sbt.CreateTasks;*/*:dumpStructure
-run
-=======
-<<<<<<< HEAD
-eclipse
-sbt run
-run
-stop
-run
-sbt
-run
-sbt
-run
-sbt
-run
-jacoco
-run
-2, rue de la Terrasse-Dufferin
-Quebec, Quebec G1R 4T9
-Canada
-=======
 clean
 eompile
 compile
@@ -474,3 +443,58 @@ clean
 test
 run
 >>>>>>> c4e163bdfc25a71d2a379daf7b0c520f0faa7303
+eclipse
+compile
+run
+test
+jacoco
+clean
+compile
+test
+jacoco
+test
+clean
+compile
+test
+jacoco
+clean
+compile
+test
+jacoco
+clean
+compile
+test
+jacoco
+clean
+compile
+test
+compile
+test
+clean
+compile
+test
+clean
+compile
+test
+clean
+compile
+test
+jacoco
+clean
+compile
+test
+jacoco
+clean
+compile
+run
+test
+jacoco
+clean
+test
+compile
+jacoco
+clean
+test
+clean
+test
+jacoco

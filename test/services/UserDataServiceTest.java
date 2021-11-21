@@ -7,16 +7,22 @@ import play.mvc.Result;
 import play.mvc.Http.Request;
 import play.test.Helpers;
 
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.ExecutionException;
 
 import static play.mvc.Results.ok;
 
+import org.eclipse.egit.github.core.Repository;
 import org.eclipse.egit.github.core.User;
+import org.eclipse.egit.github.core.service.RepositoryService;
 import org.eclipse.egit.github.core.service.UserService;
 import org.eclipse.jetty.http.HttpStatus;
 import org.junit.Assert;
@@ -48,10 +54,20 @@ public class UserDataServiceTest {
 	@Mock
 	UserService userService;
 	
+	@Mock
+	RepositoryService repositoryService;
+	
 //	static
 //	UserDetails userDetails;
 	
+	//@Mock
 	static User user;
+	
+	//@Mock
+	static List<Repository> repoList;
+	
+	//@Mock
+	static Repository repository;
 	
 	/**
 	 * This method is used for setting up the test data for testing
@@ -63,6 +79,10 @@ public class UserDataServiceTest {
 		MockitoAnnotations.initMocks(UserDataServiceTest.class);
 		
 		user = new User();
+		repository = new Repository();
+		repository.setName("repoName");
+		repoList = new ArrayList<Repository>();
+		//List<String> listOfRepoNames = new ArrayList<String>();
 		user.setName("test");
 		user.setId(44037806);
 		user.setAvatarUrl("https://avatars.githubusercontent.com/u/44037806?v=4");
@@ -79,34 +99,11 @@ public class UserDataServiceTest {
 		user.setType("User");
 		user.setPrivateGists(0);
 		user.setTotalPrivateRepos(0);
+		repoList.add(repository);
+		
 	}
 
-//	@Test
-//	public void testGetUser() {
-//
-//		when(userDataService.getUserData(anyString())).thenReturn(CompletableFuture.supplyAsync(() -> userDetails));
-//		Result res1=null,res2 = null;
-//		UserDetails ud = null;
-//		try {
-//		//	Request requestWithoutSession = Helpers.fakeRequest().method("GET").uri("/userData/harman8").build();
-//		//	res1 = userDataController.getUserData(requestWithoutSession,"harman8").toCompletableFuture().get();
-//			Request requestWithSession = Helpers.fakeRequest().method("GET").uri("/userData/harman8").session("harman8", "randomKeyTesting").build();
-//			res2 = userDataController.getUserData(requestWithSession,"harman8").toCompletableFuture().get();
-//		//	ud = userDataService.getUserData("harman8").toCompletableFuture().get();
-//		//	System.out.println(ud.getName());
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (ExecutionException e) {
-//			// 
-//			e.printStackTrace();
-//		}
-//		//System.out.println(a);
-//		
-//		//assertEquals( HttpStatus.OK_200,res1.status());
-//		assertEquals( HttpStatus.OK_200,res2.status());
-//
-//	}
+
 	
 	/**
 	 * This method test the getUser service 
@@ -119,6 +116,7 @@ public class UserDataServiceTest {
 
 		try {
 			when(userService.getUser(anyString())).thenReturn(user);
+			when(repositoryService.getRepositories(anyString())).thenReturn(repoList);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -126,7 +124,7 @@ public class UserDataServiceTest {
 		UserDetails ud = null;
 		try {			
 			ud = userDataService.getUserData("harman8").toCompletableFuture().get();
-			System.out.println(ud.getName());
+			System.out.println("repo------"+ud.getRepoName());
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -152,5 +150,9 @@ public class UserDataServiceTest {
 		assertEquals("User",ud.getType());
 		assertEquals(0,ud.getPrivateGists());
 		assertEquals(0,ud.getTotalPrivateRepos());
+		assertEquals(Arrays.asList("repoName"),ud.getRepoName());
+		
+		
+		
 	}
 }

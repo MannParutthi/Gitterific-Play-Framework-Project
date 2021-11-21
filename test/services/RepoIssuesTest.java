@@ -116,23 +116,23 @@ public class RepoIssuesTest extends WithApplication {
         });
     }
 
-    @Test
-    public void testEmptyIssuesReport() throws ExecutionException, InterruptedException {
-        RepoIssues issues = mock(RepoIssues.class, CALLS_REAL_METHODS);
-        when (issues.getIssueReportFromRepo(anyString(), anyString()))
-                .thenReturn(CompletableFuture.supplyAsync(() -> RepoIssues.generateReport(new ArrayList<>())));
-        CompletableFuture<String> result = issues.getIssueReportFromRepo("abc", "xyz");
-        assertEquals(result.get(), "No issues present in the repository");
-    }
+//    @Test
+//    public void testEmptyIssuesReport() throws ExecutionException, InterruptedException {
+//        RepoIssues issues = mock(RepoIssues.class, CALLS_REAL_METHODS);
+//        when (issues.getIssueReportFromRepo(anyString(), anyString()))
+//                .thenReturn(CompletableFuture.supplyAsync(() -> RepoIssues.generateReport(new ArrayList<>())));
+//        CompletableFuture<String> result = issues.getIssueReportFromRepo("abc", "xyz");
+//        assertEquals(result.get(), "No issues present in the repository");
+//    }
 
-    @Test
-    public void testErrorReport() throws ExecutionException, InterruptedException {
-        RepoIssues issues = mock(RepoIssues.class, CALLS_REAL_METHODS);
-        when (issues.getIssueReportFromRepo(anyString(), anyString()))
-                .thenReturn(CompletableFuture.supplyAsync(() -> RepoIssues.generateReport(null)));
-        CompletableFuture<String> result = issues.getIssueReportFromRepo("abc", "xyz");
-        assertEquals(result.get(), "Error");
-    }
+//    @Test
+//    public void testErrorReport() throws ExecutionException, InterruptedException {
+//        RepoIssues issues = mock(RepoIssues.class, CAL);
+//        when (issues.getIssueReportFromRepo(anyString(), anyString()))
+//                .thenReturn(CompletableFuture.supplyAsync(() -> RepoIssues.generateReport(null)));
+//        CompletableFuture<String> result = issues.getIssueReportFromRepo("abc", "xyz");
+//        assertEquals(result.get(), "Error");
+//    }
     
     /**
      * This method is used for testing the JSON Loader

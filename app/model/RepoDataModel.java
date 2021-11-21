@@ -11,11 +11,18 @@ import java.util.List;
  */
 public class RepoDataModel {
 	private long id;
-	private String description, language, url, cloneUrl, name;
+	private String description, language, url, cloneUrl, name, owner;
 	private Date createdOn, lastUpdatedOn;
 	private List<RepoContributorModel> contributors;
 	private List<RepoIssueModel> issues;
 	private List<RepoCommitModel> commits;
+	
+	public String getOwner() {
+		return owner;
+	}
+	public void setOwner(String owner) {
+		this.owner = owner;
+	}
 	
 	/**
 	 * Gets the Repo name

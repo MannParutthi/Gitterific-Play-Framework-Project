@@ -66,6 +66,7 @@ public class RepoDataService {
 				repoData.setCloneUrl(repository.getCloneUrl());
 				repoData.setCreatedOn(repository.getCreatedAt());
 				repoData.setLastUpdatedOn(repository.getUpdatedAt());
+				repoData.setOwner(repository.getOwner().getLogin());
 
 				List<RepoContributorModel> repoContributorList = new ArrayList<RepoContributorModel>();
 				List<Contributor> contributorList = repositoryService.getContributors(repository, false);

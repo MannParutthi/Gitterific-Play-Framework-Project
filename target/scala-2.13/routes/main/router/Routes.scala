@@ -41,7 +41,6 @@ class Routes(
   def documentation = List(
     ("""GET""", this.prefix, """controllers.HomeController.index(request:Request)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """assets/""" + "$" + """file<.+>""", """controllers.Assets.versioned(path:String = "/public", file:Asset)"""),
-    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """git/""" + "$" + """name<[^/]+>""", """controllers.HomeController.getUserProfile(name:String)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """userData/""" + "$" + """userName<[^/]+>""", """controllers.HomeController.getUserData(request:Request, userName:String)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """repoIssues/""" + "$" + """userName<[^/]+>/""" + "$" + """repoName<[^/]+>""", """controllers.HomeController.getRepoIssues(userName:String, repoName:String)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """topicData/""" + "$" + """topic<[^/]+>""", """controllers.HomeController.getTopicData(request:Request, topic:String)"""),
@@ -92,29 +91,11 @@ class Routes(
     )
   )
 
-  // @LINE:11
-  private[this] lazy val controllers_HomeController_getUserProfile2_route = Route("GET",
-    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("git/"), DynamicPart("name", """[^/]+""",true)))
-  )
-  private[this] lazy val controllers_HomeController_getUserProfile2_invoker = createInvoker(
-    HomeController_1.getUserProfile(fakeValue[String]),
-    play.api.routing.HandlerDef(this.getClass.getClassLoader,
-      "router",
-      "controllers.HomeController",
-      "getUserProfile",
-      Seq(classOf[String]),
-      "GET",
-      this.prefix + """git/""" + "$" + """name<[^/]+>""",
-      """""",
-      Seq()
-    )
-  )
-
-  // @LINE:13
-  private[this] lazy val controllers_HomeController_getUserData3_route = Route("GET",
+  // @LINE:12
+  private[this] lazy val controllers_HomeController_getUserData2_route = Route("GET",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("userData/"), DynamicPart("userName", """[^/]+""",true)))
   )
-  private[this] lazy val controllers_HomeController_getUserData3_invoker = createInvoker(
+  private[this] lazy val controllers_HomeController_getUserData2_invoker = createInvoker(
     
     (req:play.mvc.Http.Request) =>
       HomeController_1.getUserData(fakeValue[play.mvc.Http.Request], fakeValue[String]),
@@ -130,11 +111,11 @@ class Routes(
     )
   )
 
-  // @LINE:15
-  private[this] lazy val controllers_HomeController_getRepoIssues4_route = Route("GET",
+  // @LINE:14
+  private[this] lazy val controllers_HomeController_getRepoIssues3_route = Route("GET",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("repoIssues/"), DynamicPart("userName", """[^/]+""",true), StaticPart("/"), DynamicPart("repoName", """[^/]+""",true)))
   )
-  private[this] lazy val controllers_HomeController_getRepoIssues4_invoker = createInvoker(
+  private[this] lazy val controllers_HomeController_getRepoIssues3_invoker = createInvoker(
     HomeController_1.getRepoIssues(fakeValue[String], fakeValue[String]),
     play.api.routing.HandlerDef(this.getClass.getClassLoader,
       "router",
@@ -148,11 +129,11 @@ class Routes(
     )
   )
 
-  // @LINE:16
-  private[this] lazy val controllers_HomeController_getTopicData5_route = Route("GET",
+  // @LINE:15
+  private[this] lazy val controllers_HomeController_getTopicData4_route = Route("GET",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("topicData/"), DynamicPart("topic", """[^/]+""",true)))
   )
-  private[this] lazy val controllers_HomeController_getTopicData5_invoker = createInvoker(
+  private[this] lazy val controllers_HomeController_getTopicData4_invoker = createInvoker(
     
     (req:play.mvc.Http.Request) =>
       HomeController_1.getTopicData(fakeValue[play.mvc.Http.Request], fakeValue[String]),
@@ -168,11 +149,11 @@ class Routes(
     )
   )
 
-  // @LINE:18
-  private[this] lazy val controllers_HomeController_getRepoData6_route = Route("GET",
+  // @LINE:17
+  private[this] lazy val controllers_HomeController_getRepoData5_route = Route("GET",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("repoData/"), DynamicPart("userName", """[^/]+""",true), StaticPart("/"), DynamicPart("repoName", """[^/]+""",true)))
   )
-  private[this] lazy val controllers_HomeController_getRepoData6_invoker = createInvoker(
+  private[this] lazy val controllers_HomeController_getRepoData5_invoker = createInvoker(
     
     (req:play.mvc.Http.Request) =>
       HomeController_1.getRepoData(fakeValue[play.mvc.Http.Request], fakeValue[String], fakeValue[String]),
@@ -188,11 +169,11 @@ class Routes(
     )
   )
 
-  // @LINE:20
-  private[this] lazy val controllers_HomeController_getSearchResults7_route = Route("GET",
+  // @LINE:19
+  private[this] lazy val controllers_HomeController_getSearchResults6_route = Route("GET",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("searchResult")))
   )
-  private[this] lazy val controllers_HomeController_getSearchResults7_invoker = createInvoker(
+  private[this] lazy val controllers_HomeController_getSearchResults6_invoker = createInvoker(
     
     (req:play.mvc.Http.Request) =>
       HomeController_1.getSearchResults(fakeValue[play.mvc.Http.Request]),
@@ -224,43 +205,37 @@ class Routes(
         controllers_Assets_versioned1_invoker.call(Assets_0.versioned(path, file))
       }
   
-    // @LINE:11
-    case controllers_HomeController_getUserProfile2_route(params@_) =>
-      call(params.fromPath[String]("name", None)) { (name) =>
-        controllers_HomeController_getUserProfile2_invoker.call(HomeController_1.getUserProfile(name))
-      }
-  
-    // @LINE:13
-    case controllers_HomeController_getUserData3_route(params@_) =>
+    // @LINE:12
+    case controllers_HomeController_getUserData2_route(params@_) =>
       call(params.fromPath[String]("userName", None)) { (userName) =>
-        controllers_HomeController_getUserData3_invoker.call(
+        controllers_HomeController_getUserData2_invoker.call(
           req => HomeController_1.getUserData(req, userName))
       }
   
-    // @LINE:15
-    case controllers_HomeController_getRepoIssues4_route(params@_) =>
+    // @LINE:14
+    case controllers_HomeController_getRepoIssues3_route(params@_) =>
       call(params.fromPath[String]("userName", None), params.fromPath[String]("repoName", None)) { (userName, repoName) =>
-        controllers_HomeController_getRepoIssues4_invoker.call(HomeController_1.getRepoIssues(userName, repoName))
+        controllers_HomeController_getRepoIssues3_invoker.call(HomeController_1.getRepoIssues(userName, repoName))
       }
   
-    // @LINE:16
-    case controllers_HomeController_getTopicData5_route(params@_) =>
+    // @LINE:15
+    case controllers_HomeController_getTopicData4_route(params@_) =>
       call(params.fromPath[String]("topic", None)) { (topic) =>
-        controllers_HomeController_getTopicData5_invoker.call(
+        controllers_HomeController_getTopicData4_invoker.call(
           req => HomeController_1.getTopicData(req, topic))
       }
   
-    // @LINE:18
-    case controllers_HomeController_getRepoData6_route(params@_) =>
+    // @LINE:17
+    case controllers_HomeController_getRepoData5_route(params@_) =>
       call(params.fromPath[String]("userName", None), params.fromPath[String]("repoName", None)) { (userName, repoName) =>
-        controllers_HomeController_getRepoData6_invoker.call(
+        controllers_HomeController_getRepoData5_invoker.call(
           req => HomeController_1.getRepoData(req, userName, repoName))
       }
   
-    // @LINE:20
-    case controllers_HomeController_getSearchResults7_route(params@_) =>
+    // @LINE:19
+    case controllers_HomeController_getSearchResults6_route(params@_) =>
       call { 
-        controllers_HomeController_getSearchResults7_invoker.call(
+        controllers_HomeController_getSearchResults6_invoker.call(
           req => HomeController_1.getSearchResults(req))
       }
   }

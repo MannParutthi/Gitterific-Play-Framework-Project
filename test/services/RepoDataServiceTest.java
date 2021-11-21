@@ -79,8 +79,8 @@ public class RepoDataServiceTest {
 		repoData.setCreatedAt(new Date("Sun Sep 26 16:23:40 EDT 2021"));
 		repoData.setUpdatedAt(new Date("Sun Sep 26 17:04:56 EDT 2021"));
 		repoData.setSize(1);
+		repoData.setOwner(new User().setLogin("MannParutthi"));
 
-		
 		repoContributorList = new ArrayList<Contributor>();
 		Contributor contributor = new Contributor();
 		contributor.setLogin("MannParutthi");

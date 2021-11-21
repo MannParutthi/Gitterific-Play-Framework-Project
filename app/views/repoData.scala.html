@@ -21,6 +21,7 @@
   					<li><h4>CLONE URL : @repo.getCloneUrl()</h4></li>
   					<li><h4>CREATED ON : @repo.getCreatedOn()</h4></li>
   					<li><h4>LAST UPDATED ON : @repo.getLastUpdatedOn()</h4></li>
+  					<li><h4>GET
   					<li>
   					    <h4>CONTRIBUTORS : </h4>
   					    @for(contributor <- repo.getContributors()) {
@@ -36,6 +37,7 @@
   					</li>
   					<li>
   						<h4>ISSUES : </h4>
+  						<h4><a href='@routes.HomeController.getRepoIssues(repo.getOwner() , repo.getName())'>GET WORD LEVEL STATISTICS</a></h4>
   					    @for(issue <- repo.getIssues()) {
   					    	<ul>
   					    		<li>

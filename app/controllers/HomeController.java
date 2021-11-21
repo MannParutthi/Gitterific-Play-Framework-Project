@@ -48,8 +48,8 @@ public class HomeController {
 
 	private SyncCacheApi cacheApi;
 
-	private final SearchForReposService searchForReposService;
-	private final WSClient ws;
+	private SearchForReposService searchForReposService;
+	private WSClient ws;
 	private HashMap<String, List<SearchRepoModel>> cacheMapSearchData;
 	private HashMap<String, ArrayList<LinkedHashMap<String, List<SearchRepoModel>>>> prevSearchSessionData;
 	private ArrayList<LinkedHashMap<String, List<SearchRepoModel>>> prevSearchData;
@@ -76,12 +76,14 @@ public class HomeController {
 	 * @param searchForReposService Repository Service Search
 	 */
 	@Inject
-	public HomeController(WSClient ws, SyncCacheApi cacheApi, SearchForReposService searchForReposService,RepoDataService repoDataService,RepoIssues repoIssues,TopicDataService topicDataService,UserDataService userDataService) {
+	public HomeController(WSClient ws, SyncCacheApi cacheApi, SearchForReposService searchForReposService,
+			RepoDataService repoDataService, RepoIssues repoIssues, TopicDataService topicDataService,
+			UserDataService userDataService) {
 		this.cacheApi = cacheApi;
 		this.ws = ws;
 		this.searchForReposService = searchForReposService;
 		cacheMapSearchData = new HashMap<>();
-		prevSearchSessionData = new HashMap<String,ArrayList<LinkedHashMap<String, List<SearchRepoModel>>>>();
+		prevSearchSessionData = new HashMap<String, ArrayList<LinkedHashMap<String, List<SearchRepoModel>>>>();
 		this.repoDataService = repoDataService;
 		sessionMapRepoData = new HashMap<String, RepoDataModel>();
 		this.repoIssues = repoIssues;
@@ -90,6 +92,38 @@ public class HomeController {
 		this.userDataService = userDataService;
 		sessionMapUserData = new HashMap<String, UserDetails>();
 	}
+	
+	public void setRepoIssues(RepoIssues repoIssues) {
+		this.repoIssues = repoIssues;
+	}
+
+	public void setCacheMapSearchData(HashMap<String, List<SearchRepoModel>> cacheMapSearchData) {
+		this.cacheMapSearchData = cacheMapSearchData;
+	}
+
+	public void setPrevSearchSessionData(HashMap<String, ArrayList<LinkedHashMap<String, List<SearchRepoModel>>>> prevSearchSessionData) {
+		this.prevSearchSessionData = prevSearchSessionData;
+	}
+
+	public void setPrevSearchData(ArrayList<LinkedHashMap<String, List<SearchRepoModel>>> prevSearchData) {
+		this.prevSearchData = prevSearchData;
+	}
+
+	public void setCacheApi(SyncCacheApi cacheApi) {
+		this.cacheApi = cacheApi;
+	}
+
+	public void setWs(WSClient ws) {
+		this.ws = ws;
+	}
+
+	public void setFormFactory(FormFactory formFactory) {
+		this.formFactory = formFactory;
+	}
+
+	public void setSearchForReposService(SearchForReposService searchForReposService) {
+		this.searchForReposService = searchForReposService;
+	}
 
 	/**
 	 * An action that renders an HTML page with a welcome message. The configuration
@@ -97,24 +131,12 @@ public class HomeController {
 	 * the application receives a <code>GET</code> request with a path of
 	 * <code>/</code>.
 	 * 
-	 * @param Http.Request  Takes the Http request as a parameter
+	 * @param Http.Request Takes the Http request as a parameter
 	 * @return Result Returns that will be used for rendering in view page
 	 * 
 	 */
 	public Result index(Http.Request request) {
 		return Results.ok(views.html.index.render(formFactory.form(SearchDTO.class), messagesApi.preferred(request)));
-	}
-
-	/**
-	 * Generates the user profile for a given user
-	 * 
-	 * @param name Username
-	 * @return CompletionStage<Result> Returns the User Profile for the given username
-	 */
-	public CompletionStage<Result> getUserProfile(String name) {
-		WSRequest requestUser = ws.url("https://api.github.com/users/defunkt");
-		CompletionStage<? extends WSResponse> responsePromise = requestUser.get();
-		return responsePromise.thenApply(response -> Results.ok(response.getBody()));
 	}
 
 	/**
@@ -125,24 +147,24 @@ public class HomeController {
 	 */
 //	@Cached(key="search")
 	public CompletionStage<Result> getSearchResults(Http.Request request) {
-		
+
 		String newSessionKey = getSaltString();
-		
+
 		isSessionPresent = false;
-		if(request.session().get("savedData").isPresent() && this.prevSearchSessionData.get(request.session().get("savedData").get()) != null) {
+		if (request.session().get("savedData").isPresent()
+				&& this.prevSearchSessionData.get(request.session().get("savedData").get()) != null) {
 			isSessionPresent = true;
 		}
-		
-		if(!isSessionPresent) {
-			this.prevSearchSessionData.put(newSessionKey, new ArrayList<LinkedHashMap<String, List<SearchRepoModel>>>());
+
+		if (!isSessionPresent) {
+			this.prevSearchSessionData.put(newSessionKey,
+					new ArrayList<LinkedHashMap<String, List<SearchRepoModel>>>());
 			prevSearchData = this.prevSearchSessionData.get(newSessionKey);
-		}
-		else {
+		} else {
 			prevSearchData = this.prevSearchSessionData.get(request.session().get("savedData").get());
 		}
-		
-		
-		Form<SearchDTO> form = formFactory.form(SearchDTO.class).bindFromRequest(request);
+
+//		Form<SearchDTO> form = formFactory.form(SearchDTO.class).bindFromRequest(request);
 		String searchKeyword = request.queryString("searchTerm").get();
 
 		CompletionStage<Result> resultCompletionStage;
@@ -153,35 +175,36 @@ public class HomeController {
 						this.cacheMapSearchData.put(randomKey, searchRepoList);
 						this.cacheApi.set(searchKeyword, randomKey);
 
-						if(prevSearchData.size() >= 10) {
+						if (prevSearchData.size() >= 10) {
 							prevSearchData.remove(0);
 						}
 						LinkedHashMap<String, List<SearchRepoModel>> currSearchData = new LinkedHashMap<String, List<SearchRepoModel>>();
 						currSearchData.put(searchKeyword, searchRepoList);
 						prevSearchData.add(currSearchData);
 						Collections.reverse(prevSearchData);
-						if(isSessionPresent) {
-							return ok(views.html.searchResults.render(prevSearchData)); 
+						if (isSessionPresent) {
+							return ok(views.html.searchResults.render(prevSearchData));
+						} else {
+							return ok(views.html.searchResults.render(prevSearchData)).addingToSession(request,
+									"savedData", newSessionKey);
 						}
-						else {
-							return ok(views.html.searchResults.render(prevSearchData)).addingToSession(request, "savedData", newSessionKey); 
-						}
-						
-						//.withHeader("Cache-Control", "max-age=3600");
+
+						// .withHeader("Cache-Control", "max-age=3600");
 					});
 		} else {
 			String key = this.cacheApi.get(searchKeyword).get().toString();
 			List<SearchRepoModel> searchRepoList = this.cacheMapSearchData.get(key);
 			System.out.println("inside cache ==> " + key);
-			
-			if(prevSearchData.size() >= 10) {
+
+			if (prevSearchData.size() >= 10) {
 				prevSearchData.remove(0);
 			}
 			LinkedHashMap<String, List<SearchRepoModel>> currSearchData = new LinkedHashMap<String, List<SearchRepoModel>>();
 			currSearchData.put(searchKeyword, searchRepoList);
 			prevSearchData.add(currSearchData);
-			
-			resultCompletionStage = CompletableFuture.supplyAsync(() -> ok(views.html.searchResults.render(prevSearchData)));
+
+			resultCompletionStage = CompletableFuture
+					.supplyAsync(() -> ok(views.html.searchResults.render(prevSearchData)));
 		}
 		return resultCompletionStage;
 	}
@@ -190,14 +213,13 @@ public class HomeController {
 	 * This method is used to generate a random string which is used in session
 	 * management
 	 * 
-	 * @return String Returns the Random String which is used in session
-	 *         management
+	 * @return String Returns the Random String which is used in session management
 	 */
 	public String getCurrentTimeStamp() {
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		return timestamp.toString();
 	}
-	
+
 	/**
 	 * This method return the RandomString used in session management
 	 * 
@@ -214,35 +236,37 @@ public class HomeController {
 		String saltStr = salt.toString();
 		return saltStr;
 	}
-	
+
 	/**
 	 * This method provides the repository data for a given user
 	 * 
-	 * @param request The request parameter the handle the session 
+	 * @param request  The request parameter the handle the session
 	 * @param userName Username to get the Repo Details
 	 * @param repoName - Repository Name
 	 * @return Returns the Repository Data for the given Username
 	 */
 	public CompletionStage<Result> getRepoData(Http.Request request, String userName, String repoName) {
-		System.out.println("key => " + userName+repoName);
+		System.out.println("key => " + userName + repoName);
 		sessionMapRepoData.put("randomKeyForTesting", null); // for testing
 		CompletionStage<Result> resultCompletionStage;
-		if (!request.session().get(userName+repoName).isPresent() || this.sessionMapRepoData.get(request.session().get(userName+repoName).get()) == null) {
+		if (!request.session().get(userName + repoName).isPresent()
+				|| this.sessionMapRepoData.get(request.session().get(userName + repoName).get()) == null) {
 			resultCompletionStage = repoDataService.getRepoData(userName, repoName).thenApply(repoDetails -> {
 				String randomKey = getSaltString();
 				this.sessionMapRepoData.put(randomKey, repoDetails);
 				System.out.println("repoData ==> " + repoDetails.getContributors());
-				return ok(views.html.repoData.render(repoDetails)).addingToSession(request, userName+repoName, randomKey);
+				return ok(views.html.repoData.render(repoDetails)).addingToSession(request, userName + repoName,
+						randomKey);
 			});
 		} else {
-			String key = request.session().get(userName+repoName).get();
+			String key = request.session().get(userName + repoName).get();
 			RepoDataModel repoData = this.sessionMapRepoData.get(key);
 			System.out.println("inside session ==> " + key);
 			resultCompletionStage = CompletableFuture.supplyAsync(() -> ok(views.html.repoData.render(repoData)));
 		}
 		return resultCompletionStage;
 	}
-	
+
 	/**
 	 * Method to get the Repository Issues for given username and repository
 	 * 
@@ -253,22 +277,25 @@ public class HomeController {
 	public CompletionStage<Result> getRepoIssues(String userName,String repo) {
 		System.out.println(userName + "," + repo);
 		return repoIssues.getIssueReportFromRepo(userName,repo)
-				.thenApply(output -> ok(views.html.repoIssueShow.render(output)));
+				.thenApplyAsync(output -> ok(views.html.repoIssueShow.render(output)));
 	}
-	
+
 	/**
 	 * This method provides the repository data for a given user
-	 * @param request The request parameter the handle the session 
+	 * 
+	 * @param request  The request parameter the handle the session
 	 * @param userName Username to get the Repo Details
-	 * @return CompletionStage<Result> Returns the Repository Data for the given Username
+	 * @return CompletionStage<Result> Returns the Repository Data for the given
+	 *         Username
 	 */
 	public CompletionStage<Result> getTopicData(Http.Request request, String topicName) {
 		topicDataModelMap.put("Testing branch", Arrays.asList()); // for testing
 		CompletionStage<Result> result = null;
-		if (!request.session().get(topicName).isPresent() || this.topicDataModelMap.get(request.session().get(topicName).get()) == null) {
+		if (!request.session().get(topicName).isPresent()
+				|| this.topicDataModelMap.get(request.session().get(topicName).get()) == null) {
 			result = topicDataService.getRepositoryData(topicName).thenApply(topicsList -> {
 				String randomKey = getSaltString();
-				for(TopicDataModel topic : topicsList) {
+				for (TopicDataModel topic : topicsList) {
 					System.out.println(topic.toString());
 				}
 				topicDataModelMap.put(randomKey, topicsList);
@@ -282,25 +309,28 @@ public class HomeController {
 		}
 		return result;
 	}
-	
+
 	/**
 	 * This method get the User Data for a given username
+	 * 
 	 * @param userName This username is used to get the data of the User
 	 * @return CompletionStage<Result> Returns the data of the given User
 	 */
 	public CompletionStage<Result> getUserData(Http.Request request, String userName) {
-		sessionMapUserData.put("randomKeyTesting", new UserDetails());
+		sessionMapUserData.put("randomKeyTest", new UserDetails());
 		System.out.println("hi--------------------------------------");
 		System.out.println(this.sessionMapUserData);
 		System.out.println(request.session().get(userName));
 		System.out.println(!request.session().get(userName).isPresent());
-	//	System.out.println(this.sessionMapUserData.get(request.session().get(userName).get()));
-		
+		// System.out.println(this.sessionMapUserData.get(request.session().get(userName).get()));
+
 		CompletionStage<Result> resultCompletionStage;
-		if (!request.session().get(userName).isPresent() || this.sessionMapUserData.get(request.session().get(userName).get()) == null) {
+		if (!request.session().get(userName).isPresent()
+				|| this.sessionMapUserData.get(request.session().get(userName).get()) == null) {
 			resultCompletionStage = userDataService.getUserData(userName).thenApply(userList -> {
 				String randomKey = getSaltString();
-				System.out.println("my random key ----->"+randomKey);
+				System.out.println("my random key ----->" + randomKey);
+				System.out.println("user------ " + userList.getId() + "   " + userList.getRepoName());
 				this.sessionMapUserData.put(randomKey, userList);
 				return ok(views.html.userData.render(userList)).addingToSession(request, userName, randomKey);
 			});
