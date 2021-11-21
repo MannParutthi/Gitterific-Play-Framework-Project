@@ -132,7 +132,7 @@ public class RepoDataControllerTest {
 			Request request1 = Helpers.fakeRequest().method("GET").uri("/repoData/MannParutthi/COMP-6481").build();
 			res1 = repoDataController.getRepoData(request1, "MannParutthi", "COMP-6481").toCompletableFuture().get();
 			
-			Request request2 = Helpers.fakeRequest().method("GET").uri("/repoData/MannParutthi/COMP-6481").session("MannParutthiCOMP-6481", "randomKeyForTesting").build();
+			Request request2 = Helpers.fakeRequest().method("GET").uri("/repoData/MannParutthi/COMP-6481").session("MannParutthiCOMP-6481", "randomKeyForTesting1996").build();
 			res2 = repoDataController.getRepoData(request2, "MannParutthi", "COMP-6481").toCompletableFuture().get();
 			
 			RepoDataModel rData = repoDataService.getRepoData("MannParutthi", "COMP-6481").toCompletableFuture().get();

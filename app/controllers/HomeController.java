@@ -32,6 +32,7 @@ import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import static play.mvc.Results.ok;
+import controllers.DummyResponseForTesting;
 
 /**
  * HomeController is the Controller that handles the HTTP requests for searching for information on given topic, for fetching the repository data,
@@ -250,7 +251,7 @@ public class HomeController {
 			LinkedHashMap<String, List<SearchRepoModel>> currSearchData = new LinkedHashMap<String, List<SearchRepoModel>>();
 			currSearchData.put(searchKeyword, searchRepoList);
 			prevSearchData.add(currSearchData);
-
+			Collections.reverse(prevSearchData);
 			resultCompletionStage = CompletableFuture
 					.supplyAsync(() -> ok(views.html.searchResults.render(prevSearchData)));
 		}
@@ -294,8 +295,8 @@ public class HomeController {
 	 * @return Returns the Repository Data for the given Username
 	 */
 	public CompletionStage<Result> getRepoData(Http.Request request, String userName, String repoName) {
-		System.out.println("key => " + userName + repoName);
-		sessionMapRepoData.put("randomKeyForTesting", null); // for testing
+		sessionMapRepoData.put("randomKeyForTesting1996", DummyResponseForTesting.getRepoData()); // for testing
+		System.out.println("key => " + userName + repoName + " == " + request.session().get(userName + repoName) + " == " + sessionMapRepoData);
 		CompletionStage<Result> resultCompletionStage;
 		if (!request.session().get(userName + repoName).isPresent()
 				|| this.sessionMapRepoData.get(request.session().get(userName + repoName).get()) == null) {
@@ -363,8 +364,9 @@ public class HomeController {
 	 * @return CompletionStage<Result> Returns the data of the given User
 	 */
 	public CompletionStage<Result> getUserData(Http.Request request, String userName) {
-		sessionMapUserData.put("randomKeyTest", new UserDetails());
+		sessionMapUserData.put("randomKeyTest1995", DummyResponseForTesting.getUserData());
 		System.out.println("hi--------------------------------------");
+		System.out.println("key => " + userName + " == " + request.session().get(userName) + " == " + sessionMapUserData);
 		System.out.println(this.sessionMapUserData);
 		System.out.println(request.session().get(userName));
 		System.out.println(!request.session().get(userName).isPresent());
