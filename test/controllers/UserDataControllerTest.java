@@ -96,7 +96,7 @@ public class UserDataControllerTest {
 			res1 = userDataController.getUserData(requestWithoutSession,"harman8").toCompletableFuture().get();
 			Request requestWithSession = Helpers.fakeRequest().method("GET").uri("/userData/harman8").session("harman8", "randomKeyTest1995").build();
 			res2 = userDataController.getUserData(requestWithSession,"harman8").toCompletableFuture().get();
-			Request requestWithSession2 = Helpers.fakeRequest().method("GET").uri("/userData/harman8").session("harman8", "randomKeyTest1995").build();
+			Request requestWithSession2 = Helpers.fakeRequest().method("GET").uri("/userData/harman8").session("harman8", "randomKeyTestingNull").build();
 			res3 = userDataController.getUserData(requestWithSession2,"harman8").toCompletableFuture().get();
 		//	ud = userDataService.getUserData("harman8").toCompletableFuture().get();
 		//	System.out.println(ud.getName());
