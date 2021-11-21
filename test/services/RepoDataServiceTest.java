@@ -1,6 +1,8 @@
 package services;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,6 +22,7 @@ import org.eclipse.egit.github.core.service.IssueService;
 import org.eclipse.egit.github.core.service.RepositoryService;
 import org.eclipse.jetty.http.HttpStatus;
 import org.junit.BeforeClass;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -131,4 +134,21 @@ public class RepoDataServiceTest {
 			e.printStackTrace();
 		}
 	}
+	
+    @Test
+    public void testRepoNotFoundException()  {
+       
+		try {
+			when(repositoryService.getRepository(anyString(), anyString())).thenThrow(new IOException());
+			assertThrows(IOException.class, () -> {
+				repoDataService.getRepoData("MannParutthi", "COMP-6481");
+	            throw new IOException();
+	        });
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+        
+    }
 }

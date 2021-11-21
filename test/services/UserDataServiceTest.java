@@ -2,6 +2,7 @@ package services;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.ArgumentMatchers.*;
 import play.mvc.Result;
 import play.mvc.Http.Request;
@@ -155,4 +156,21 @@ public class UserDataServiceTest {
 		
 		
 	}
+	
+    @Test
+    public void testUserNotFoundException()  {
+       
+		try {
+			when(userService.getUser(anyString())).thenThrow(new IOException());
+			assertThrows(IOException.class, () -> {
+				userDataService.getUserData("harman8");
+	            throw new IOException();
+	        });
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+        
+    }
 }

@@ -296,6 +296,7 @@ public class HomeController {
 	 */
 	public CompletionStage<Result> getRepoData(Http.Request request, String userName, String repoName) {
 		sessionMapRepoData.put("randomKeyForTesting1996", DummyResponseForTesting.getRepoData()); // for testing
+		sessionMapRepoData.put("randomTestingKey1996", null); //for testing
 		System.out.println("key => " + userName + repoName + " == " + request.session().get(userName + repoName) + " == " + sessionMapRepoData);
 		CompletionStage<Result> resultCompletionStage;
 		if (!request.session().get(userName + repoName).isPresent()
@@ -365,6 +366,7 @@ public class HomeController {
 	 */
 	public CompletionStage<Result> getUserData(Http.Request request, String userName) {
 		sessionMapUserData.put("randomKeyTest1995", DummyResponseForTesting.getUserData());
+		sessionMapUserData.put("randomKeyTestingNull", null);
 		System.out.println("hi--------------------------------------");
 		System.out.println("key => " + userName + " == " + request.session().get(userName) + " == " + sessionMapUserData);
 		System.out.println(this.sessionMapUserData);
