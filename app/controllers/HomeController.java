@@ -32,6 +32,7 @@ import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import static play.mvc.Results.ok;
+import controllers.DummyResponseForTesting;
 
 /**
  * This controller contains an action to handle HTTP requests to the
@@ -202,7 +203,7 @@ public class HomeController {
 			LinkedHashMap<String, List<SearchRepoModel>> currSearchData = new LinkedHashMap<String, List<SearchRepoModel>>();
 			currSearchData.put(searchKeyword, searchRepoList);
 			prevSearchData.add(currSearchData);
-
+			Collections.reverse(prevSearchData);
 			resultCompletionStage = CompletableFuture
 					.supplyAsync(() -> ok(views.html.searchResults.render(prevSearchData)));
 		}
@@ -246,8 +247,8 @@ public class HomeController {
 	 * @return Returns the Repository Data for the given Username
 	 */
 	public CompletionStage<Result> getRepoData(Http.Request request, String userName, String repoName) {
-		System.out.println("key => " + userName + repoName);
-		sessionMapRepoData.put("randomKeyForTesting", null); // for testing
+		sessionMapRepoData.put("randomKeyForTesting1996", DummyResponseForTesting.getRepoData()); // for testing
+		System.out.println("key => " + userName + repoName + " == " + request.session().get(userName + repoName) + " == " + sessionMapRepoData);
 		CompletionStage<Result> resultCompletionStage;
 		if (!request.session().get(userName + repoName).isPresent()
 				|| this.sessionMapRepoData.get(request.session().get(userName + repoName).get()) == null) {
