@@ -296,6 +296,7 @@ public class HomeController {
 	 */
 	public CompletionStage<Result> getRepoData(Http.Request request, String userName, String repoName) {
 		sessionMapRepoData.put("randomKeyForTesting1996", DummyResponseForTesting.getRepoData()); // for testing
+		sessionMapRepoData.put("randomTestingKey1996", null); //for testing
 		System.out.println("key => " + userName + repoName + " == " + request.session().get(userName + repoName) + " == " + sessionMapRepoData);
 		CompletionStage<Result> resultCompletionStage;
 		if (!request.session().get(userName + repoName).isPresent()

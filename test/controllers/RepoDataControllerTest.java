@@ -126,6 +126,7 @@ public class RepoDataControllerTest {
 		RepoDataModel repoData = null;
 		Result res1 = null;
 		Result res2 = null;
+		Result res3 = null;
 		try {
 			repoData = repoDataService.getRepoData("MannParutthi", "COMP-6481").toCompletableFuture().get();
 			
@@ -135,7 +136,8 @@ public class RepoDataControllerTest {
 			Request request2 = Helpers.fakeRequest().method("GET").uri("/repoData/MannParutthi/COMP-6481").session("MannParutthiCOMP-6481", "randomKeyForTesting1996").build();
 			res2 = repoDataController.getRepoData(request2, "MannParutthi", "COMP-6481").toCompletableFuture().get();
 			
-			RepoDataModel rData = repoDataService.getRepoData("MannParutthi", "COMP-6481").toCompletableFuture().get();
+			Request request3 = Helpers.fakeRequest().method("GET").uri("/repoData/MannParutthi/COMP-6481").session("MannParutthiCOMP-6481", "randomTestingKey1996").build();
+			res3 = repoDataController.getRepoData(request3, "MannParutthi", "COMP-6481").toCompletableFuture().get();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -149,6 +151,7 @@ public class RepoDataControllerTest {
 		assertEquals(repoOneDataModel.getId(), repoOneDataModel.getId());
 		assertEquals(HttpStatus.OK_200, res1.status());
 		assertEquals(HttpStatus.OK_200, res2.status());
+		assertEquals(HttpStatus.OK_200, res3.status());
 		assertEquals(repoData.getId(), 410654618);
 	}
 
