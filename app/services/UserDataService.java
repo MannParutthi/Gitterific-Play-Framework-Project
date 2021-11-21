@@ -15,7 +15,7 @@ import org.eclipse.egit.github.core.service.UserService;
 import model.UserDetails;
 
 /**
- * Service class for User Data
+ * This UserDataService class is used for fetching the user details from the API
  *
  * @author Harman Preet Kaur
  */
@@ -36,7 +36,8 @@ public class UserDataService {
 	}
 	
 	/**
-	 * Returns the User Data for the given login
+	 * This method returns the User Data for the given login
+	 * 
 	 * @param login used for fetching the user data
 	 * @return Returns the User Data for the given user
 	 */

@@ -1,7 +1,7 @@
 package model;
 
 /**
- * Model class for Repo Contributor
+ * THis is the Model class for Repo Contributor
  *
  *@author Manan Dineshbhai Paruthi
  */
@@ -9,7 +9,7 @@ public class RepoContributorModel {
 	private String loginName, url;
 
 	/**
-	 * Gets the login name 
+	 * This method gets the login name 
 	 * @return Returns the Login Name
 	 */
 	public String getLoginName() {
@@ -17,7 +17,7 @@ public class RepoContributorModel {
 	}
 
 	/**
-	 * Sets the login name
+	 * This method sets the login name
 	 * @param loginName Used to set the LoginName
 	 * @return void
 	 */
@@ -26,7 +26,7 @@ public class RepoContributorModel {
 	}
 
 	/**
-	 * Gets the Url
+	 * This method gets the URL
 	 * @return Returns the URL
 	 */
 	public String getUrl() {
@@ -34,7 +34,7 @@ public class RepoContributorModel {
 	}
 
 	/**
-	 * Sets the Url
+	 * This method sets the URL
 	 * @param url Sets the URL
 	 * @return void
 	 */

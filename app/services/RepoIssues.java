@@ -24,7 +24,7 @@ import org.eclipse.egit.github.core.Repository;
 import org.eclipse.egit.github.core.Issue;
 
 /**
- * Service class for Repository Issues
+ * This RepoIssuesService class is used to interact with API to get the RepoIssues
  *
  *@author Kevinkumar Patel
  */
@@ -99,7 +99,7 @@ public class RepoIssues {
         return issues;
     }
     /**
-     * Generates the Report for the list of usses provided
+     * Generates the Report for the list of uses provided
      * @param issues Issues to generate the report 
      * @return Returns the Report for the given list of issues
      */

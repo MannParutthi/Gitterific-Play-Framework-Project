@@ -34,8 +34,8 @@ import java.util.concurrent.CompletionStage;
 import static play.mvc.Results.ok;
 
 /**
- * This controller contains an action to handle HTTP requests to the
- * application's home page.
+ * HomeController is the Controller that handles the HTTP requests for searching for information on given topic, for fetching the repository data,
+ * for fetching the repository issues, for fetching the Topics data, and for fetching the User Data.
  * 
  * 
  * @author Harman Preet Kaur
@@ -93,34 +93,82 @@ public class HomeController {
 		sessionMapUserData = new HashMap<String, UserDetails>();
 	}
 	
+	/**
+	 * This method sets the Repo Issues
+	 * 
+	 * @param repoIssues
+	 * @return void
+	 */
 	public void setRepoIssues(RepoIssues repoIssues) {
 		this.repoIssues = repoIssues;
 	}
 
+	/**
+	 * This method sets the Searched Data for Cache
+	 * 
+	 * @param cacheMapSearchData
+	 * @return void
+	 */
 	public void setCacheMapSearchData(HashMap<String, List<SearchRepoModel>> cacheMapSearchData) {
 		this.cacheMapSearchData = cacheMapSearchData;
 	}
 
+	/**
+	 * This method sets the previous searched data to show the top 10 search results in search results page
+	 * 
+	 * @param prevSearchSessionData
+	 * @return void
+	 */
 	public void setPrevSearchSessionData(HashMap<String, ArrayList<LinkedHashMap<String, List<SearchRepoModel>>>> prevSearchSessionData) {
 		this.prevSearchSessionData = prevSearchSessionData;
 	}
 
+	/**
+	 * THis method sets the previous searched data
+	 * 
+	 * @param prevSearchData
+	 * @return void
+	 */
 	public void setPrevSearchData(ArrayList<LinkedHashMap<String, List<SearchRepoModel>>> prevSearchData) {
 		this.prevSearchData = prevSearchData;
 	}
 
+	/**
+	 * This sets the CacheApi reference
+	 * 
+	 * @param cacheApi
+	 * @return void
+	 */
 	public void setCacheApi(SyncCacheApi cacheApi) {
 		this.cacheApi = cacheApi;
 	}
 
+	/**
+	 * This method sets the Web Service Client
+	 * 
+	 * @param ws
+	 * @return void
+	 */
 	public void setWs(WSClient ws) {
 		this.ws = ws;
 	}
 
+	/**
+	 * This method sets the form factory
+	 * 
+	 * @param formFactory
+	 * @return void
+	 */
 	public void setFormFactory(FormFactory formFactory) {
 		this.formFactory = formFactory;
 	}
 
+	/**
+	 * This method sets the Repos for searching
+	 * 
+	 * @param searchForReposService
+	 * @return void
+	 */
 	public void setSearchForReposService(SearchForReposService searchForReposService) {
 		this.searchForReposService = searchForReposService;
 	}
@@ -140,7 +188,7 @@ public class HomeController {
 	}
 
 	/**
-	 * This method handles the session management for the home page
+	 * This method is used for caching the data in the search results page
 	 * 
 	 * @param request Http Request for session managing
 	 * @return CompletionStage<Result> Returns the Search Results
@@ -210,10 +258,10 @@ public class HomeController {
 	}
 
 	/**
-	 * This method is used to generate a random string which is used in session
-	 * management
+	 * This method is used to get the time stamp
 	 * 
-	 * @return String Returns the Random String which is used in session management
+	 * @return String Returns the Random String which is used in session
+	 *         management
 	 */
 	public String getCurrentTimeStamp() {
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -221,7 +269,7 @@ public class HomeController {
 	}
 
 	/**
-	 * This method return the RandomString used in session management
+	 * This method is used to get the Randomkey that is used in session management
 	 * 
 	 * @return String Returns a string that is used in session management
 	 */
@@ -238,9 +286,9 @@ public class HomeController {
 	}
 
 	/**
-	 * This method provides the repository data for a given user
+	 * This method is used to get the repository data for a given user and repo name
 	 * 
-	 * @param request  The request parameter the handle the session
+	 * @param request The request parameter the handle the session 
 	 * @param userName Username to get the Repo Details
 	 * @param repoName - Repository Name
 	 * @return Returns the Repository Data for the given Username
@@ -268,7 +316,7 @@ public class HomeController {
 	}
 
 	/**
-	 * Method to get the Repository Issues for given username and repository
+	 * This Method is used to get the Repository Issues for given a username and a repository
 	 * 
 	 * @param userName Username to get the Repo Issues
 	 * @param repo	Repository Name to get the Repo Issues
@@ -281,12 +329,11 @@ public class HomeController {
 	}
 
 	/**
-	 * This method provides the repository data for a given user
+	 * This method is used to get the repositories containing the given topic
 	 * 
-	 * @param request  The request parameter the handle the session
+	 * @param request The request parameter the handle the session 
 	 * @param userName Username to get the Repo Details
-	 * @return CompletionStage<Result> Returns the Repository Data for the given
-	 *         Username
+	 * @return CompletionStage<Result> Returns the Repository Data for the given Username
 	 */
 	public CompletionStage<Result> getTopicData(Http.Request request, String topicName) {
 		topicDataModelMap.put("Testing branch", Arrays.asList()); // for testing
@@ -311,9 +358,8 @@ public class HomeController {
 	}
 
 	/**
-	 * This method get the User Data for a given username
-	 * 
-	 * @param userName This username is used to get the data of the User
+	 * This method is used to get the User Data for a given Github Username
+	 * @param UserName This username is used to get the data of the User
 	 * @return CompletionStage<Result> Returns the data of the given User
 	 */
 	public CompletionStage<Result> getUserData(Http.Request request, String userName) {

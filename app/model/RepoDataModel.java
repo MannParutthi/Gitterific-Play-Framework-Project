@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Model Class for Repo Data
+ * This is the Model Class for Repo Data
  *
  *@author Manan Dineshbhai Paruthi
  */
@@ -25,14 +25,14 @@ public class RepoDataModel {
 	}
 	
 	/**
-	 * Gets the Repo name
+	 * This method gets the Repo Name
 	 * @return Returns the Name of the Repository
 	 */
 	public String getName() {
 		return name;
 	}
 	/**
-	 * Sets the Repo Name
+	 * This method sets the Repo Name
 	 * @param name
 	 * @return void
 	 */
@@ -40,14 +40,14 @@ public class RepoDataModel {
 		this.name = name;
 	}
 	/**
-	 * Gets the ID
+	 * This method gets the ID
 	 * @return Returns the ID of the Repository
 	 */
 	public long getId() {
 		return id;
 	}
 	/**
-	 * Sets the ID
+	 * This method sets the ID
 	 * @param id Sets the ID of the Repository
 	 * @return void
 	 */
@@ -55,14 +55,14 @@ public class RepoDataModel {
 		this.id = id;
 	}
 	/**
-	 * Gets the Description of the Repo
+	 * This method gets the Description of the Repo
 	 * @return Returns the Description of the Repository
 	 */
 	public String getDescription() {
 		return description;
 	}
 	/**
-	 * Sets the Description
+	 * This method sets the Description
 	 * @param description Sets the Description of the Repository
 	 * @return void
 	 */
@@ -70,14 +70,14 @@ public class RepoDataModel {
 		this.description = description;
 	}
 	/**
-	 * Gets the Language of the Repo
+	 * This method gets the Language of the Repo
 	 * @return Returns the language of the Repository
 	 */
 	public String getLanguage() {
 		return language;
 	}
 	/**
-	 * Sets the Language of the Repo
+	 * This method sets the Language of the Repo
 	 * @param language Sets the Language of the Repository
 	 * @return void
 	 */
@@ -85,14 +85,14 @@ public class RepoDataModel {
 		this.language = language;
 	}
 	/**
-	 * Gets the URL 
+	 * This method gets the URL 
 	 * @return	Returns the URL of the Repository
 	 */
 	public String getUrl() {
 		return url;
 	}
 	/**
-	 * Sets the URL
+	 * This method sets the URL
 	 * @param url Sets the URL of the Repository
 	 * @return void
 	 */
@@ -100,14 +100,14 @@ public class RepoDataModel {
 		this.url = url;
 	}
 	/**
-	 * Gets the Clone URL
+	 * This method gets the Clone URL
 	 * @return Returns the Clone URL of the Repository
 	 */
 	public String getCloneUrl() {
 		return cloneUrl;
 	}
 	/**
-	 * Sets the Clone URL
+	 * This method sets the Clone URL
 	 * @param cloneUrl Sets the CloneURL of the Repository
 	 * @return void
 	 */
@@ -115,14 +115,14 @@ public class RepoDataModel {
 		this.cloneUrl = cloneUrl;
 	}
 	/**
-	 * Gets the Created Date
+	 * This method gets the Created Date
 	 * @return Returns the Created Date of the Repository
 	 */
 	public Date getCreatedOn() {
 		return createdOn;
 	}
 	/**
-	 * Sets the Created Date
+	 * This method sets the Created Date
 	 * @param createdOn Sets the Created Date for the Repository
 	 * @return void
 	 */
@@ -130,14 +130,14 @@ public class RepoDataModel {
 		this.createdOn = createdOn;
 	}
 	/**
-	 * Gets the Last Updated Date
+	 * This gets the Last Updated Date
 	 * @return Returns the Last Updated Date
 	 */
 	public Date getLastUpdatedOn() {
 		return lastUpdatedOn;
 	}
 	/**
-	 * Sets the Last Updated Date
+	 * This sets the Last Updated Date
 	 * @param lastUpdatedOn Sets the Last Updated Date
 	 * @return void
 	 */
@@ -145,14 +145,14 @@ public class RepoDataModel {
 		this.lastUpdatedOn = lastUpdatedOn;
 	}
 	/**
-	 * Get the List of Contributors
+	 * This method gets the List of Contributors
 	 * @return Returns the list of Contributors of the Repository
 	 */
 	public List<RepoContributorModel> getContributors() {
 		return contributors;
 	}
 	/**
-	 * Sets the Contributors list
+	 * This method sets the Contributors list
 	 * @param contributors Sets the List of Contributors for the Repository
 	 * @return void
 	 */
@@ -160,14 +160,14 @@ public class RepoDataModel {
 		this.contributors = contributors;
 	}
 	/**
-	 * Get the List of Repo Issues
+	 * This method gets the List of Repo Issues
 	 * @return Returns the issues of the Repository
 	 */
 	public List<RepoIssueModel> getIssues() {
 		return issues;
 	}
 	/**
-	 * Sets the List of Repo Issues
+	 * This method sets the List of Repo Issues
 	 * @param issues Sets the Issues of the Repository
 	 * @return void
 	 */
@@ -175,14 +175,14 @@ public class RepoDataModel {
 		this.issues = issues;
 	}
 	/**
-	 * Gets the list of Repo Commits
+	 * This method gets the list of Repo Commits
 	 * @return Returns the list of commits of the Repository
 	 */
 	public List<RepoCommitModel> getCommits() {
 		return commits;
 	}
 	/**
-	 * Sets the List of commits
+	 * This method sets the List of commits
 	 * @param commits Sets the commits for the Repository
 	 * @return void
 	 */

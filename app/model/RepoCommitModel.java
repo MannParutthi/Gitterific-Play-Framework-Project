@@ -1,7 +1,7 @@
 package model;
 
 /**
- * Model Class for Repository Commit 
+ * This is the Model Class for Repository Commit 
  *
  *@author Manan Dineshbhai Paruthi
  */
@@ -9,7 +9,7 @@ public class RepoCommitModel {
 	private String loginName, url;
 
 	/**
-	 * Gets the Login Name
+	 * This method gets the Login Name
 	 * @return String Returns the Login Name
 	 */
 	public String getLoginName() {
@@ -17,7 +17,7 @@ public class RepoCommitModel {
 	}
 
 	/**
-	 * Sets the LoginName 
+	 * This method sets the LoginName 
 	 * @param loginName Returns the LoginName
 	 * @return void
 	 */
@@ -26,7 +26,7 @@ public class RepoCommitModel {
 	}
 
 	/**
-	 * Gets the URL
+	 * This method gets the URL
 	 * @return String Returns the URL
 	 */
 	public String getUrl() {
@@ -34,7 +34,7 @@ public class RepoCommitModel {
 	}
 
 	/**
-	 * Sets the URL
+	 * This method sets the URL
 	 * @param url Used to set the URL
 	 * @return void
 	 */
