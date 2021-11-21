@@ -320,6 +320,7 @@ public class HomeController {
 	public CompletionStage<Result> getUserData(Http.Request request, String userName) {
 		sessionMapUserData.put("randomKeyTest1995", DummyResponseForTesting.getUserData());
 		System.out.println("hi--------------------------------------");
+		System.out.println("key => " + userName + " == " + request.session().get(userName) + " == " + sessionMapUserData);
 		System.out.println(this.sessionMapUserData);
 		System.out.println(request.session().get(userName));
 		System.out.println(!request.session().get(userName).isPresent());

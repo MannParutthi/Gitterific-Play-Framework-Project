@@ -1,8 +1,3 @@
-clean
-compile
-clean
-compile
-clean
 compile
 clean
 compile
@@ -495,6 +490,11 @@ test
 clean
 compile
 clean
+compile
+test
+jacoco
+compile
+test
 compile
 test
 jacoco

@@ -78,6 +78,13 @@ public class DummyResponseForTesting {
 		userDetails.setPrivateGists(0);
 		userDetails.setTotalPrivateRepos(0);
 		userDetails.setRepoName(Arrays.asList("git"));
+		userDetails.setCreatedAt(new Date("Sun Sep 26 16:23:40 EDT 2021"));
+		userDetails.setOwnedPrivateRepos(2);
+		userDetails.setDiskUsage(2);
+		userDetails.setEmail("harman.preet@gmail.com");
+		userDetails.setLocation("Montreal");
+		userDetails.setLogin("harman8");
+		userDetails.setPlan(null);
 		return userDetails;
 	}
 
