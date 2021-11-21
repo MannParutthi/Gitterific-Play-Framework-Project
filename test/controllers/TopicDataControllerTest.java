@@ -111,8 +111,8 @@ public class TopicDataControllerTest{
 			Request request1 = Helpers.fakeRequest().method("GET").uri("/topicData/Java").build();
 			res1 = topicDataController.getTopicData(request1, "android").toCompletableFuture().get();
 			
-			//Request request2 = Helpers.fakeRequest().method("GET").uri("topicData/Java").session("Java","randomKeyForTesting").build();
-			//res2 = topicDataController.getTopicData(request2, "Java").toCompletableFuture().get();
+			Request request2 = Helpers.fakeRequest().method("GET").uri("topicData/Java").session("Java","TestingBranchYashwanth").build();
+			res2 = topicDataController.getTopicData(request2, "Java").toCompletableFuture().get();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -122,7 +122,7 @@ public class TopicDataControllerTest{
 		} 
 		assertEquals(topicLists.get(0).getId(), topicData.get(0).getId());
 		assertEquals(HttpStatus.OK_200, res1.status());
-		//assertEquals(HttpStatus.OK_200, res2.status());
+		assertEquals(HttpStatus.OK_200, res2.status());
 		assertEquals(topicData.isEmpty(), false);
 	}
 	

@@ -337,7 +337,7 @@ public class HomeController {
 	 * @return CompletionStage<Result> Returns the Repository Data for the given Username
 	 */
 	public CompletionStage<Result> getTopicData(Http.Request request, String topicName) {
-		topicDataModelMap.put("Testing branch", Arrays.asList()); // for testing
+		topicDataModelMap.put("TestingBranchYashwanth", DummyResponseForTesting.getTopicData()); // for testing
 		CompletionStage<Result> result = null;
 		if (!request.session().get(topicName).isPresent()
 				|| this.topicDataModelMap.get(request.session().get(topicName).get()) == null) {
