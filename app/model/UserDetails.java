@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -66,6 +67,7 @@ public class UserDetails {
 	 * @return List<String> Returns the list of Repo names
 	 */
 	public List<String> getRepoName() {
+		if(repoName == null) { return Arrays.asList(); }
 		return repoName;
 	}
 

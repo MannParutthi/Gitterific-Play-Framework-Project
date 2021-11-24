@@ -7,6 +7,7 @@ package model;
  */
 public class RepoContributorModel {
 	private String loginName, url;
+	private int noOfContributions;
 
 	/**
 	 * This method gets the login name 
@@ -40,5 +41,13 @@ public class RepoContributorModel {
 	 */
 	public void setUrl(String url) {
 		this.url = url;
+	}
+
+	public int getNoOfContributions() {
+		return noOfContributions;
+	}
+
+	public void setNoOfContributions(int noOfContributions) {
+		this.noOfContributions = noOfContributions;
 	}
 }
