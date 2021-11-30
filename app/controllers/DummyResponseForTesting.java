@@ -1,5 +1,6 @@
 package controllers;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -23,8 +24,8 @@ public class DummyResponseForTesting {
 		repoOneDataModel.setId(410654618);
 		repoOneDataModel.setLanguage("Java");
 		repoOneDataModel.setCloneUrl("https://github.com/MannParutthi/COMP-6481.git");
-		repoOneDataModel.setCreatedOn(new Date("Sun Sep 26 16:23:40 EDT 2021"));
-		repoOneDataModel.setLastUpdatedOn(new Date("Sun Sep 26 17:04:56 EDT 2021"));
+		repoOneDataModel.setCreatedOn(LocalDate.now().toString());
+		repoOneDataModel.setLastUpdatedOn(LocalDate.now().toString());
 		repoOneDataModel.setDescription(null);
 		repoOneDataModel.setOwner("MannParutthi");
 

@@ -1,5 +1,7 @@
 package model;
 
+import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -12,7 +14,7 @@ import java.util.List;
 public class RepoDataModel {
 	private long id;
 	private String description, language, url, cloneUrl, name, owner;
-	private Date createdOn, lastUpdatedOn;
+	private String createdOn, lastUpdatedOn;
 	private List<RepoContributorModel> contributors;
 	private List<RepoIssueModel> issues;
 	private List<RepoCommitModel> commits;
@@ -118,7 +120,7 @@ public class RepoDataModel {
 	 * This method gets the Created Date
 	 * @return Returns the Created Date of the Repository
 	 */
-	public Date getCreatedOn() {
+	public String getCreatedOn() {
 		return createdOn;
 	}
 	/**
@@ -126,14 +128,14 @@ public class RepoDataModel {
 	 * @param createdOn Sets the Created Date for the Repository
 	 * @return void
 	 */
-	public void setCreatedOn(Date createdOn) {
+	public void setCreatedOn(String createdOn) {
 		this.createdOn = createdOn;
 	}
 	/**
 	 * This gets the Last Updated Date
 	 * @return Returns the Last Updated Date
 	 */
-	public Date getLastUpdatedOn() {
+	public String getLastUpdatedOn() {
 		return lastUpdatedOn;
 	}
 	/**
@@ -141,7 +143,7 @@ public class RepoDataModel {
 	 * @param lastUpdatedOn Sets the Last Updated Date
 	 * @return void
 	 */
-	public void setLastUpdatedOn(Date lastUpdatedOn) {
+	public void setLastUpdatedOn(String lastUpdatedOn) {
 		this.lastUpdatedOn = lastUpdatedOn;
 	}
 	/**
@@ -149,6 +151,7 @@ public class RepoDataModel {
 	 * @return Returns the list of Contributors of the Repository
 	 */
 	public List<RepoContributorModel> getContributors() {
+		if(contributors == null) { return Arrays.asList(); }
 		return contributors;
 	}
 	/**
@@ -164,6 +167,7 @@ public class RepoDataModel {
 	 * @return Returns the issues of the Repository
 	 */
 	public List<RepoIssueModel> getIssues() {
+		if(issues == null) { return Arrays.asList(); }
 		return issues;
 	}
 	/**
@@ -179,6 +183,7 @@ public class RepoDataModel {
 	 * @return Returns the list of commits of the Repository
 	 */
 	public List<RepoCommitModel> getCommits() {
+		if(commits == null) { return Arrays.asList(); }
 		return commits;
 	}
 	/**

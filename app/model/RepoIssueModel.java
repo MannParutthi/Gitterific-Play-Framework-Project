@@ -6,7 +6,7 @@ package model;
  * @author Kevinkumar Patel
  */
 public class RepoIssueModel {
-	private String title, url;
+	private String title, url, state;
 
 	/**
 	 * This method gets the title
@@ -40,5 +40,13 @@ public class RepoIssueModel {
 	 */
 	public void setUrl(String url) {
 		this.url = url;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
 	}
 }
