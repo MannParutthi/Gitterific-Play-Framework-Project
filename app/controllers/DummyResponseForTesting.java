@@ -10,6 +10,7 @@ import model.RepoContributorModel;
 import model.RepoDataModel;
 import model.RepoIssueModel;
 import model.TopicDataModel;
+import model.TopicDataModel;
 import model.UserDetails;
 
 public class DummyResponseForTesting {
@@ -101,28 +102,25 @@ public class DummyResponseForTesting {
 		Date d1 = new Date("Sun Sep 26 17:04:56 EDT 2021");
 		Date d2 = new Date("Mon Sep 28 19:04:57 EDT 2021");
 		
-		topicDataModel1.setCreatedAt(new Date("Sun Sep 26 17:04:56 EDT 2021"));
-		topicDataModel1.setDescription("Java Project");
-		topicDataModel1.setId("Java123");
-		topicDataModel1.setLanguage("Java");
-		topicDataModel1.setName("Javaqwe");
-		topicDataModel1.setOwner("Peter");
-		topicDataModel1.setUrl("dds/sdfsf");
-		topicDataModel1.setPushedAt(new Date("Mon Sep 28 19:04:57 EDT 2021"));
-		topicDataModel1.setSize(1221);
-		
-		topicDataModel2.setCreatedAt(new Date("Mon Sep 26 19:04:57 EDT 2021"));
-		topicDataModel2.setDescription("Python project");
-		topicDataModel2.setId("Python123");
-		topicDataModel2.setLanguage("Python");
-		topicDataModel2.setName("qwerty");
-		topicDataModel2.setOwner("Adams");
-		topicDataModel2.setUrl("ass.wewe");
-		topicDataModel2.setPushedAt(new Date("Mon Sep 22 19:04:57 EDT 2021"));
-		topicDataModel2.setSize(1233);
-		
-		topicLists.add(topicDataModel1);
-		topicLists.add(topicDataModel2);
+//		topicDataModel1.setCreatedAt(new Date("Sun Sep 26 17:04:56 EDT 2021"));
+//		topicDataModel1.setDescription("Java Project");
+//		topicDataModel1.setId("Java123");
+//		topicDataModel1.setLanguage("Java");
+//		topicDataModel1.setName("Javaqwe");
+//		topicDataModel1.setOwner("Peter");
+//		topicDataModel1.setUrl("dds/sdfsf");
+//		topicDataModel1.setPushedAt(new Date("Mon Sep 28 19:04:57 EDT 2021"));
+//		topicDataModel1.setSize(1221);
+//		
+//		topicDataModel2.setCreatedAt(new Date("Mon Sep 26 19:04:57 EDT 2021"));
+//		topicDataModel2.setDescription("Python project");
+//		topicDataModel2.setId("Python123");
+//		topicDataModel2.setLanguage("Python");
+//		topicDataModel2.setName("qwerty");
+//		topicDataModel2.setOwner("Adams");
+//		topicDataModel2.setUrl("ass.wewe");
+//		topicDataModel2.setPushedAt(new Date("Mon Sep 22 19:04:57 EDT 2021"));
+//		topicDataModel2.setSize(1233);
 		
 		return topicLists;
 	}

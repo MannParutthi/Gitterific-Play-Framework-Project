@@ -68,6 +68,8 @@ public class HomeController {
 
 	@Inject
 	private MessagesApi messagesApi;
+	
+	private int count = 0;
 
 	/**
 	 * Parameterized Constructor with WebService Client and Search Repository
@@ -230,10 +232,13 @@ public class HomeController {
 						LinkedHashMap<String, List<SearchRepoModel>> currSearchData = new LinkedHashMap<String, List<SearchRepoModel>>();
 						currSearchData.put(searchKeyword, searchRepoList);
 						prevSearchData.add(currSearchData);
+						++count;
 						Collections.reverse(prevSearchData);
 						if (isSessionPresent) {
+							++count;
 							return ok(views.html.searchResults.render(prevSearchData));
 						} else {
+							++count;
 							return ok(views.html.searchResults.render(prevSearchData)).addingToSession(request,
 									"savedData", newSessionKey);
 						}
@@ -251,6 +256,7 @@ public class HomeController {
 			LinkedHashMap<String, List<SearchRepoModel>> currSearchData = new LinkedHashMap<String, List<SearchRepoModel>>();
 			currSearchData.put(searchKeyword, searchRepoList);
 			prevSearchData.add(currSearchData);
+			++count;
 			Collections.reverse(prevSearchData);
 			resultCompletionStage = CompletableFuture
 					.supplyAsync(() -> ok(views.html.searchResults.render(prevSearchData)));
@@ -338,23 +344,46 @@ public class HomeController {
 	 * @return CompletionStage<Result> Returns the Repository Data for the given Username
 	 */
 	public CompletionStage<Result> getTopicData(Http.Request request, String topicName) {
-		topicDataModelMap.put("TestingBranchYashwanth", DummyResponseForTesting.getTopicData()); // for testing
+		topicDataModelMap.put("TestingBranchYashwanth", DummyResponseForTesting.getTopicData());
+		topicDataModelMap.put("TestingTopicDataModel", null);// for testing
+		if(count == 0) {
+			prevSearchData = new ArrayList<LinkedHashMap<String, List<SearchRepoModel>>>();
+			List<SearchRepoModel> sp = new ArrayList<SearchRepoModel>();
+			LinkedHashMap<String, List<SearchRepoModel>> l1 = new LinkedHashMap<String, List<SearchRepoModel>>();
+			
+			SearchRepoModel spm = new SearchRepoModel();
+			spm.setRepoName("CS-Notes");
+			spm.setUserName("CyC2018");
+			String[] str = new String[] {"algorithm" , "computer-science" , "cpp" , "interview" , "java" , "leetcode" , "python" , "system-design"};
+			spm.setTopics(str);
+			sp.add(spm);
+			l1.put("Java", sp);
+			prevSearchData.add(l1);
+			
+			LinkedHashMap<String, List<SearchRepoModel>> l2 = new LinkedHashMap<String, List<SearchRepoModel>>();
+			List<SearchRepoModel> sp1 = new ArrayList<SearchRepoModel>();
+			SearchRepoModel spm1 = new SearchRepoModel();
+			spm.setRepoName("CS-Notes-1");
+			spm.setUserName("CyC2018-1");
+			String[] str1 = new String[] {"algorithms" , "Computer-Sciences" , "c++" , "interviews" , "Java" , "Leetcode" , "Python" , "System-Design"};
+			spm1.setTopics(str1);
+			sp1.add(spm);
+			l2.put("Java", sp1);
+			prevSearchData.add(l2);
+			count = 1;
+		}
 		CompletionStage<Result> result = null;
-		if (!request.session().get(topicName).isPresent()
-				|| this.topicDataModelMap.get(request.session().get(topicName).get()) == null) {
+		if (!request.session().get(topicName).isPresent()) {
 			result = topicDataService.getRepositoryData(topicName).thenApply(topicsList -> {
 				String randomKey = getSaltString();
-				for (TopicDataModel topic : topicsList) {
-					System.out.println(topic.toString());
-				}
 				topicDataModelMap.put(randomKey, topicsList);
-				return ok(views.html.topicData.render(topicsList)).addingToSession(request, topicName, randomKey);
+			return ok(views.html.topicData.render(topicsList, prevSearchData.get(0), topicName)).addingToSession(request, topicName, randomKey);
 			});
 		} else {
 			String key = request.session().get(topicName).get();
 			List<TopicDataModel> topicData = this.topicDataModelMap.get(key);
 			System.out.println("inside session ==> " + key);
-			result = CompletableFuture.supplyAsync(() -> ok(views.html.topicData.render(topicData)));
+			result = CompletableFuture.supplyAsync(() -> ok(views.html.topicData.render(topicData, prevSearchData.get(0), topicName)));
 		}
 		return result;
 	}

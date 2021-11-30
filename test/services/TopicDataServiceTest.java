@@ -1,13 +1,10 @@
 package services;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
+import java.util.concurrent.CompletableFuture;
 
 import org.eclipse.egit.github.core.SearchRepository;
 import org.eclipse.egit.github.core.service.RepositoryService;
@@ -17,7 +14,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 import model.TopicDataModel;
+import play.libs.Json;
+import play.mvc.Http;
+import play.mvc.Result;
+import play.test.Helpers;
+import play.test.WithApplication;
 
 
 /**
@@ -27,7 +31,7 @@ import model.TopicDataModel;
  *
  */
 @RunWith(MockitoJUnitRunner.class)
-public class TopicDataServiceTest {
+public class TopicDataServiceTest extends WithApplication {
 
 	@InjectMocks
 	TopicDataService topicDataService;
@@ -35,9 +39,11 @@ public class TopicDataServiceTest {
 	@Mock
 	RepositoryService repositoryService;
 	
+	public static List<TopicDataModel> topicLists;
+	
+	static JsonNode json;
+	
 	public static List<SearchRepository> topicDataList;
-	public static SearchRepository repository1;
-	public static SearchRepository repository2;
 	
 	/**
 	 * This method is used for setting up the data for testing
@@ -47,13 +53,14 @@ public class TopicDataServiceTest {
 	 */
 	@BeforeClass
 	public static void setUp() {
+		
+		String jsonData = "{\"name\":\"graphql\",\"display_name\":\"GraphQL\",\"short_description\":\"GraphQLisaquerylanguageforAPIsandaruntimeforfulfillingthosequerieswithyourexistingdata.\",\"description\":\"GraphQLisadataquerylanguagedevelopedbyFacebook.ItprovidesanalternativetoRESTandad-hocwebservicearchitectures.Itallowsclientstodefinethestructureofthedatarequired,andexactlythesamestructureofthedataisreturnedfromtheserver.Itisastronglytypedruntimewhichallowsclientstodictatewhatdataisneeded.\",\"created_by\":\"Facebook\",\"released\":\"2015\",\"created_at\":\"2016-12-17T02:09:00Z\",\"updated_at\":\"2021-11-29T00:24:35Z\",\"featured\":true,\"curated\":true,\"score\":1}";
+		
+		json = Json.parse(jsonData);
+		
 		topicDataList = new ArrayList<SearchRepository>();
 		
-		repository1 = new SearchRepository("Jack","Java");
-		repository2 = new SearchRepository("Jack","Java");
-
-		topicDataList.add(repository1);
-		topicDataList.add(repository2);
+		topicDataList.add(null);
 	}
 	
 	/**
@@ -63,24 +70,65 @@ public class TopicDataServiceTest {
 	 */
 	@org.junit.Test
 	public void test_getTopicDataService() {
-		try {
-			when(repositoryService.searchRepositories("Java")).thenReturn(topicDataList);
-			
-			try {
-				List<TopicDataModel> topicData = topicDataService.getRepositoryData("Java").toCompletableFuture().get();
-				topicData.get(0).setPushedAt(new Date("Sun Sep 26 17:04:56 EDT 2021"));
-				topicData.get(1).setPushedAt(new Date("Sun Sep 26 17:04:56 EDT 2021"));
-				//if(topicData.get(0).getPushedAt() != null && topicData.get(1).getPushedAt() != null) {
-					assertEquals(0, topicData.get(0).getPushedAt().compareTo(topicData.get(1).getPushedAt()));
-					//System.out.println("Inside if loop");
-				//}
-				assertEquals(topicData.get(0).getName(), "Java");
-			} catch (InterruptedException | ExecutionException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		} catch(IOException ioe) {
-			ioe.getStackTrace();
-		}
+		TopicDataModel topicDataModel = new TopicDataModel();
+		TopicDataModel topicDataModel1 = new TopicDataModel();
+		topicDataModel.setCreated_at(json.get("created_at").asText());
+		topicDataModel.setCreated_by(json.get("created_by").asText());
+		topicDataModel.setCurated(json.get("curated").asText());
+		topicDataModel.setDescription(json.get("description").asText());
+		topicDataModel.setDisplay_name(json.get("display_name").asText());
+		topicDataModel.setFeatured(json.get("featured").asText());
+		topicDataModel.setName(json.get("name").asText());
+		topicDataModel.setReleased(json.get("released").asText());
+		topicDataModel.setScore(json.get("score").asText());
+		topicDataModel.setShort_description(json.get("short_description").asText());
+		topicDataModel.setUpdated_at(json.get("updated_at").asText());
+		topicDataModel1.setDescription(null);
+		topicDataModel1.setCreated_at(null);
+		topicDataModel1.setCreated_by(null);
+		topicDataModel1.setCurated(null);
+		topicDataModel1.setDisplay_name(null);
+		topicDataModel1.setFeatured(null);
+		topicDataModel1.setName(null);
+		topicDataModel1.setReleased(null);
+		topicDataModel1.setScore(null);
+		topicDataModel1.setShort_description(null);
+		topicDataModel1.setUpdated_at(null);
+		
+		assertEquals(topicDataModel.getCreated_at(), "2016-12-17T02:09:00Z");
+		assertEquals(topicDataModel.getCreated_by(), "Facebook");
+		assertEquals(topicDataModel.getCurated(), "true");
+		assertEquals(topicDataModel.getDescription(), "GraphQLisadataquerylanguagedevelopedbyFacebook.ItprovidesanalternativetoRESTandad-hocwebservicearchitectures.Itallowsclientstodefinethestructureofthedatarequired,andexactlythesamestructureofthedataisreturnedfromtheserver.Itisastronglytypedruntimewhichallowsclientstodictatewhatdataisneeded.");
+		assertEquals(topicDataModel.getDisplay_name(), "GraphQL");
+		assertEquals(topicDataModel.getFeatured(), "true");
+		assertEquals(topicDataModel.getName(), "graphql");
+		assertEquals(topicDataModel.getReleased(), "2015");
+		assertEquals(topicDataModel.getScore(), "1");
+		assertEquals(topicDataModel.getShort_description(), "GraphQLisaquerylanguageforAPIsandaruntimeforfulfillingthosequerieswithyourexistingdata.");
+		assertEquals(topicDataModel.getUpdated_at(), "2021-11-29T00:24:35Z");
+		assertEquals(topicDataModel1.getDescription(), "NA");
+		assertEquals(topicDataModel1.getCreated_at(), "NA");
+		assertEquals(topicDataModel1.getCreated_by(), "NA");
+		assertEquals(topicDataModel1.getCurated(), "NA");
+		assertEquals(topicDataModel1.getDescription(), "NA");
+		assertEquals(topicDataModel1.getDisplay_name(), "NA");
+		assertEquals(topicDataModel1.getFeatured(), "NA");
+		assertEquals(topicDataModel1.getName(), "NA");
+		assertEquals(topicDataModel1.getReleased(), "NA");
+		assertEquals(topicDataModel1.getScore(), "NA");
+		assertEquals(topicDataModel1.getShort_description(), "NA");
+		assertEquals(topicDataModel1.getUpdated_at(), "NA");
+	}
+	
+	@org.junit.Test
+	public void test_topicDataServiceMethod()  {
+		
+		Result result = null;
+		
+		Http.RequestBuilder request1 = new Http.RequestBuilder().method("GET").uri("/topicData/Java");
+		
+		result = Helpers.route(app, request1);
+		
+		assertEquals(Http.Status.OK, result.status());
 	}
 }
