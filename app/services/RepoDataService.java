@@ -100,10 +100,7 @@ public class RepoDataService {
 				repoData.setCommits(repoCommitList);
 				
 				
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			} catch (ExecutionException e) {
-				// TODO Auto-generated catch block
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			System.out.println("chk here ===> " + repoData);

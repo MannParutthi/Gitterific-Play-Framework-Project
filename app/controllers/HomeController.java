@@ -56,7 +56,7 @@ import java.time.Duration;
  */
 public class HomeController {
 	
-	final ActorRef repoDataActor;
+//	final ActorRef repoDataActor;
 
 	private SyncCacheApi cacheApi;
 
@@ -93,7 +93,7 @@ public class HomeController {
 	public HomeController(WSClient ws, SyncCacheApi cacheApi, SearchForReposService searchForReposService,
 			RepoDataService repoDataService, RepoIssues repoIssues, TopicDataService topicDataService,
 			UserDataService userDataService, ActorSystem system) {
-		repoDataActor = system.actorOf(RepoDataActor.getProps());
+//		repoDataActor = system.actorOf(RepoDataActor.getProps());
 		
 		this.cacheApi = cacheApi;
 		this.ws = ws;

@@ -30,6 +30,7 @@
   					    			<ol type="A">
   					    				<li><h4>LOGIN NAME : <a href='@routes.HomeController.getUserData(contributor.getLoginName())'>@contributor.getLoginName()</a></h4></li>
   					    				<li><h4>URL : <a href="@contributor.getUrl()">@contributor.getUrl()</a></h4></li>
+  					    				<li><h4>NO OF CONTRIBUTIONS : @contributor.getNoOfContributions()</h4></li>
   					    			</ol>
   					    		</li>
   					    	</ul>
@@ -44,6 +45,7 @@
   					    			<ol type="A">
   					    				<li><h4>TITLE : @issue.getTitle()</h4></li>
   					    				<li><h4>URL : <a>@issue.getUrl()</a></h4></li>
+  					    				<li><h4>STATE : @issue.getState()</h4></li>
   					    			</ol>
   					    		</li>
   					    	</ul>
@@ -56,6 +58,9 @@
   					    		<li>
   					    			<ol type="A">
   					    				<li><h4>NAME : @commit.getLoginName()</h4></li>
+  					    				<li><h4>COMMIT MESSAGE : @commit.getMessage()</h4></li>
+  					    				<li><h4>EMAIL : @commit.getEmail()</h4></li>
+  					    				<li><h4>DATE : @commit.getDate()</h4></li>
   					    				<li><h4>URL : <a>@commit.getUrl()</a></h4></li>
   					    			</ol>
   					    		</li>
