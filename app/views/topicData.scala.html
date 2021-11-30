@@ -1,4 +1,4 @@
-@(topicData: List[model.TopicDataModel])
+@(topicData: List[model.TopicDataModel])(arrayListOfResult: LinkedHashMap[String,List[model.SearchRepoModel]])(topicSearchKeyword: String)
 @main("Welcome to Gitterific") {
 		<!DOCTYPE html>
 		<html>
@@ -7,29 +7,41 @@
 			</head>
 			<body>
 				<div class="container">
-  					<div class="jumbotron">
-    					<h3 style="font-size:2vw;"><b>Latest 10 Repositories filtered by Pushed Date</b></h3><br/>
-  					</div>
-				</div>
-								<div class="container">
+						@for((keyword,repoList) <- arrayListOfResult) {
+						<p>Search Term : @keyword </p>
+							<ul>
+							@for(repo <- repoList) {
+								<li>
+									<ol type="1">
+										<li><h1>User: <a href='@routes.HomeController.getUserData(repo.getUserName())'>@repo.getUserName()</a> / Repo : <a href='@routes.HomeController.getRepoData(repo.getUserName(), repo.getRepoName())'>@repo.getRepoName()</a></h1></li>
+											<span>Topics : </span>
+											@for(topic <- repo.getTopics()) {
+												<span><a href='@routes.HomeController.getTopicData(topic)' target="_blank">@topic</a> ,</span>
+											}										
+									</ol>
+								</li>	
+								</br>							
+							}					
+							</ul>
+						}
+					<hr>
+ 				</div>
+ 				<div class="container">
+ 					<h2><b>Latest 10 Repositories for @topicSearchKeyword</b></h2><br/> 
 					<ol type="1">
 						@for(data <- topicData) {
 						<li>
-							<h4 style="font-size:1.5vw;"><b>Name</b> : @data.getName()</h4>
 							<ul>
-								<li><h4 style="font-size:1.5vw;"><b>ID</b> : @data.getId()</h4></li>
-								<li><h4 style="font-size:1.5vw;"><b>Language</b> : @data.getLanguage()</h4></li>
-								<li><h4 style="font-size:1.5vw;"><b>Created On</b> : @data.getCreatedAt()</h4></li>
-								<li><h4 style="font-size:1.5vw;"><b>Description</b> : @data.getDescription()</h4></li>
-								<li><h4 style="font-size:1.5vw;"><b>Owner</b> : @data.getOwner()</h4></li>
-								<li><h4 style="font-size:1.5vw;"><b>Size</b> : @data.getSize()</h4></li>
-								<li><h4 style="font-size:1.5vw;"><b>Puhsed At</b> : @data.getPushedAt()</h4></li>
-								<li><h4 style="font-size:1.5vw;"><b>Repository URL</b> : <a href="@data.getUrl()" target="_blank">Repository Link</a> </h4></li>
+								<li><h1><b>Repository Name</b>: @data.getName()</h1></li>
+								<li><h1><b>Description</b>: @data.getShort_description()</h1></li>
+								<li><h1><b>Created By</b>: @data.getCreated_by()</h1></li>
+								<li><h1><b>Updated At</b>: @data.getUpdated_at()</h1></li>							
 							</ul>
-							<br/><br/>
+							<br/>
 						</li>
 						}
 					</ol>
+					<hr>
  				</div>
   			</body>
   		</html>
