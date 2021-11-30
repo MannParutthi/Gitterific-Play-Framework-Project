@@ -3,11 +3,15 @@ package controllers;
 import javax.inject.Inject;
 import org.eclipse.egit.github.core.SearchRepository;
 
+import akka.actor.ActorRef;
+import akka.actor.ActorSystem;
 import model.RepoDataModel;
 import model.SearchRepoModel;
 import model.TopicDataModel;
 import model.UserDetails;
 import play.mvc.*;
+import scala.compat.java8.FutureConverters;
+import static akka.pattern.Patterns.ask;
 import views.SearchDTO;
 import play.i18n.MessagesApi;
 import play.cache.Cached;
@@ -15,6 +19,8 @@ import play.cache.SyncCacheApi;
 import play.data.Form;
 import play.data.FormFactory;
 import play.libs.ws.*;
+import services.RepoDataActor;
+import services.RepoDataActor.RepoDataReqDetails;
 import services.RepoDataService;
 import services.RepoIssues;
 import services.SearchForReposService;
@@ -31,8 +37,11 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
+import java.util.concurrent.TimeUnit;
+
 import static play.mvc.Results.ok;
 import controllers.DummyResponseForTesting;
+import java.time.Duration;
 
 /**
  * HomeController is the Controller that handles the HTTP requests for searching for information on given topic, for fetching the repository data,
@@ -46,6 +55,8 @@ import controllers.DummyResponseForTesting;
  * 
  */
 public class HomeController {
+	
+	final ActorRef repoDataActor;
 
 	private SyncCacheApi cacheApi;
 
@@ -79,7 +90,9 @@ public class HomeController {
 	@Inject
 	public HomeController(WSClient ws, SyncCacheApi cacheApi, SearchForReposService searchForReposService,
 			RepoDataService repoDataService, RepoIssues repoIssues, TopicDataService topicDataService,
-			UserDataService userDataService) {
+			UserDataService userDataService, ActorSystem system) {
+		repoDataActor = system.actorOf(RepoDataActor.getProps());
+		
 		this.cacheApi = cacheApi;
 		this.ws = ws;
 		this.searchForReposService = searchForReposService;
@@ -185,7 +198,13 @@ public class HomeController {
 	 * 
 	 */
 	public Result index(Http.Request request) {
+		test();
 		return Results.ok(views.html.index.render(formFactory.form(SearchDTO.class), messagesApi.preferred(request)));
+	}
+	
+	public void test() {
+//		FutureConverters.toJava(ask(repoDataActor, new RepoDataReqDetails("MannParutthi", "COMP-6481"), 1000)).thenApply(
+//				response -> System.out.println("chk res ==> " + response));
 	}
 
 	/**

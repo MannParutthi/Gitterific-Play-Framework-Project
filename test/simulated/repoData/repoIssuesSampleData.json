@@ -1,0 +1,73 @@
+[
+  {
+    "url": "https://api.github.com/repos/octobox/octobox/issues/2856",
+    "repository_url": "https://api.github.com/repos/octobox/octobox",
+    "labels_url": "https://api.github.com/repos/octobox/octobox/issues/2856/labels{/name}",
+    "comments_url": "https://api.github.com/repos/octobox/octobox/issues/2856/comments",
+    "events_url": "https://api.github.com/repos/octobox/octobox/issues/2856/events",
+    "html_url": "https://github.com/octobox/octobox/issues/2856",
+    "id": 1061662810,
+    "node_id": "I_kwDOBJI8Ps4_R7Ba",
+    "number": 2856,
+    "title": "Deprecate and redirect the old API endpoints",
+    "user": {
+      "login": "andrew",
+      "id": 1060,
+      "node_id": "MDQ6VXNlcjEwNjA=",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1060?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/andrew",
+      "html_url": "https://github.com/andrew",
+      "followers_url": "https://api.github.com/users/andrew/followers",
+      "following_url": "https://api.github.com/users/andrew/following{/other_user}",
+      "gists_url": "https://api.github.com/users/andrew/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/andrew/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/andrew/subscriptions",
+      "organizations_url": "https://api.github.com/users/andrew/orgs",
+      "repos_url": "https://api.github.com/users/andrew/repos",
+      "events_url": "https://api.github.com/users/andrew/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/andrew/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [
+      {
+        "id": 1050686964,
+        "node_id": "MDU6TGFiZWwxMDUwNjg2OTY0",
+        "url": "https://api.github.com/repos/octobox/octobox/labels/refactor",
+        "name": "refactor",
+        "color": "ed5ec0",
+        "default": false,
+        "description": "Internal code changes that don't add or remove functionality"
+      }
+    ],
+    "state": "open",
+    "locked": false,
+    "assignee": null,
+    "assignees": [
+
+    ],
+    "milestone": null,
+    "comments": 0,
+    "created_at": "2021-11-23T20:04:10Z",
+    "updated_at": "2021-11-23T20:04:10Z",
+    "closed_at": null,
+    "author_association": "MEMBER",
+    "active_lock_reason": null,
+    "body": "Extracted from https://github.com/octobox/octobox/pull/2852\r\n\r\nNow that we have a new api, the old endpoints still work but have duplicate logic, they should be redirected to the new api with a deprecation notice and eventually removed.",
+    "reactions": {
+      "url": "https://api.github.com/repos/octobox/octobox/issues/2856/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "timeline_url": "https://api.github.com/repos/octobox/octobox/issues/2856/timeline",
+    "performed_via_github_app": null
+  }
+ ]

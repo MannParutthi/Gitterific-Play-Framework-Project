@@ -72,8 +72,8 @@ public class RepoDataControllerTest {
 		repoOneDataModel.setId(410654618);
 		repoOneDataModel.setLanguage("Java");
 		repoOneDataModel.setCloneUrl("https://github.com/MannParutthi/COMP-6481.git");
-		repoOneDataModel.setCreatedOn(new Date("Sun Sep 26 16:23:40 EDT 2021"));
-		repoOneDataModel.setLastUpdatedOn(new Date("Sun Sep 26 17:04:56 EDT 2021"));
+		repoOneDataModel.setCreatedOn("Sun Sep 26 16:23:40 EDT 2021");
+		repoOneDataModel.setLastUpdatedOn("Sun Sep 26 17:04:56 EDT 2021");
 		repoOneDataModel.setDescription(null);
 		repoOneDataModel.setOwner("MannParutthi");
 
