@@ -50,8 +50,8 @@ public class TopicDataService implements WSBodyReadables, WSBodyWritables{
 			
 				String url = "https://api.github.com/search/topics?q="+keyword;
 				// implements WSBodyReadables or use WSBodyReadables.instance.json()
-				WSRequest request = ws.url(url).addHeader("Authorization", "token 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");
-				CompletionStage<JsonNode> jsonPromise = request.get().thenApply(r -> r.getBody(json()));
+				//WSRequest request = ws.url(url).addHeader("Authorization", "token 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");
+				CompletionStage<JsonNode> jsonPromise = ws.url(url).get().thenApply(r -> r.getBody(json()));
 					try {
 						for(JsonNode topicsJson : jsonPromise.toCompletableFuture().get().get("items")) {
 							TopicDataModel topicDataModel = new TopicDataModel();
