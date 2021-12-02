@@ -17,3 +17,5 @@ GET 	/topicData/:topic			controllers.HomeController.getTopicData(request: Reques
 GET		/repoData/:userName/:repoName			controllers.HomeController.getRepoData(request: Request, userName: String, repoName: String)
 
 GET		/searchResult				controllers.HomeController.getSearchResults(request: Request)
+
+GET     /ws                         controllers.HomeController.ws
