@@ -46,6 +46,7 @@ class Routes(
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """topicData/""" + "$" + """topic<[^/]+>""", """controllers.HomeController.getTopicData(request:Request, topic:String)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """repoData/""" + "$" + """userName<[^/]+>/""" + "$" + """repoName<[^/]+>""", """controllers.HomeController.getRepoData(request:Request, userName:String, repoName:String)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """searchResult""", """controllers.HomeController.getSearchResults(request:Request)"""),
+    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """ws""", """controllers.HomeController.ws"""),
     Nil
   ).foldLeft(List.empty[(String,String,String)]) { (s,e) => e.asInstanceOf[Any] match {
     case r @ (_,_,_) => s :+ r.asInstanceOf[(String,String,String)]
@@ -189,6 +190,24 @@ class Routes(
     )
   )
 
+  // @LINE:21
+  private[this] lazy val controllers_HomeController_ws7_route = Route("GET",
+    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("ws")))
+  )
+  private[this] lazy val controllers_HomeController_ws7_invoker = createInvoker(
+    HomeController_1.ws,
+    play.api.routing.HandlerDef(this.getClass.getClassLoader,
+      "router",
+      "controllers.HomeController",
+      "ws",
+      Nil,
+      "GET",
+      this.prefix + """ws""",
+      """""",
+      Seq()
+    )
+  )
+
 
   def routes: PartialFunction[RequestHeader, Handler] = {
   
@@ -237,6 +256,12 @@ class Routes(
       call { 
         controllers_HomeController_getSearchResults6_invoker.call(
           req => HomeController_1.getSearchResults(req))
+      }
+  
+    // @LINE:21
+    case controllers_HomeController_ws7_route(params@_) =>
+      call { 
+        controllers_HomeController_ws7_invoker.call(HomeController_1.ws)
       }
   }
 }
