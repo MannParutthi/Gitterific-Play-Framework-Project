@@ -58,6 +58,7 @@ import java.time.Duration;
  * @author Kevinkumar Patel
  * 
  */
+
 public class HomeController {
 	
 	@Inject private ActorSystem actorSystem;
@@ -99,7 +100,7 @@ public class HomeController {
 	public HomeController(WSClient ws, SyncCacheApi cacheApi, SearchForReposService searchForReposService,
 			RepoDataService repoDataService, RepoIssues repoIssues, TopicDataService topicDataService,
 			UserDataService userDataService, ActorSystem system) {
-//		repoDataActor = system.actorOf(RepoDataActor.getProps(ws, repoDataService));
+		repoDataActor = system.actorOf(RepoDataActor.getProps( repoDataService));
 		searchForRepoActor = system.actorOf(SearchForRepoActor.getProps(searchForReposService));
 		
 		this.cacheApi = cacheApi;
@@ -211,14 +212,9 @@ public class HomeController {
 	 * 
 	 */
 	public Result index(Http.Request request) {
-		test();
 		return Results.ok(views.html.index.render(formFactory.form(SearchDTO.class), messagesApi.preferred(request)));
 	}
 	
-	public void test() {
-//		FutureConverters.toJava(ask(repoDataActor, new RepoDataReqDetails("MannParutthi", "COMP-6481"), 1000)).thenApply(
-//				response -> System.out.println("chk res ==> " + response));
-	}
 
 	/**
 	 * This method is used for caching the data in the search results page
@@ -337,11 +333,13 @@ public class HomeController {
 		CompletionStage<Result> resultCompletionStage;
 		if (!request.session().get(userName + repoName).isPresent()
 				|| this.sessionMapRepoData.get(request.session().get(userName + repoName).get()) == null) {
-			resultCompletionStage = repoDataService.getRepoData(userName, repoName).thenApply(repoDetails -> {
+			return FutureConverters.toJava(ask(repoDataActor, new RepoDataReqDetails(userName, repoName), 10000)).thenApply(response -> {
+				RepoDataModel repoDetails = (RepoDataModel)response;
 				String randomKey = getSaltString();
 				this.sessionMapRepoData.put(randomKey, repoDetails);
-				System.out.println("repoData ==> " + repoDetails.getContributors());
-				return ok(views.html.repoData.render(repoDetails)).addingToSession(request, userName + repoName,
+				System.out.println("repoDataaaaa ==> " + repoDetails);
+				
+				 return ok(views.html.repoData.render(repoDetails)).addingToSession(request, userName + repoName,
 						randomKey);
 			});
 		} else {

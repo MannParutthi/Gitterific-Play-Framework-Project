@@ -61,12 +61,14 @@ public class RepoDataService {
 				List<RepoContributorModel> repoContributorList = new ArrayList<RepoContributorModel>();
 				if(repoJson.get("size").asInt() > 0) {
 					JsonNode repoContributorsJson = getJsonData("https://api.github.com/repos/" + userName + "/" + repoName + "/contributors", -1);
-					for (JsonNode contributorJson : repoContributorsJson) {
-						RepoContributorModel repoContributorDetails = new RepoContributorModel();
-						repoContributorDetails.setLoginName(contributorJson.get("login").asText());
-						repoContributorDetails.setUrl(contributorJson.get("html_url").asText());
-						repoContributorDetails.setNoOfContributions(contributorJson.get("contributions").asInt());
-						repoContributorList.add(repoContributorDetails);
+					if(repoContributorsJson.size()>0) {
+						for (JsonNode contributorJson : repoContributorsJson) {
+							RepoContributorModel repoContributorDetails = new RepoContributorModel();
+							repoContributorDetails.setLoginName(contributorJson.get("login").asText());
+							repoContributorDetails.setUrl(contributorJson.get("html_url").asText());
+							repoContributorDetails.setNoOfContributions(contributorJson.get("contributions").asInt());
+							repoContributorList.add(repoContributorDetails);
+						}
 					}
 				}
 				repoData.setContributors(repoContributorList);
@@ -74,26 +76,30 @@ public class RepoDataService {
 
 				List<RepoIssueModel> repoIssueList = new ArrayList<RepoIssueModel>();
 				JsonNode repoIssuesJson = getJsonData("https://api.github.com/repos/" + userName + "/" + repoName + "/issues", 20);
-				for (JsonNode issueJson : repoIssuesJson) {
-					RepoIssueModel repoIssueDetails = new RepoIssueModel();
-					repoIssueDetails.setTitle(issueJson.get("title").asText());
-					repoIssueDetails.setUrl(issueJson.get("html_url").asText());
-					repoIssueDetails.setState(issueJson.get("state").asText());
-					repoIssueList.add(repoIssueDetails);
+				if(repoIssuesJson.size()>0) {
+					for (JsonNode issueJson : repoIssuesJson) {
+						RepoIssueModel repoIssueDetails = new RepoIssueModel();
+						repoIssueDetails.setTitle(issueJson.get("title").asText());
+						repoIssueDetails.setUrl(issueJson.get("html_url").asText());
+						repoIssueDetails.setState(issueJson.get("state").asText());
+						repoIssueList.add(repoIssueDetails);
+					}
 				}
 				repoData.setIssues(repoIssueList);
 
 				List<RepoCommitModel> repoCommitList = new ArrayList<RepoCommitModel>();
 				if (repoJson.get("size").asInt() > 0) {
 					JsonNode repoCommitsJson = getJsonData("https://api.github.com/repos/" + userName + "/" + repoName + "/commits", -1);
-					for (JsonNode commitJson : repoCommitsJson) {
-						RepoCommitModel repoCommitDetails = new RepoCommitModel();
-						repoCommitDetails.setLoginName(commitJson.get("commit").get("author").get("name").asText());
-						repoCommitDetails.setEmail(commitJson.get("commit").get("author").get("email").asText());
-						repoCommitDetails.setMessage(commitJson.get("commit").get("message").asText());
-						repoCommitDetails.setDate(commitJson.get("commit").get("author").get("date").asText());
-						repoCommitDetails.setUrl(commitJson.get("commit").get("url").asText());
-						repoCommitList.add(repoCommitDetails);
+					if(repoCommitsJson.size()>0) {
+						for (JsonNode commitJson : repoCommitsJson) {
+							RepoCommitModel repoCommitDetails = new RepoCommitModel();
+							repoCommitDetails.setLoginName(commitJson.get("commit").get("author").get("name").asText());
+							repoCommitDetails.setEmail(commitJson.get("commit").get("author").get("email").asText());
+							repoCommitDetails.setMessage(commitJson.get("commit").get("message").asText());
+							repoCommitDetails.setDate(commitJson.get("commit").get("author").get("date").asText());
+							repoCommitDetails.setUrl(commitJson.get("commit").get("url").asText());
+							repoCommitList.add(repoCommitDetails);
+						}
 					}
 				}
 				

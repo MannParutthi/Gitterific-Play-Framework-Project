@@ -1,6 +1,8 @@
 package actors;
 
+import java.util.Arrays;
 import java.util.concurrent.CompletionStage;
+import java.util.concurrent.ExecutionException;
 
 import javax.inject.Inject;
 
@@ -21,17 +23,15 @@ public class RepoDataActor extends AbstractActor {
 		}
 	}
 	
-	private final ActorRef ws;
 	private final RepoDataService repoDataService;
 	
 	@Inject
-	public RepoDataActor(final ActorRef wsOut, RepoDataService repoDataService) {
-		this.ws = wsOut;
+	public RepoDataActor( RepoDataService repoDataService) {
 		this.repoDataService = repoDataService;
 	}
 
-	public static Props getProps(ActorRef ws, RepoDataService s) {
-		return Props.create(RepoDataActor.class, () -> new RepoDataActor(ws, s));
+	public static Props getProps( RepoDataService s) {
+		return Props.create(RepoDataActor.class, () -> new RepoDataActor(s));
 	}
 
 	@Override
@@ -42,8 +42,17 @@ public class RepoDataActor extends AbstractActor {
 	}
 	
 	private void sendRepoData(RepoDataReqDetails reqData) {
+		try {
 		CompletionStage<RepoDataModel> response = repoDataService.getRepoData(reqData.userName, reqData.repoName);
-		ws.tell(response, self());
+		System.out.println("response --> "+response);
+		sender().tell(response.toCompletableFuture().get(), self());
+		}
+		catch(InterruptedException e) {
+			sender().tell(new RepoDataModel(), self());
+		}
+		catch(ExecutionException e) {
+			sender().tell(new RepoDataModel(), self());
+		}
 	}
 
 }
