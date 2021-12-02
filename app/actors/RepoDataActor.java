@@ -1,4 +1,4 @@
-package services;
+package actors;
 
 import java.util.concurrent.CompletionStage;
 
@@ -8,6 +8,8 @@ import akka.actor.AbstractActor;
 import akka.actor.ActorRef;
 import akka.actor.Props;
 import model.RepoDataModel;
+import play.libs.ws.WSClient;
+import services.RepoDataService;
 
 public class RepoDataActor extends AbstractActor {
 	
@@ -28,8 +30,8 @@ public class RepoDataActor extends AbstractActor {
 		this.repoDataService = repoDataService;
 	}
 
-	public static Props getProps() {
-		return Props.create(RepoDataActor.class);
+	public static Props getProps(ActorRef ws, RepoDataService s) {
+		return Props.create(RepoDataActor.class, () -> new RepoDataActor(ws, s));
 	}
 
 	@Override

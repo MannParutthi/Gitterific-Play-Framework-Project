@@ -3,8 +3,13 @@ package controllers;
 import javax.inject.Inject;
 import org.eclipse.egit.github.core.SearchRepository;
 
+import actors.RepoDataActor;
+import actors.RepoDataActor.RepoDataReqDetails;
+import actors.SearchForRepoActor;
+import actors.SearchSupervisorActor;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
+import akka.stream.Materializer;
 import model.RepoDataModel;
 import model.SearchRepoModel;
 import model.TopicDataModel;
@@ -18,9 +23,8 @@ import play.cache.Cached;
 import play.cache.SyncCacheApi;
 import play.data.Form;
 import play.data.FormFactory;
+import play.libs.streams.ActorFlow;
 import play.libs.ws.*;
-import services.RepoDataActor;
-import services.RepoDataActor.RepoDataReqDetails;
 import services.RepoDataService;
 import services.RepoIssues;
 import services.SearchForReposService;
@@ -56,7 +60,9 @@ import java.time.Duration;
  */
 public class HomeController {
 	
-//	final ActorRef repoDataActor;
+	@Inject private ActorSystem actorSystem;
+    @Inject private Materializer materializer;
+	ActorRef repoDataActor, searchForRepoActor;
 
 	private SyncCacheApi cacheApi;
 
@@ -93,7 +99,8 @@ public class HomeController {
 	public HomeController(WSClient ws, SyncCacheApi cacheApi, SearchForReposService searchForReposService,
 			RepoDataService repoDataService, RepoIssues repoIssues, TopicDataService topicDataService,
 			UserDataService userDataService, ActorSystem system) {
-//		repoDataActor = system.actorOf(RepoDataActor.getProps());
+//		repoDataActor = system.actorOf(RepoDataActor.getProps(ws, repoDataService));
+		searchForRepoActor = system.actorOf(SearchForRepoActor.getProps(searchForReposService));
 		
 		this.cacheApi = cacheApi;
 		this.ws = ws;
@@ -108,6 +115,10 @@ public class HomeController {
 		this.userDataService = userDataService;
 		sessionMapUserData = new HashMap<String, UserDetails>();
 	}
+	
+	public WebSocket ws() {
+        return WebSocket.Json.accept(request -> ActorFlow.actorRef(SearchSupervisorActor::props, actorSystem, materializer));
+    }
 	
 	/**
 	 * This method sets the Repo Issues
@@ -255,10 +266,10 @@ public class HomeController {
 						Collections.reverse(prevSearchData);
 						if (isSessionPresent) {
 							++count;
-							return ok(views.html.searchResults.render(prevSearchData));
+							return ok(views.html.searchResults.render(request, prevSearchData));
 						} else {
 							++count;
-							return ok(views.html.searchResults.render(prevSearchData)).addingToSession(request,
+							return ok(views.html.searchResults.render(request, prevSearchData)).addingToSession(request,
 									"savedData", newSessionKey);
 						}
 
@@ -278,7 +289,7 @@ public class HomeController {
 			++count;
 			Collections.reverse(prevSearchData);
 			resultCompletionStage = CompletableFuture
-					.supplyAsync(() -> ok(views.html.searchResults.render(prevSearchData)));
+					.supplyAsync(() -> ok(views.html.searchResults.render(request, prevSearchData)));
 		}
 		return resultCompletionStage;
 	}

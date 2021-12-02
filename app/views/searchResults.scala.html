@@ -1,11 +1,14 @@
-@(arrayListOfResult: ArrayList[LinkedHashMap[String,List[model.SearchRepoModel]]])
+@(request: play.mvc.Http.Request, arrayListOfResult: ArrayList[LinkedHashMap[String,List[model.SearchRepoModel]]])
 @main("Welcome to Gitterific") {
 		<!DOCTYPE html>
 		<html>
 			<head lang="en">
   				<meta charset="UTF-8">
+  				<script type='text/javascript' src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
+  				<script type='text/javascript' src='@routes.Assets.versioned("javascripts/index.js")'></script>  
 			</head>
-			<body>
+			<body data-ws-url="@routes.HomeController.ws.webSocketURL(request)">
+				<div id="time">=> </div>
 				<div class="container">
 					@for(mapOfSearchAndResult <- arrayListOfResult) {
 						@for((keyword,repoList) <- mapOfSearchAndResult) {
