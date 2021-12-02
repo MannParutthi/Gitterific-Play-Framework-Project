@@ -403,17 +403,17 @@ public class HomeController {
 			count = 1;
 		}
 		CompletionStage<Result> result = null;
-		if (!request.session().get(topicName).isPresent()) {
+		if (!request.session().get(topicName).isPresent() || this.sessionMapUserData.get(request.session().get(topicName).get()) == null) {
 			result = topicDataService.getRepositoryData(topicName).thenApply(topicsList -> {
 				String randomKey = getSaltString();
 				topicDataModelMap.put(randomKey, topicsList);
-			return ok(views.html.topicData.render(topicsList, prevSearchData.get(0), topicName)).addingToSession(request, topicName, randomKey);
+			return ok(views.html.topicData.render(topicsList, prevSearchData, topicName)).addingToSession(request, topicName, randomKey);
 			});
 		} else {
 			String key = request.session().get(topicName).get();
 			List<TopicDataModel> topicData = this.topicDataModelMap.get(key);
 			System.out.println("inside session ==> " + key);
-			result = CompletableFuture.supplyAsync(() -> ok(views.html.topicData.render(topicData, prevSearchData.get(0), topicName)));
+			result = CompletableFuture.supplyAsync(() -> ok(views.html.topicData.render(topicData, prevSearchData, topicName)));
 		}
 		return result;
 	}

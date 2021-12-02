@@ -1,4 +1,4 @@
-@(topicData: List[model.TopicDataModel])(arrayListOfResult: LinkedHashMap[String,List[model.SearchRepoModel]])(topicSearchKeyword: String)
+@(topicData: List[model.TopicDataModel])(arrayListOfResult: ArrayList[LinkedHashMap[String,List[model.SearchRepoModel]]])(topicSearchKeyword: String)
 @main("Welcome to Gitterific") {
 		<!DOCTYPE html>
 		<html>
@@ -7,7 +7,8 @@
 			</head>
 			<body>
 				<div class="container">
-						@for((keyword,repoList) <- arrayListOfResult) {
+					@for(mapOfSearchAndResult <- arrayListOfResult) {
+						@for((keyword,repoList) <- mapOfSearchAndResult) {
 						<p>Search Term : @keyword </p>
 							<ul>
 							@for(repo <- repoList) {
@@ -23,8 +24,9 @@
 								</br>							
 							}					
 							</ul>
+							<hr>
 						}
-					<hr>
+					}
  				</div>
  				<div class="container">
  					<h2><b>Latest 10 Repositories for @topicSearchKeyword</b></h2><br/> 
