@@ -35,6 +35,12 @@ package controllers {
       Call("GET", _prefix + { _defaultPrefix } + "userData/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("userName", userName)))
     }
   
+    // @LINE:21
+    def ws: Call = {
+      
+      Call("GET", _prefix + { _defaultPrefix } + "ws")
+    }
+  
     // @LINE:17
     def getRepoData(userName:String, repoName:String): Call = {
       

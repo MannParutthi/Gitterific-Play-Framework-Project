@@ -45,7 +45,7 @@ Seq[Any](format.raw/*7.32*/("""
     <link rel="stylesheet" media="screen" href='"""),_display_(/*15.50*/routes/*15.56*/.Assets.versioned("stylesheets/main.css")),format.raw/*15.97*/("""'>
     <link rel="stylesheet" media="screen" href='"""),_display_(/*16.50*/routes/*16.56*/.Assets.versioned("stylesheets/prism.css")),format.raw/*16.98*/("""'>
     <link rel="shortcut icon" type="image/png" href='"""),_display_(/*17.55*/routes/*17.61*/.Assets.versioned("images/favicon.png")),format.raw/*17.100*/("""'>
-    <script src='"""),_display_(/*18.19*/routes/*18.25*/.Assets.versioned("javascripts/hello.js")),format.raw/*18.66*/("""' type="text/javascript"></script>
+    <!-- <script src='"""),_display_(/*18.24*/routes/*18.30*/.Assets.versioned("javascripts/hello.js")),format.raw/*18.71*/("""' type="text/javascript"></script> -->
     <script src='"""),_display_(/*19.19*/routes/*19.25*/.Assets.versioned("javascripts/prism.js")),format.raw/*19.66*/("""' type="text/javascript"></script>
 </head>
 
@@ -76,8 +76,8 @@ Seq[Any](format.raw/*7.32*/("""
               /*
                   -- GENERATED --
                   SOURCE: app/views/main.scala.html
-                  HASH: af8612c686bf9104afec5807e527ab916245894a
-                  MATRIX: 1170->266|1295->296|1325->300|1409->357|1435->362|1597->497|1612->503|1674->544|1754->597|1769->603|1832->645|1917->703|1932->709|1993->748|2042->770|2057->776|2119->817|2200->871|2215->877|2277->918|2585->1200|2613->1207|2642->1209
+                  HASH: df0ae37a1b9faf5b78f1febda9552182eb3e3ebe
+                  MATRIX: 1170->266|1295->296|1325->300|1409->357|1435->362|1597->497|1612->503|1674->544|1754->597|1769->603|1832->645|1917->703|1932->709|1993->748|2047->775|2062->781|2124->822|2209->880|2224->886|2286->927|2594->1209|2622->1216|2651->1218
                   LINES: 32->7|37->7|39->9|43->13|43->13|45->15|45->15|45->15|46->16|46->16|46->16|47->17|47->17|47->17|48->18|48->18|48->18|49->19|49->19|49->19|59->29|59->29|60->30
                   -- GENERATED --
               */

@@ -48,6 +48,16 @@ package controllers.javascript {
       """
     )
   
+    // @LINE:21
+    def ws: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.HomeController.ws",
+      """
+        function() {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "ws"})
+        }
+      """
+    )
+  
     // @LINE:17
     def getRepoData: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.HomeController.getRepoData",
