@@ -13,13 +13,9 @@ import org.eclipse.egit.github.core.UserPlan;
  *
  */
 public class UserDetails {
-	private boolean hireable;
+	private String hireable;
 
-	private Date createdAt;
-
-	private int collaborators;
-
-	private int diskUsage;
+	private String createdAt;
 
 	private int followers;
 
@@ -34,8 +30,6 @@ public class UserDetails {
 	private int publicGists;
 
 	private int publicRepos;
-
-	private int totalPrivateRepos;
 
 	private String avatarUrl;
 
@@ -56,8 +50,6 @@ public class UserDetails {
 	private String type;
 
 	private String url;
-
-	private UserPlan plan;
 	
 	private List<String> repoName;
 
@@ -85,7 +77,7 @@ public class UserDetails {
 	 * 
 	 * @return boolean Returns whether the user is hireable or not
 	 */
-	public boolean isHireable() {
+	public String isHireable() {
 		return hireable;
 	}
 
@@ -95,7 +87,7 @@ public class UserDetails {
 	 * @param hireable
 	 * @return void
 	 */
-	public void setHireable(boolean hireable) {
+	public void setHireable(String hireable) {
 		this.hireable = hireable;
 	}
 	
@@ -104,7 +96,7 @@ public class UserDetails {
 	 * 
 	 * @return Date Returns the date when the user was created
 	 */
-	public Date getCreatedAt() {
+	public String getCreatedAt() {
 		return createdAt;
 	}
 
@@ -115,7 +107,7 @@ public class UserDetails {
 	 * 
 	 * @return void
 	 */
-	public void setCreatedAt(Date createdAt) {
+	public void setCreatedAt(String createdAt) {
 		this.createdAt = createdAt;
 	}
 
@@ -124,38 +116,6 @@ public class UserDetails {
 	 * 
 	 * @return int count of the collaborators
 	 */
-	public int getCollaborators() {
-		return collaborators;
-	}
-	
-	/**
-	 * This method sets the collaborators for a user
-	 *  
-	 * @param collaborators
-	 * @return void
-	 */
-	public void setCollaborators(int collaborators) {
-		this.collaborators = collaborators;
-	}
-
-	/**
-	 * This method returns the sie of the disk used
-	 * 
-	 * @return int Returns the disk usage
-	 */
-	public int getDiskUsage() {
-		return diskUsage;
-	}
-
-	/**
-	 * This method sets the disk usage
-	 * 
-	 * @param diskUsage 
-	 * @return void
-	 */
-	public void setDiskUsage(int diskUsage) {
-		this.diskUsage = diskUsage;
-	}
 
 	/**
 	 * This method returns the count of followers 
@@ -292,19 +252,6 @@ public class UserDetails {
 	 * 
 	 * @return int Returns the total private repos 
 	 */
-	public int getTotalPrivateRepos() {
-		return totalPrivateRepos;
-	}
-	
-	/**
-	 * This method sets the total private repos 
-	 * 
-	 * @param totalPrivateRepos
-	 * @return void
-	 */
-	public void setTotalPrivateRepos(int totalPrivateRepos) {
-		this.totalPrivateRepos = totalPrivateRepos;
-	}
 	
 	/**
 	 * This method returns the Avatar URL
@@ -487,16 +434,4 @@ public class UserDetails {
 	 * This method returns the user plan
 	 * @return UserPlan  Returns the user plan
 	 */
-	public UserPlan getPlan() {
-		return plan;
-	}
-
-	/**
-	 * This method sets the Plan
-	 * @param plan
-	 * @return void
-	 */
-	public void setPlan(UserPlan plan) {
-		this.plan = plan;
-	}
 }

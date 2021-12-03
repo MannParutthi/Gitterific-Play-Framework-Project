@@ -70,18 +70,16 @@ public class UserDataControllerTest {
 		userDetails.setId(44037806);
 		userDetails.setAvatarUrl("https://avatars.githubusercontent.com/u/44037806?v=4");
 		userDetails.setBlog("http://fabien.potencier.org/");
-		userDetails.setCollaborators(3);
 		userDetails.setCompany("Symfony/Blackfire");
 		userDetails.setFollowers(700);
 		userDetails.setFollowing(20);
-		userDetails.setHireable(false);
+		userDetails.setHireable("false");
 		userDetails.setHtmlUrl("https://github.com/fabpot");
 		userDetails.setPublicRepos(8);
 		userDetails.setPublicGists(10);
 		userDetails.setUrl("https://api.github.com/users/fabpot");
 		userDetails.setType("User");
 		userDetails.setPrivateGists(0);
-		userDetails.setTotalPrivateRepos(0);
 		userDetails.setRepoName(Arrays.asList("git"));
 	}
 
@@ -98,8 +96,6 @@ public class UserDataControllerTest {
 			res2 = userDataController.getUserData(requestWithSession,"harman8").toCompletableFuture().get();
 			Request requestWithSession2 = Helpers.fakeRequest().method("GET").uri("/userData/harman8").session("harman8", "randomKeyTestingNull").build();
 			res3 = userDataController.getUserData(requestWithSession2,"harman8").toCompletableFuture().get();
-		//	ud = userDataService.getUserData("harman8").toCompletableFuture().get();
-		//	System.out.println(ud.getName());
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

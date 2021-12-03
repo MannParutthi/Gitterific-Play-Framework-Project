@@ -4,6 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThrows;
 import static org.mockito.ArgumentMatchers.*;
+
+import play.api.libs.ws.WSClient;
+import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Http.Request;
 import play.test.Helpers;
@@ -11,6 +14,7 @@ import play.test.Helpers;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,8 +41,15 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.stubbing.OngoingStubbing;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import model.TopicDataModel;
 import model.UserDetails;
 import services.UserDataService;
+import play.test.WithApplication;
+
 
 /**
  * Service for testing the User Data
@@ -47,7 +58,7 @@ import services.UserDataService;
  *
  */
 @RunWith(MockitoJUnitRunner.class)
-public class UserDataServiceTest {
+public class UserDataServiceTest extends WithApplication{
 	
 	@InjectMocks
 	UserDataService userDataService;
@@ -60,6 +71,8 @@ public class UserDataServiceTest {
 	
 //	static
 //	UserDetails userDetails;
+	@Mock
+	WSClient wsClientMock; 
 	
 	//@Mock
 	static User user;
@@ -70,107 +83,83 @@ public class UserDataServiceTest {
 	//@Mock
 	static Repository repository;
 	
+	public static JsonNode userJson;
+	public static JsonNode repoJson;
+	
 	/**
 	 * This method is used for setting up the test data for testing
 	 * 
 	 * @throws Exception
 	 */
 	@BeforeClass
-	public static void setUp() throws Exception{
-		MockitoAnnotations.initMocks(UserDataServiceTest.class);
-		
-		user = new User();
-		repository = new Repository();
-		repository.setName("repoName");
-		repoList = new ArrayList<Repository>();
-		//List<String> listOfRepoNames = new ArrayList<String>();
-		user.setName("test");
-		user.setId(44037806);
-		user.setAvatarUrl("https://avatars.githubusercontent.com/u/44037806?v=4");
-		user.setBlog("http://fabien.potencier.org/");
-		user.setCollaborators(3);
-		user.setCompany("Symfony/Blackfire");
-		user.setFollowers(700);
-		user.setFollowing(20);
-		user.setHireable(false);
-		user.setHtmlUrl("https://github.com/fabpot");
-		user.setPublicRepos(8);
-		user.setPublicGists(10);
-		user.setUrl("https://api.github.com/users/fabpot");
-		user.setType("User");
-		user.setPrivateGists(0);
-		user.setTotalPrivateRepos(0);
-		repoList.add(repository);
-		
-	}
-
-
-	
-	/**
-	 * This method test the getUser service 
-	 * 
-	 * @return void
-	 * 
-	 */
-	@Test
-	public void testGetUserService() {
-
+	public static void setUp() {
+		ObjectMapper objectMapper = new ObjectMapper();
 		try {
-			when(userService.getUser(anyString())).thenReturn(user);
-			when(repositoryService.getRepositories(anyString())).thenReturn(repoList);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		UserDetails ud = null;
-		try {			
-			ud = userDataService.getUserData("harman8").toCompletableFuture().get();
-			System.out.println("repo------"+ud.getRepoName());
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
+			repoJson = objectMapper.readTree(new File("test/simulated/userData/reposSampleData.json"));
+			userJson = objectMapper.readTree(new File("test/simulated/userData/userSampleData.json"));
+		
+		} catch (JsonProcessingException e) {
 			e.printStackTrace();
-		} catch (ExecutionException e) {
-			// 
-			e.printStackTrace();
-		}
-		//System.out.println(a);
-		assertNotNull(ud);
-		assertEquals("test",ud.getName());
-		assertEquals(44037806,ud.getId());
-		assertEquals("https://avatars.githubusercontent.com/u/44037806?v=4",ud.getAvatarUrl());
-		assertEquals("http://fabien.potencier.org/",ud.getBlog());
-		assertEquals(3,ud.getCollaborators());
-		assertEquals("Symfony/Blackfire",ud.getCompany());
-		assertEquals(700,ud.getFollowers());
-		assertEquals(20,ud.getFollowing());
-		assertEquals(false,ud.isHireable());
-		assertEquals("https://github.com/fabpot",ud.getHtmlUrl());
-		assertEquals(8,ud.getPublicRepos());
-		assertEquals(10,ud.getPublicGists());
-		assertEquals("https://api.github.com/users/fabpot",ud.getUrl());
-		assertEquals("User",ud.getType());
-		assertEquals(0,ud.getPrivateGists());
-		assertEquals(0,ud.getTotalPrivateRepos());
-		assertEquals(Arrays.asList("repoName"),ud.getRepoName());
-		
-		
-		
-	}
-	
-    @Test
-    public void testUserNotFoundException()  {
-       
-		try {
-			when(userService.getUser(anyString())).thenThrow(new IOException());
-			assertThrows(IOException.class, () -> {
-				userDataService.getUserData("harman8");
-	            throw new IOException();
-	        });
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}	
+	}
+
+
+	@org.junit.Test
+	public void test_getUserDataService() {
+		UserDetails userDataModel = new UserDetails();
+
 	
-        
-    }
+		userDataModel.setEmail(userJson.get("email").asText());
+		userDataModel.setId(userJson.get("id").asInt());
+		userDataModel.setLocation(userJson.get("location").asText());
+		userDataModel.setAvatarUrl(userJson.get("avatar_url").asText());
+		userDataModel.setBlog(userJson.get("blog").asText());
+		userDataModel.setCompany(userJson.get("company").asText());
+		userDataModel.setName(userJson.get("name").asText());
+		userDataModel.setCreatedAt(userJson.get("created_at").asText());
+		userDataModel.setFollowers(userJson.get("followers").asInt());
+		userDataModel.setFollowing(userJson.get("following").asInt());
+		userDataModel.setHireable(userJson.get("hireable").asText());
+		userDataModel.setHtmlUrl(userJson.get("html_url").asText());
+		userDataModel.setLogin(userJson.get("login").asText());
+		userDataModel.setPublicGists(userJson.get("public_gists").asInt());
+		userDataModel.setPublicRepos(userJson.get("public_repos").asInt());
+		userDataModel.setType(userJson.get("type").asText());
+		userDataModel.setUrl(userJson.get("url").asText());
+		
+		assertEquals(userDataModel.getEmail(),"null");
+		assertEquals(userDataModel.getId(),44037806);
+		assertEquals(userDataModel.getLocation(),"null");
+		assertEquals(userDataModel.getAvatarUrl(),"https://avatars.githubusercontent.com/u/44037806?v=4");
+		assertEquals(userDataModel.getBlog(),"");
+		assertEquals(userDataModel.getCompany(),"null");
+		assertEquals(userDataModel.getName(),"null");
+		assertEquals(userDataModel.getCreatedAt(),"2018-10-10T19:23:36Z");
+		assertEquals(userDataModel.getFollowers(),0);
+		assertEquals(userDataModel.getFollowing(),0);
+		assertEquals(userDataModel.isHireable(),"null");
+		assertEquals(userDataModel.getHtmlUrl(),"https://github.com/harman8");
+		assertEquals(userDataModel.getLogin(),"harman8");
+		assertEquals(userDataModel.getPublicGists(),0);
+		assertEquals(userDataModel.getPublicRepos(),1);
+		assertEquals(userDataModel.getType(),"User");
+		assertEquals(userDataModel.getUrl(),"https://api.github.com/users/harman8");
+		
+	}
+
+	
+	@org.junit.Test
+	public void test_userDataServiceMethod()  {
+		
+		Result result = null;
+		
+		Http.RequestBuilder request1 = new Http.RequestBuilder().method("GET").uri("/userData/harman8");
+		
+		result = Helpers.route(app, request1);
+		
+		assertEquals(Http.Status.OK, result.status());
+	}
+	
 }

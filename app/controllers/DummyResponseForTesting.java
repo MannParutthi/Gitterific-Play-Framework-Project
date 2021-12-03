@@ -70,26 +70,26 @@ public class DummyResponseForTesting {
 		userDetails.setId(44037806);
 		userDetails.setAvatarUrl("https://avatars.githubusercontent.com/u/44037806?v=4");
 		userDetails.setBlog("http://fabien.potencier.org/");
-		userDetails.setCollaborators(3);
+		//userDetails.setCollaborators(3);
 		userDetails.setCompany("Symfony/Blackfire");
 		userDetails.setFollowers(700);
 		userDetails.setFollowing(20);
-		userDetails.setHireable(false);
+		userDetails.setHireable("false");
 		userDetails.setHtmlUrl("https://github.com/fabpot");
 		userDetails.setPublicRepos(8);
 		userDetails.setPublicGists(10);
 		userDetails.setUrl("https://api.github.com/users/fabpot");
 		userDetails.setType("User");
 		userDetails.setPrivateGists(0);
-		userDetails.setTotalPrivateRepos(0);
+		//userDetails.setTotalPrivateRepos(0);
 		userDetails.setRepoName(Arrays.asList("git"));
-		userDetails.setCreatedAt(new Date("Sun Sep 26 16:23:40 EDT 2021"));
+		userDetails.setCreatedAt("Sun Sep 26 16:23:40 EDT 2021");
 		userDetails.setOwnedPrivateRepos(2);
-		userDetails.setDiskUsage(2);
+		//userDetails.setDiskUsage(2);
 		userDetails.setEmail("harman.preet@gmail.com");
 		userDetails.setLocation("Montreal");
 		userDetails.setLogin("harman8");
-		userDetails.setPlan(null);
+		//userDetails.setPlan(null);
 		return userDetails;
 	}
 	

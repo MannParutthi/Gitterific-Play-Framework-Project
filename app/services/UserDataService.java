@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
+import java.util.concurrent.ExecutionException;
+
+import javax.inject.Inject;
 
 import org.eclipse.egit.github.core.Repository;
 import org.eclipse.egit.github.core.User;
@@ -12,7 +15,11 @@ import org.eclipse.egit.github.core.client.GitHubClient;
 import org.eclipse.egit.github.core.service.RepositoryService;
 import org.eclipse.egit.github.core.service.UserService;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 import model.UserDetails;
+import play.libs.ws.WSClient;
+import play.libs.ws.WSResponse;
 
 /**
  * This UserDataService class is used for fetching the user details from the API
@@ -25,14 +32,14 @@ public class UserDataService {
 	private GitHubClient gitHubClient;
 	private UserDetails userDetails;
 	private RepositoryService repositoryService;
-	
+	private WSClient ws;
+
 	/**
 	 * Default Constructor
 	 */
-	public UserDataService() {
-		gitHubClient = new GitHubClient();
-		this.userService = new UserService(gitHubClient);
-		this.repositoryService = new RepositoryService(gitHubClient);
+	@Inject
+	public UserDataService(WSClient ws) {
+		this.ws = ws;
 	}
 	
 	/**
@@ -47,45 +54,52 @@ public class UserDataService {
 			User user = null;
 			List<Repository> repoList = null;
 			try {
-				user = userService.getUser(login);
-				repoList = repositoryService.getRepositories(login);
+				
+				JsonNode userJson = getJsonData("https://api.github.com/users/" + login , -1);
+				JsonNode repoJson = getJsonData("https://api.github.com/users/" + login +"/repos", -1);
 				List<String> listOfRepoNames = new ArrayList<String>();
-				for (Repository repository : repoList) {
-					listOfRepoNames.add(repository.getName());
+				for (JsonNode repoName : repoJson) {
+					listOfRepoNames.add(repoName.get("name").asText());
+					System.out.println("this is repo name "+repoName.get("name").asText());
 				}
+				
 				userDetails.setRepoName(listOfRepoNames);
 				System.out.println("printttttttttttttttttttt "+userDetails.getRepoName());
-				userDetails.setEmail(user.getEmail());
-				userDetails.setId(user.getId());
-				userDetails.setLocation(user.getLocation());
-				userDetails.setAvatarUrl(user.getAvatarUrl());
-				userDetails.setBlog(user.getBlog());
-				userDetails.setCollaborators(user.getCollaborators());
-				userDetails.setCompany(user.getCompany());
-				userDetails.setName(user.getName());
-				userDetails.setCreatedAt(user.getCreatedAt());
-				userDetails.setDiskUsage(user.getDiskUsage());
-				userDetails.setFollowers(user.getFollowers());
-				userDetails.setFollowing(user.getFollowing());
-				userDetails.setHireable(user.isHireable());
-				userDetails.setHtmlUrl(user.getHtmlUrl());
-				userDetails.setLogin(user.getLogin());
-				userDetails.setOwnedPrivateRepos(user.getOwnedPrivateRepos());
-				userDetails.setPlan(user.getPlan());
-				userDetails.setPrivateGists(user.getPrivateGists());
-				userDetails.setPublicGists(user.getPublicGists());
-				userDetails.setPublicRepos(user.getPublicRepos());
-				userDetails.setTotalPrivateRepos(user.getTotalPrivateRepos());
-				userDetails.setType(user.getType());
-				userDetails.setUrl(user.getUrl());
-				System.out.println("chk ==> " + user.getId() + user.getEmail() + user.getHtmlUrl() + user.getPublicRepos());
-			} catch (IOException e) {
+				userDetails.setEmail(userJson.get("email").asText());
+				userDetails.setId(userJson.get("id").asInt());
+				userDetails.setLocation(userJson.get("location").asText());
+				userDetails.setAvatarUrl(userJson.get("avatar_url").asText());
+				userDetails.setBlog(userJson.get("blog").asText());
+				userDetails.setCompany(userJson.get("company").asText());
+				userDetails.setName(userJson.get("name").asText());
+				userDetails.setCreatedAt(userJson.get("created_at").asText());
+				userDetails.setFollowers(userJson.get("followers").asInt());
+				userDetails.setFollowing(userJson.get("following").asInt());
+				userDetails.setHireable(userJson.get("hireable").asText());
+				userDetails.setHtmlUrl(userJson.get("html_url").asText());
+				userDetails.setLogin(userJson.get("login").asText());
+				userDetails.setPublicGists(userJson.get("public_gists").asInt());
+				userDetails.setPublicRepos(userJson.get("public_repos").asInt());
+				userDetails.setType(userJson.get("type").asText());
+				userDetails.setUrl(userJson.get("url").asText());
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
 			return userDetails;
 		});
+		
+	}
+	
+	public JsonNode getJsonData(String url, int limit) throws InterruptedException, ExecutionException {
+		if(limit == -1) {
+			return ws.url(url).get().thenApply((WSResponse r) -> { return r.asJson(); }).toCompletableFuture().get();
+		}
+		else {
+			//use limit here - stream().limit()
+			return ws.url(url).get().thenApply((WSResponse r) -> { return r.asJson(); }).toCompletableFuture().get();
+		}
 		
 	}
 }
