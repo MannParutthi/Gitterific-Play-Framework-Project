@@ -5,6 +5,8 @@ import org.eclipse.egit.github.core.SearchRepository;
 
 import actors.RepoDataActor;
 import actors.RepoDataActor.RepoDataReqDetails;
+import actors.TopicDataActor;
+import actors.TopicDataActor.TopicDataReqDetails;
 import actors.SearchForRepoActor;
 import actors.SearchSupervisorActor;
 import akka.actor.ActorRef;
@@ -63,7 +65,7 @@ public class HomeController {
 	
 	@Inject private ActorSystem actorSystem;
     @Inject private Materializer materializer;
-	ActorRef repoDataActor, searchForRepoActor;
+	ActorRef repoDataActor, searchForRepoActor, topicDataActor;
 
 	private SyncCacheApi cacheApi;
 
@@ -101,6 +103,7 @@ public class HomeController {
 			RepoDataService repoDataService, RepoIssues repoIssues, TopicDataService topicDataService,
 			UserDataService userDataService, ActorSystem system) {
 		repoDataActor = system.actorOf(RepoDataActor.getProps( repoDataService));
+		topicDataActor = system.actorOf(TopicDataActor.getProps( topicDataService));
 		searchForRepoActor = system.actorOf(SearchForRepoActor.getProps(searchForReposService));
 		
 		this.cacheApi = cacheApi;
@@ -402,7 +405,8 @@ public class HomeController {
 		}
 		CompletionStage<Result> result = null;
 		if (!request.session().get(topicName).isPresent() || this.sessionMapUserData.get(request.session().get(topicName).get()) == null) {
-			result = topicDataService.getRepositoryData(topicName).thenApply(topicsList -> {
+			return FutureConverters.toJava(ask(topicDataActor, new TopicDataReqDetails(topicName), 10000)).thenApply(response -> {
+				List<TopicDataModel> topicsList = (List<TopicDataModel>)response;
 				String randomKey = getSaltString();
 				topicDataModelMap.put(randomKey, topicsList);
 			return ok(views.html.topicData.render(topicsList, prevSearchData, topicName)).addingToSession(request, topicName, randomKey);
