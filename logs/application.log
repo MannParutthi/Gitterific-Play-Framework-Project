@@ -1,10 +1,12 @@
-2021-12-02 15:15:54,486 [WARN] from play.filters.headers.SecurityHeadersConfig in play-dev-mode-akka.actor.default-dispatcher-6 - play.filters.headers.contentSecurityPolicy is deprecated in 2.7.0.  Please use play.filters.csp.CSPFilter instead.
-2021-12-02 15:15:54,490 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-6 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+2021-12-03 01:13:10,249 [WARN] from play.filters.headers.SecurityHeadersConfig in play-dev-mode-akka.actor.default-dispatcher-4 - play.filters.headers.contentSecurityPolicy is deprecated in 2.7.0.  Please use play.filters.csp.CSPFilter instead.
+2021-12-03 01:13:10,256 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-4 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
 
     play.filters.csrf.CSRFFilter
     play.filters.headers.SecurityHeadersFilter
     play.filters.hosts.AllowedHostsFilter
     play.filters.csrf.CSRFFilter
 
-2021-12-02 15:15:54,524 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-6 - Application started (Dev) (no global state)
-2021-12-02 15:15:54,813 [INFO] from application in application-akka.actor.default-dispatcher-6 - SearchForRepoActor Actor[akka://application/user/$a#669154725] started
+2021-12-03 01:13:10,311 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-4 - Application started (Dev) (no global state)
+2021-12-03 01:13:10,740 [INFO] from application in application-akka.actor.default-dispatcher-8 - SearchForRepoActor Actor[akka://application/user/$c#321118486] started
+2021-12-03 01:13:19,529 [DEBUG] from application in application-akka.actor.default-dispatcher-13 - New SearchSupervisorActor Actor[akka://application/user/$d/flowActor#321679599] for WebSocket Actor[akka://application/system/Materializers/StreamSupervisor-2/$$a-actorRefSource#1970749309]; SearchForRepoActor= {}
+2021-12-03 01:13:27,739 [DEBUG] from application in application-akka.actor.default-dispatcher-8 - New SearchSupervisorActor Actor[akka://application/user/$e/flowActor#-470834603] for WebSocket Actor[akka://application/system/Materializers/StreamSupervisor-2/$$b-actorRefSource#-1314623899]; SearchForRepoActor= {}

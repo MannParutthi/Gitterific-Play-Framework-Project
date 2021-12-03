@@ -1,6 +1,8 @@
 package controllers;
 
 import javax.inject.Inject;
+
+import actors.RepoIssuesActor;
 import org.eclipse.egit.github.core.SearchRepository;
 
 import actors.RepoDataActor;
@@ -19,6 +21,8 @@ import model.UserDetails;
 import play.mvc.*;
 import scala.compat.java8.FutureConverters;
 import static akka.pattern.Patterns.ask;
+
+import services.*;
 import views.SearchDTO;
 import play.i18n.MessagesApi;
 import play.cache.Cached;
@@ -27,11 +31,6 @@ import play.data.Form;
 import play.data.FormFactory;
 import play.libs.streams.ActorFlow;
 import play.libs.ws.*;
-import services.RepoDataService;
-import services.RepoIssues;
-import services.SearchForReposService;
-import services.TopicDataService;
-import services.UserDataService;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -363,8 +362,17 @@ public class HomeController {
 	 */
 	public CompletionStage<Result> getRepoIssues(String userName,String repo) {
 		System.out.println(userName + "," + repo);
-		return repoIssues.getIssueReportFromRepo(userName,repo)
-				.thenApplyAsync(output -> ok(views.html.repoIssueShow.render(output)));
+		ActorSystem actorSystem = ActorSystem.create("ActorSystem");
+		ActorRef repoIssuesActor = actorSystem.actorOf(RepoIssuesActor.props(), "repoIssuesActor");
+		return FutureConverters.toJava(
+						ask(repoIssuesActor, new RepoIssuesActor.GetReport(userName, repo), 5000))
+				.thenApplyAsync(report -> (CompletableFuture<String>) report)
+				.toCompletableFuture()
+				.thenApplyAsync(CompletableFuture::join)
+				.thenApply(output -> ok(views.html.repoIssueShow.render(output)));
+		// DO NOT DELETE ANY LINES BELOW (previous part 1 code)
+//		return repoIssues.getIssueReportFromRepo(userName,repo)
+//				.thenApplyAsync(output -> ok(views.html.repoIssueShow.render(output)));
 	}
 
 	/**

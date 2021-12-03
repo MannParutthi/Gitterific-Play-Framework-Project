@@ -1,4 +1,4 @@
-[0m[[0m[0mdebug[0m] [0m[0mCopy resource mappings: [0m
-[0m[[0m[0mdebug[0m] [0m[0m	(C:\Users\manan\OneDrive\Documents\APP_Project_G7\conf\application.conf,C:\Users\manan\OneDrive\Documents\APP_Project_G7\target\scala-2.13\classes\application.conf)[0m
-[0m[[0m[0mdebug[0m] [0m[0m	(C:\Users\manan\OneDrive\Documents\APP_Project_G7\conf\logback.xml,C:\Users\manan\OneDrive\Documents\APP_Project_G7\target\scala-2.13\classes\logback.xml)[0m
-[0m[[0m[0mdebug[0m] [0m[0m	(C:\Users\manan\OneDrive\Documents\APP_Project_G7\conf\routes,C:\Users\manan\OneDrive\Documents\APP_Project_G7\target\scala-2.13\classes\routes)[0m
+[debug] Copy resource mappings: 
+[debug] 	(E:\AKKA_APP_PROJECT\ABC\APP_Project_G7\conf\application.conf,E:\AKKA_APP_PROJECT\ABC\APP_Project_G7\target\scala-2.13\classes\application.conf)
+[debug] 	(E:\AKKA_APP_PROJECT\ABC\APP_Project_G7\conf\logback.xml,E:\AKKA_APP_PROJECT\ABC\APP_Project_G7\target\scala-2.13\classes\logback.xml)
+[debug] 	(E:\AKKA_APP_PROJECT\ABC\APP_Project_G7\conf\routes,E:\AKKA_APP_PROJECT\ABC\APP_Project_G7\target\scala-2.13\classes\routes)

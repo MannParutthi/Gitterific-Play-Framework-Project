@@ -1,2 +1,4 @@
-[0m[[0m[0minfo[0m] [0m[0mC:\Users\manan\OneDrive\Documents\APP_Project_G7\app\actors\SearchForRepoActor.java: Some input files use or override a deprecated API.[0m
-[0m[[0m[0minfo[0m] [0m[0mC:\Users\manan\OneDrive\Documents\APP_Project_G7\app\actors\SearchForRepoActor.java: Recompile with -Xlint:deprecation for details.[0m
+[info] E:\AKKA_APP_PROJECT\ABC\APP_Project_G7\app\actors\SearchForRepoActor.java: Some input files use or override a deprecated API.
+[info] E:\AKKA_APP_PROJECT\ABC\APP_Project_G7\app\actors\SearchForRepoActor.java: Recompile with -Xlint:deprecation for details.
+[info] E:\AKKA_APP_PROJECT\ABC\APP_Project_G7\app\controllers\HomeController.java: E:\AKKA_APP_PROJECT\ABC\APP_Project_G7\app\controllers\HomeController.java uses unchecked or unsafe operations.
+[info] E:\AKKA_APP_PROJECT\ABC\APP_Project_G7\app\controllers\HomeController.java: Recompile with -Xlint:unchecked for details.
