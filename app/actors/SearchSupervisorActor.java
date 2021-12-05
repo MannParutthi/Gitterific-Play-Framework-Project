@@ -1,5 +1,7 @@
 package actors;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -42,8 +44,13 @@ public class SearchSupervisorActor extends AbstractActor {
 	}
 	
 	private void sendData(NewData newData) {
+		ArrayList<String> searchData = new ArrayList<String>();
+		for (SearchRepoModel searchRepoModel : newData.data) {
+			searchData.add(searchRepoModel.toString());
+		}
+		
         final ObjectNode response = Json.newObject();
-        response.put("time", (newData.data).toString());
+        response.put("time", searchData.toString());
         ws.tell(response, self());
     }
 }

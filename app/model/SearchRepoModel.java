@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -70,4 +71,11 @@ public class SearchRepoModel {
 	public void setTopics(String[] strings) {
 		this.topics = strings;
 	}
+	@Override
+	public String toString() {
+		return "SearchRepoModel [userName=" + userName + ", repoName=" + repoName + ", topics="
+				+ Arrays.toString(topics) + "]";
+	}
+	
+	
 }
