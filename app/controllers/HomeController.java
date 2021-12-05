@@ -11,6 +11,8 @@ import actors.TopicDataActor;
 import actors.TopicDataActor.TopicDataReqDetails;
 import actors.SearchForRepoActor;
 import actors.SearchSupervisorActor;
+import actors.UserDataActor;
+import actors.UserDataActor.UserDataReqDetails;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.stream.Materializer;
@@ -64,7 +66,7 @@ public class HomeController {
 	
 	@Inject private ActorSystem actorSystem;
     @Inject private Materializer materializer;
-	ActorRef repoDataActor, searchForRepoActor, topicDataActor;
+	ActorRef repoDataActor, searchForRepoActor, topicDataActor,userDataActor;
 
 	private SyncCacheApi cacheApi;
 
@@ -104,7 +106,7 @@ public class HomeController {
 		repoDataActor = system.actorOf(RepoDataActor.getProps( repoDataService));
 		topicDataActor = system.actorOf(TopicDataActor.getProps( topicDataService));
 		searchForRepoActor = system.actorOf(SearchForRepoActor.getProps(searchForReposService));
-		
+		userDataActor = system.actorOf(UserDataActor.getProps( userDataService));
 		this.cacheApi = cacheApi;
 		this.ws = ws;
 		this.searchForReposService = searchForReposService;
@@ -446,13 +448,17 @@ public class HomeController {
 		CompletionStage<Result> resultCompletionStage;
 		if (!request.session().get(userName).isPresent()
 				|| this.sessionMapUserData.get(request.session().get(userName).get()) == null) {
-			resultCompletionStage = userDataService.getUserData(userName).thenApply(userList -> {
+			return FutureConverters.toJava(ask(userDataActor, new UserDataReqDetails(userName), 10000)).thenApply(response -> {
+				UserDetails userDetails = (UserDetails)response;
 				String randomKey = getSaltString();
-				System.out.println("my random key ----->" + randomKey);
-				System.out.println("user------ " + userList.getId() + "   " + userList.getRepoName());
-				this.sessionMapUserData.put(randomKey, userList);
-				return ok(views.html.userData.render(userList)).addingToSession(request, userName, randomKey);
+				this.sessionMapUserData.put(randomKey, userDetails);
+				System.out.println("user------  " + userDetails);
+				
+				 return ok(views.html.userData.render(userDetails)).addingToSession(request, userName,
+						randomKey);
 			});
+			
+
 		} else {
 			System.out.println("Here-----------------------");
 			String key = request.session().get(userName).get();
