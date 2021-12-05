@@ -1,12 +1,18 @@
 package controllers;
 
 import javax.inject.Inject;
+
+import actors.RepoIssuesActor;
 import org.eclipse.egit.github.core.SearchRepository;
 
 import actors.RepoDataActor;
 import actors.RepoDataActor.RepoDataReqDetails;
+import actors.TopicDataActor;
+import actors.TopicDataActor.TopicDataReqDetails;
 import actors.SearchForRepoActor;
 import actors.SearchSupervisorActor;
+import actors.UserDataActor;
+import actors.UserDataActor.UserDataReqDetails;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.stream.Materializer;
@@ -17,6 +23,8 @@ import model.UserDetails;
 import play.mvc.*;
 import scala.compat.java8.FutureConverters;
 import static akka.pattern.Patterns.ask;
+
+import services.*;
 import views.SearchDTO;
 import play.i18n.MessagesApi;
 import play.cache.Cached;
@@ -25,11 +33,6 @@ import play.data.Form;
 import play.data.FormFactory;
 import play.libs.streams.ActorFlow;
 import play.libs.ws.*;
-import services.RepoDataService;
-import services.RepoIssues;
-import services.SearchForReposService;
-import services.TopicDataService;
-import services.UserDataService;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -63,7 +66,7 @@ public class HomeController {
 	
 	@Inject private ActorSystem actorSystem;
     @Inject private Materializer materializer;
-	ActorRef repoDataActor, searchForRepoActor;
+	ActorRef repoDataActor, searchForRepoActor, topicDataActor,userDataActor;
 
 	private SyncCacheApi cacheApi;
 
@@ -103,6 +106,9 @@ public class HomeController {
 		repoDataActor = system.actorOf(RepoDataActor.getProps( repoDataService));
 		this.searchForRepoActor = system.actorOf(SearchForRepoActor.getProps(searchForReposService), "searchForRepoActor");
 		
+		topicDataActor = system.actorOf(TopicDataActor.getProps( topicDataService));
+		searchForRepoActor = system.actorOf(SearchForRepoActor.getProps(searchForReposService));
+		userDataActor = system.actorOf(UserDataActor.getProps( userDataService));
 		this.cacheApi = cacheApi;
 		this.ws = ws;
 		this.searchForReposService = searchForReposService;
@@ -360,8 +366,17 @@ public class HomeController {
 	 */
 	public CompletionStage<Result> getRepoIssues(String userName,String repo) {
 		System.out.println(userName + "," + repo);
-		return repoIssues.getIssueReportFromRepo(userName,repo)
-				.thenApplyAsync(output -> ok(views.html.repoIssueShow.render(output)));
+		ActorSystem actorSystem = ActorSystem.create("ActorSystem");
+		ActorRef repoIssuesActor = actorSystem.actorOf(RepoIssuesActor.props(), "repoIssuesActor");
+		return FutureConverters.toJava(
+						ask(repoIssuesActor, new RepoIssuesActor.GetReport(userName, repo), 5000))
+				.thenApplyAsync(report -> (CompletableFuture<String>) report)
+				.toCompletableFuture()
+				.thenApplyAsync(CompletableFuture::join)
+				.thenApply(output -> ok(views.html.repoIssueShow.render(output)));
+		// DO NOT DELETE ANY LINES BELOW (previous part 1 code)
+//		return repoIssues.getIssueReportFromRepo(userName,repo)
+//				.thenApplyAsync(output -> ok(views.html.repoIssueShow.render(output)));
 	}
 
 	/**
@@ -402,7 +417,8 @@ public class HomeController {
 		}
 		CompletionStage<Result> result = null;
 		if (!request.session().get(topicName).isPresent() || this.sessionMapUserData.get(request.session().get(topicName).get()) == null) {
-			result = topicDataService.getRepositoryData(topicName).thenApply(topicsList -> {
+			return FutureConverters.toJava(ask(topicDataActor, new TopicDataReqDetails(topicName), 10000)).thenApply(response -> {
+				List<TopicDataModel> topicsList = (List<TopicDataModel>)response;
 				String randomKey = getSaltString();
 				topicDataModelMap.put(randomKey, topicsList);
 			return ok(views.html.topicData.render(topicsList, prevSearchData, topicName)).addingToSession(request, topicName, randomKey);
@@ -434,13 +450,17 @@ public class HomeController {
 		CompletionStage<Result> resultCompletionStage;
 		if (!request.session().get(userName).isPresent()
 				|| this.sessionMapUserData.get(request.session().get(userName).get()) == null) {
-			resultCompletionStage = userDataService.getUserData(userName).thenApply(userList -> {
+			return FutureConverters.toJava(ask(userDataActor, new UserDataReqDetails(userName), 10000)).thenApply(response -> {
+				UserDetails userDetails = (UserDetails)response;
 				String randomKey = getSaltString();
-				System.out.println("my random key ----->" + randomKey);
-				System.out.println("user------ " + userList.getId() + "   " + userList.getRepoName());
-				this.sessionMapUserData.put(randomKey, userList);
-				return ok(views.html.userData.render(userList)).addingToSession(request, userName, randomKey);
+				this.sessionMapUserData.put(randomKey, userDetails);
+				System.out.println("user------  " + userDetails);
+				
+				 return ok(views.html.userData.render(userDetails)).addingToSession(request, userName,
+						randomKey);
 			});
+			
+
 		} else {
 			System.out.println("Here-----------------------");
 			String key = request.session().get(userName).get();
