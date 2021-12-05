@@ -25,13 +25,13 @@ public class SearchSupervisorActor extends AbstractActor {
     	Logger.debug("New SearchSupervisorActor {} for WebSocket {}; SearchForRepoActor= {}", self(), wsOut);
     }
 
-    public static Props props(final ActorRef wsout) {
+    public static Props props(ActorRef wsout) {
         return Props.create(SearchSupervisorActor.class, wsout);
     }
     
     @Override
     public void preStart() {
-       	context().actorSelection("/searchSupervisorActor/searchForRepoActor/").tell(new SearchForRepoActor.RegisterMsg(), self());
+       	context().actorSelection("/user/searchForRepoActor/").tell(new SearchForRepoActor.RegisterMsg(), self());
     }
 
 	@Override
@@ -42,8 +42,8 @@ public class SearchSupervisorActor extends AbstractActor {
 	}
 	
 	private void sendData(NewData newData) {
-//        final ObjectNode response = Json.newObject();
-//        response.put("time", newData.data);
-        ws.tell(newData.data, self());
+        final ObjectNode response = Json.newObject();
+        response.put("time", (newData.data).toString());
+        ws.tell(response, self());
     }
 }

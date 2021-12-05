@@ -1,7 +1,7 @@
 @import helper._
 @import play.mvc.Http.Request
 @import views.SearchDTO
-@(newSearchForm: play.data.Form[SearchDTO])(implicit messages: play.i18n.Messages)
+@(request: play.mvc.Http.Request, newSearchForm: play.data.Form[SearchDTO])(implicit messages: play.i18n.Messages)
 @main("Welcome to Gitterific") {
   		<!DOCTYPE html>
 		<html>

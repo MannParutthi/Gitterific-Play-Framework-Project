@@ -101,7 +101,7 @@ public class HomeController {
 			RepoDataService repoDataService, RepoIssues repoIssues, TopicDataService topicDataService,
 			UserDataService userDataService, ActorSystem system) {
 		repoDataActor = system.actorOf(RepoDataActor.getProps( repoDataService));
-		searchForRepoActor = system.actorOf(SearchForRepoActor.getProps(searchForReposService));
+		this.searchForRepoActor = system.actorOf(SearchForRepoActor.getProps(searchForReposService), "searchForRepoActor");
 		
 		this.cacheApi = cacheApi;
 		this.ws = ws;
@@ -212,7 +212,7 @@ public class HomeController {
 	 * 
 	 */
 	public Result index(Http.Request request) {
-		return Results.ok(views.html.index.render(formFactory.form(SearchDTO.class), messagesApi.preferred(request)));
+		return Results.ok(views.html.index.render(request, formFactory.form(SearchDTO.class), messagesApi.preferred(request)));
 	}
 	
 

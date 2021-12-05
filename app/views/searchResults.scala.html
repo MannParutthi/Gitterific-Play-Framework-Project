@@ -8,7 +8,7 @@
   				<script type='text/javascript' src='@routes.Assets.versioned("javascripts/index.js")'></script>  
 			</head>
 			<body data-ws-url="@routes.HomeController.ws.webSocketURL(request)">
-				<div id="time">=> </div>
+				<div id="time"></div>
 				<div class="container">
 					@for(mapOfSearchAndResult <- arrayListOfResult) {
 						@for((keyword,repoList) <- mapOfSearchAndResult) {
