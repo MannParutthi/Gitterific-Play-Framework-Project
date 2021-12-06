@@ -30,11 +30,19 @@ import java.util.Set;
 
 public class SearchForRepoActor extends AbstractActorWithTimers {
 	private Set<ActorRef> userActors;
+	private String key;
 
 	private static final class Tick {
 	}
 	
 	static public class RegisterMsg {
+    }
+	
+	static public class RequestMsg {
+		public String searchKeyword;
+        public RequestMsg(String data) {
+            this.searchKeyword = data;
+        }
     }
 	
 	static public Props getProps(SearchForReposService s) {
@@ -59,15 +67,23 @@ public class SearchForRepoActor extends AbstractActorWithTimers {
 		return receiveBuilder()
 				.match(Tick.class, msg -> notifyClients())
 				.match(RegisterMsg.class, msg -> userActors.add(sender()))
+				.match(RequestMsg.class, msg -> getMessage(msg.searchKeyword))
 				.build();
 	}
 	
+	private void getMessage(String key) {
+		System.out.println("msg is here "+key);
+		this.key = key;
+	}
+	
 	private void notifyClients() {
-		System.out.println("inside notify ==> " + userActors);
+		System.out.println("inside notify ==> ");
 		try {
-			List<SearchRepoModel> response = searchForReposService.getReposWithKeyword("octobox").get();
-			SearchSupervisorActor.NewData newData = new SearchSupervisorActor.NewData(response);
-			userActors.forEach(ar -> ar.tell(newData, self()));
+			if(key != null) {
+				List<SearchRepoModel> response = searchForReposService.getReposWithKeyword(key).get();
+				SearchSupervisorActor.NewData newData = new SearchSupervisorActor.NewData(response);
+				userActors.forEach(ar -> ar.tell(newData, self()));
+			}
 		}
 		catch(InterruptedException e) {
 			userActors.forEach(ar -> ar.tell(Arrays.asList(), self()));

@@ -11,6 +11,7 @@ import actors.TopicDataActor;
 import actors.TopicDataActor.TopicDataReqDetails;
 import actors.SearchForRepoActor;
 import actors.SearchSupervisorActor;
+import actors.SearchForRepoActor.RequestMsg;
 import actors.UserDataActor;
 import actors.UserDataActor.UserDataReqDetails;
 import akka.actor.ActorRef;
@@ -104,10 +105,9 @@ public class HomeController {
 			RepoDataService repoDataService, RepoIssues repoIssues, TopicDataService topicDataService,
 			UserDataService userDataService, ActorSystem system) {
 		repoDataActor = system.actorOf(RepoDataActor.getProps( repoDataService));
-		this.searchForRepoActor = system.actorOf(SearchForRepoActor.getProps(searchForReposService), "searchForRepoActor");
+		searchForRepoActor = system.actorOf(SearchForRepoActor.getProps(searchForReposService), "searchForRepoActor");
 		
 		topicDataActor = system.actorOf(TopicDataActor.getProps( topicDataService));
-		searchForRepoActor = system.actorOf(SearchForRepoActor.getProps(searchForReposService));
 		userDataActor = system.actorOf(UserDataActor.getProps( userDataService));
 		this.cacheApi = cacheApi;
 		this.ws = ws;
@@ -249,7 +249,7 @@ public class HomeController {
 
 //		Form<SearchDTO> form = formFactory.form(SearchDTO.class).bindFromRequest(request);
 		String searchKeyword = request.queryString("searchTerm").get();
-
+		FutureConverters.toJava(ask(searchForRepoActor, new RequestMsg(searchKeyword), 10000));
 		CompletionStage<Result> resultCompletionStage;
 		if (!this.cacheApi.get(searchKeyword).isPresent()) {
 			resultCompletionStage = searchForReposService.getReposWithKeyword(searchKeyword)
