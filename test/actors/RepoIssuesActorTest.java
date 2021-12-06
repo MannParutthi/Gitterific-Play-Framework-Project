@@ -2,6 +2,8 @@ package actors;
 
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
+import akka.actor.Props;
+import akka.testkit.javadsl.TestKit;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.common.reflect.TypeToken;
 import org.eclipse.egit.github.core.Issue;
@@ -23,11 +25,13 @@ import scala.compat.java8.FutureConverters;
 import services.RepoIssues;
 import actors.RepoIssuesActor;
 import actors.RepoIssuesActor.RepoAnalyzer;
+import services.TopicDataService;
 import utils.JSONLoader;
 
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -50,7 +54,6 @@ public class RepoIssuesActorTest extends WithApplication {
 
     static Type issueListType;
     static ActorSystem actorSystem;
-    static ActorRef repoIssuesActor;
 
     static RepoAnalyzer repoAnalyzer;
 
@@ -65,7 +68,6 @@ public class RepoIssuesActorTest extends WithApplication {
     public static void init() throws ExecutionException, InterruptedException {
         issueListType = new TypeToken<List<Issue>>() {}.getType();
         actorSystem = ActorSystem.create();
-        repoIssuesActor = actorSystem.actorOf(RepoIssuesActor.props());
 
         client = mock(GitHubClient.class);
         mockIssueService = mock(IssueService.class);
@@ -76,14 +78,12 @@ public class RepoIssuesActorTest extends WithApplication {
         repoAnalyzer.setRepositoryService(mockRepoService);
         repoAnalyzer.setIssueService(mockIssueService);
 
-        repoIssuesActor.tell(new RepoIssuesActor.SetAnalyzer(repoAnalyzer), ActorRef.noSender());
 
     }
 
     @AfterClass
     public static void destroy() {
         actorSystem.terminate();
-        repoIssuesActor = null;
         issueListType = null;
     }
 
@@ -104,8 +104,16 @@ public class RepoIssuesActorTest extends WithApplication {
         assertFalse(finalIssues.isEmpty());
         assertEquals(RepoAnalyzer.generateReport(issues), "<b>3</b> => this<br>" +
                 "<b>1</b> => is<br>");
-        assertEquals(getIssueReport("kerax", "umangjpatel"),
-                RepoAnalyzer.generateReport(issues));
+        new TestKit(actorSystem) {{
+            final ActorRef repoIssuesActor = actorSystem.actorOf(RepoIssuesActor.props());
+            repoIssuesActor.tell(new RepoIssuesActor.SetAnalyzer(repoAnalyzer), ActorRef.noSender());
+            assertEquals(getIssueReport(repoIssuesActor, "kerax", "umangjpatel"),
+                    RepoAnalyzer.generateReport(issues));
+            within(Duration.ofSeconds(3), () -> {
+                expectNoMessage();
+                return null;
+            });
+        }};
     }
 
     @Test
@@ -119,7 +127,15 @@ public class RepoIssuesActorTest extends WithApplication {
 
     @Test
     public void testErrorReport() throws ExecutionException, InterruptedException {
-        assertEquals(getIssueReport(null, ""), "Error");
+        new TestKit(actorSystem) {{
+            final ActorRef repoIssuesActor = actorSystem.actorOf(RepoIssuesActor.props());
+            repoIssuesActor.tell(new RepoIssuesActor.SetAnalyzer(repoAnalyzer), ActorRef.noSender());
+            assertEquals(getIssueReport(repoIssuesActor, null, ""), "Error");
+            within(Duration.ofSeconds(3), () -> {
+                expectNoMessage();
+                return null;
+            });
+        }};
     }
 
     @Test
@@ -134,7 +150,15 @@ public class RepoIssuesActorTest extends WithApplication {
         when (RepoAnalyzer.fetchRepoIssues(anyString(), anyString())).thenReturn(mockIssues);
         final List<Issue> finalIssues = RepoAnalyzer.fetchRepoIssues("umangjpatel", "kerax");
         assertTrue(finalIssues.isEmpty());
-        assertEquals(getIssueReport("umangjpatel", "kerax"), "No issues present in the repository");
+        new TestKit(actorSystem) {{
+            final ActorRef repoIssuesActor = actorSystem.actorOf(RepoIssuesActor.props());
+            repoIssuesActor.tell(new RepoIssuesActor.SetAnalyzer(repoAnalyzer), ActorRef.noSender());
+            assertEquals(getIssueReport(repoIssuesActor, "umangjpatel", "kerax"), "No issues present in the repository");
+            within(Duration.ofSeconds(5), () -> {
+                expectNoMessage();
+                return null;
+            });
+        }};
     }
 
 
@@ -191,7 +215,7 @@ public class RepoIssuesActorTest extends WithApplication {
     }
 
     @Ignore
-    private String getIssueReport(String userName, String repoName) throws ExecutionException, InterruptedException {
+    private String getIssueReport(ActorRef repoIssuesActor, String userName, String repoName) throws ExecutionException, InterruptedException {
         return FutureConverters.toJava(
                 ask(repoIssuesActor, new RepoIssuesActor.GetReport(userName, repoName), 5000))
                 .thenApplyAsync(item -> (CompletableFuture<String>) item)
