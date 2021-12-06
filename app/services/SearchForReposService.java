@@ -60,7 +60,6 @@ public class SearchForReposService {
 	 * @return CompletableFuture<List<SearchRepoModel>> Returns the list with contains the given keyword
 	 */
 	public CompletableFuture<List<SearchRepoModel>> getReposWithKeyword(String keyword) {
-		System.out.println("inside getReposWithKeyword ==> ");
 		return getRequestData(keyword)
 				.thenApplyAsync(this::getSearchRepoModels);
 	}
@@ -83,7 +82,6 @@ public class SearchForReposService {
 	 * @return List<SearchRepoModel> Returns the list of SearchRepoModel
 	 */
 	public List<SearchRepoModel> getSearchRepoModels(JsonNode json) {
-		System.out.println("inside getSearchRepoModels ==> ");
 		List<SearchRepoModel> searchRepoList = new ArrayList<>();
 		int i = 0;
 		for (JsonNode repoData : json.findValue("items")) {

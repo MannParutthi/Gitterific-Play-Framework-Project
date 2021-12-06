@@ -3,6 +3,11 @@ package model;
 import java.util.Arrays;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
+import play.libs.Json;
+
 /**
  * This is the Model Class used for displaying search results in the Home Page
  * 
@@ -71,10 +76,23 @@ public class SearchRepoModel {
 	public void setTopics(String[] strings) {
 		this.topics = strings;
 	}
+	
 	@Override
 	public String toString() {
 		return "SearchRepoModel [userName=" + userName + ", repoName=" + repoName + ", topics="
 				+ Arrays.toString(topics) + "]";
+	}
+	
+	public JsonNode getJson() {
+		ObjectNode jsonData = Json.newObject();
+		jsonData.put("user", getUserName());
+		jsonData.put("repo", getRepoName());
+		String allTopics = "";
+		for (String topic : getTopics()) {
+			allTopics += topic + ", ";
+		}
+		jsonData.put("topics", allTopics);
+		return jsonData;
 	}
 	
 	

@@ -44,13 +44,10 @@ public class SearchSupervisorActor extends AbstractActor {
 	}
 	
 	private void sendData(NewData newData) {
-		ArrayList<String> searchData = new ArrayList<String>();
-		for (SearchRepoModel searchRepoModel : newData.data) {
-			searchData.add(searchRepoModel.toString());
-		}
-		
         final ObjectNode response = Json.newObject();
-        response.put("time", searchData.toString());
+        for (int i=0; i< newData.data.size(); i++) {
+        	response.put(String.valueOf(i), newData.data.get(i).getJson());
+		}
         ws.tell(response, self());
     }
 }

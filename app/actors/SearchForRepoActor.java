@@ -13,13 +13,18 @@ import services.SearchForReposService;
 import akka.actor.AbstractActorWithTimers;
 import akka.actor.ActorRef;
 import akka.actor.Props;
+import controllers.HomeController;
 import model.RepoDataModel;
 import model.SearchRepoModel;
 import play.Logger;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -58,10 +63,9 @@ public class SearchForRepoActor extends AbstractActorWithTimers {
 	}
 	
 	private void notifyClients() {
-		System.out.println("inside notify ==> ");
+		System.out.println("inside notify ==> " + userActors);
 		try {
 			List<SearchRepoModel> response = searchForReposService.getReposWithKeyword("octobox").get();
-			System.out.println("response in notify ==> " + response);
 			SearchSupervisorActor.NewData newData = new SearchSupervisorActor.NewData(response);
 			userActors.forEach(ar -> ar.tell(newData, self()));
 		}
