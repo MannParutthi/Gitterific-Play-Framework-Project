@@ -96,35 +96,23 @@ public class DummyResponseForTesting {
 	public static List<TopicDataModel> getTopicData() {
 		List<TopicDataModel> topicLists = new ArrayList<TopicDataModel>();
 		
-		TopicDataModel topicDataModel1 = new TopicDataModel();
-		TopicDataModel topicDataModel2 = new TopicDataModel();
+		TopicDataModel topicDataModel = new TopicDataModel();
+		//TopicDataModel topicDataModel2 = new TopicDataModel();
 		
-		// for testing Date branch
-		Date d1 = new Date("Sun Sep 26 17:04:56 EDT 2021");
-		Date d2 = new Date("Mon Sep 28 19:04:57 EDT 2021");
+		topicDataModel.setCreated_at("2016-12-14T21:15:34Z");
+		topicDataModel.setCreated_by("James Gosling");
+		topicDataModel.setCurated("true");
+		topicDataModel.setDescription("Java was originally developed as an alternative to the C/C++ programming languages. It is now mainly used for building web, desktop, mobile, and embedded applications. Java is owned and licensed through Oracle, with free and open source implementations available from Oracle and other vendors.");
+		topicDataModel.setDisplay_name("Java");
+		topicDataModel.setFeatured("true");
+		topicDataModel.setName("java");
+		topicDataModel.setReleased("May 23, 1995");
+		topicDataModel.setScore("1");
+		topicDataModel.setShort_description("Java is an object-oriented programming language used mainly for web, desktop, embedded devices and mobile applications.");
+		topicDataModel.setUpdated_at("2021-12-05T20:57:21Z");
 		
-//		topicDataModel1.setCreatedAt(new Date("Sun Sep 26 17:04:56 EDT 2021"));
-//		topicDataModel1.setDescription("Java Project");
-//		topicDataModel1.setId("Java123");
-//		topicDataModel1.setLanguage("Java");
-//		topicDataModel1.setName("Javaqwe");
-//		topicDataModel1.setOwner("Peter");
-//		topicDataModel1.setUrl("dds/sdfsf");
-//		topicDataModel1.setPushedAt(new Date("Mon Sep 28 19:04:57 EDT 2021"));
-//		topicDataModel1.setSize(1221);
-//		
-//		topicDataModel2.setCreatedAt(new Date("Mon Sep 26 19:04:57 EDT 2021"));
-//		topicDataModel2.setDescription("Python project");
-//		topicDataModel2.setId("Python123");
-//		topicDataModel2.setLanguage("Python");
-//		topicDataModel2.setName("qwerty");
-//		topicDataModel2.setOwner("Adams");
-//		topicDataModel2.setUrl("ass.wewe");
-//		topicDataModel2.setPushedAt(new Date("Mon Sep 22 19:04:57 EDT 2021"));
-//		topicDataModel2.setSize(1233);
+		topicLists.add(topicDataModel);
 		
 		return topicLists;
 	}
-	
-
 }

@@ -37,11 +37,11 @@ public class TopicDataActor extends AbstractActor {
 	@Override
 	public Receive createReceive() {
 		 return receiveBuilder()
-			        .match(TopicDataReqDetails.class, this::sendRepoData)
+			        .match(TopicDataReqDetails.class, this::sendTopicData)
 			        .build();
 	}
 	
-	private void sendRepoData(TopicDataReqDetails topicData) {
+	private void sendTopicData(TopicDataReqDetails topicData) {
 		try {
 		CompletionStage<List<TopicDataModel>> response = topicDataService.getRepositoryData(topicData.topicName);
 		System.out.println("response --> "+response);

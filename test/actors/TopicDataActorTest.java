@@ -30,7 +30,7 @@ public class TopicDataActorTest extends WithApplication{
 		final HomeController topicController = Mockito.mock(HomeController.class);
 		WSClient client = Mockito.mock(WSClient.class);
 		WSRequest request = Mockito.mock(WSRequest.class);
-		//when(client.url("https://api.github.com/search/topics?q=java")).thenReturn(request);
+		when(client.url("https://api.github.com/search/topics?q=java")).thenReturn(request);
 		final ActorSystem actorSystem = ActorSystem.create();
 		CompletionStage<Result> result = null;
 		try {
@@ -48,7 +48,6 @@ public class TopicDataActorTest extends WithApplication{
 			topicDataModel.setUpdated_at("2021-12-05T20:57:21Z");
 			
 			Request request1 = Helpers.fakeRequest().method("GET").uri("https://api.github.com/search/topics?q=java").session("Java","TestingBranchYashwanth").build();
-			System.out.println("Request has body: "+request1.hasBody());
 			result = (CompletionStage<Result>) topicController.getTopicData(request1, "Java");
 			Mockito.when(topicController.getTopicData(request1, "Java")).thenReturn(result);
 			

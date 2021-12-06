@@ -1,27 +1,34 @@
 package services;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
 
 import org.eclipse.egit.github.core.SearchRepository;
 import org.eclipse.egit.github.core.service.RepositoryService;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-
+import static org.junit.Assert.*;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.google.inject.Inject;
 
+import akka.actor.ActorSystem;
+import controllers.HomeController;
 import model.TopicDataModel;
+import play.Application;
+import play.cache.SyncCacheApi;
+import play.inject.Bindings;
+import play.inject.guice.GuiceApplicationBuilder;
 import play.libs.Json;
+import play.libs.ws.WSClient;
 import play.mvc.Http;
 import play.mvc.Result;
 import play.test.Helpers;
 import play.test.WithApplication;
+import static play.mvc.Results.ok;
 
 
 /**
@@ -32,9 +39,6 @@ import play.test.WithApplication;
  */
 @RunWith(MockitoJUnitRunner.class)
 public class TopicDataServiceTest extends WithApplication {
-
-	@InjectMocks
-	TopicDataService topicDataService;
 	
 	@Mock
 	RepositoryService repositoryService;
@@ -44,6 +48,23 @@ public class TopicDataServiceTest extends WithApplication {
 	static JsonNode json;
 	
 	public static List<SearchRepository> topicDataList;
+	
+	 public static class FakeTopicClient extends HomeController {
+	        
+		 @Inject
+		 public FakeTopicClient(WSClient ws, SyncCacheApi cacheApi, SearchForReposService searchForReposService,
+				RepoDataService repoDataService, RepoIssues repoIssues, TopicDataService topicDataService,
+				UserDataService userDataService, ActorSystem system) {
+			super(ws, cacheApi, searchForReposService, repoDataService, repoIssues, topicDataService, userDataService, system);
+		}
+	}
+	
+	@Override
+	protected Application provideApplication() {
+	    return new GuiceApplicationBuilder()
+	         .bindings(Bindings.bind(HomeController.class).to(FakeTopicClient.class))
+	         .build();
+	}
 	
 	/**
 	 * This method is used for setting up the data for testing
@@ -125,10 +146,10 @@ public class TopicDataServiceTest extends WithApplication {
 		
 		Result result = null;
 		
-		Http.RequestBuilder request1 = new Http.RequestBuilder().method("GET").uri("/topicData/Java");
-		
+		Http.RequestBuilder request1 = Helpers.fakeRequest().method("GET").uri("/topicData/Java");
 		result = Helpers.route(app, request1);
 		
-		assertEquals(Http.Status.OK, result.status());
+		assertEquals(Http.Status.OK, result.status());     
+		
 	}
 }
