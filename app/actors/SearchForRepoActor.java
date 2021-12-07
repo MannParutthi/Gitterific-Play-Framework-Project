@@ -32,7 +32,7 @@ public class SearchForRepoActor extends AbstractActorWithTimers {
 	private Set<ActorRef> userActors;
 	private String key;
 
-	private static final class Tick {
+	public static final class Tick {
 	}
 	
 	static public class RegisterMsg {
