@@ -1,21 +1,17 @@
 package controllers;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import model.SearchRepoModel;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 import play.Application;
 import play.cache.SyncCacheApi;
-import play.cache.SyncCacheApiAdapter;
 import play.data.FormFactory;
 import play.inject.guice.GuiceApplicationBuilder;
 import play.libs.ws.WSClient;
-import play.libs.ws.WSResponse;
 import play.mvc.Http;
 import play.mvc.Http.Request;
 import play.mvc.Result;
@@ -46,6 +42,11 @@ import static play.test.Helpers.route;
 
 /**
  * Test Controller to test Home Page
+ * 
+ * @author Harman Preet Kaur
+ * @author Manan Dineshbhai Paruthi
+ * @author Yashwanth Gundlapally
+ * @author Kevinkumar Patel
  *
  */
 @RunWith(value = MockitoJUnitRunner.class)
@@ -55,11 +56,22 @@ public class HomeControllerTest extends WithApplication {
     private WSClient ws;
     private HomeController controller;
 
+    /**
+     * Override for implementing DI injection
+     * 
+     * @return play.Application
+     * 
+     */
     @Override
     protected Application provideApplication() {
         return new GuiceApplicationBuilder().build();
     }
 
+    /**
+     * Setup for testing
+     * 
+     * @return void
+     */
     @Before
     public void init() {
         MockitoAnnotations.initMocks(this);
@@ -78,6 +90,11 @@ public class HomeControllerTest extends WithApplication {
         controller.setSearchForReposService(new SearchForReposService(ws));
     }
 
+    /**
+     * Testing for home page
+     * 
+     * @return void
+     */
     @Test
     public void testIndex() {
         Http.RequestBuilder request = new Http.RequestBuilder()
@@ -88,6 +105,13 @@ public class HomeControllerTest extends WithApplication {
         assertEquals(OK, result.status());
     }
 
+    /**
+     * Test method for RepoIssueGeneration
+     * 
+     * @return void
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
     @Test
     public void testRepoIssueReportGeneration() throws ExecutionException, InterruptedException {
         HomeController homeController = mock(HomeController.class, CALLS_REAL_METHODS);
@@ -101,6 +125,14 @@ public class HomeControllerTest extends WithApplication {
         assertEquals(homeController.getRepoIssues("", "").toCompletableFuture().get().status(), 200);
     }
 
+    /**
+     * Test method for Fetching Search Results from new Session
+     * 
+     * @return void
+     * 
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
     @Test
     public void testFetchSearchResultsFromRouteCallNewSession() throws ExecutionException, InterruptedException {
         controller.setPrevSearchSessionData(new HashMap<>());
@@ -113,6 +145,13 @@ public class HomeControllerTest extends WithApplication {
         // controller.getSearchResults(requestWithoutSession);
     }
 
+    /**
+     * Test method for Fetching Search Results from Route Call New session
+     * 
+     * @return void
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
     @Test
     public void testFetchSearchResultsFromRouteCallWithNewSession() throws ExecutionException, InterruptedException {
         String testKey = controller.getCurrentTimeStamp();
@@ -139,6 +178,13 @@ public class HomeControllerTest extends WithApplication {
         // controller.getSearchResults(requestWithoutSession);
     }
 
+    /**
+     * Test method for Fetching Search Results from Old Session
+     * 
+     * @return void
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
     @Test
     public void testFetchOldSearchResultsFromRouteCallWithOldSession() throws ExecutionException, InterruptedException {
         String testKey = controller.getSaltString();
@@ -170,6 +216,12 @@ public class HomeControllerTest extends WithApplication {
         assertEquals(result.status(), 200);
     }
 
+    /**
+     * Closing method after testing
+     * 
+     * @return void
+     * @throws IOException
+     */
     @After
     public void destroy() throws IOException {
         try {
