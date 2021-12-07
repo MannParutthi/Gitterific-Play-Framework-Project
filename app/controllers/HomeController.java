@@ -366,8 +366,7 @@ public class HomeController {
 		sessionMapRepoData.put("randomTestingKey1996", null); //for testing
 		System.out.println("key => " + userName + repoName + " == " + request.session().get(userName + repoName) + " == " + sessionMapRepoData);
 		CompletionStage<Result> resultCompletionStage;
-		if (!request.session().get(userName + repoName).isPresent()
-				|| this.sessionMapRepoData.get(request.session().get(userName + repoName).get()) == null) {
+		if (!request.session().get(userName + repoName).isPresent() || this.sessionMapRepoData.get(request.session().get(userName + repoName).get()) == null) {
 			return FutureConverters.toJava(ask(repoDataActor, new RepoDataReqDetails(userName, repoName), 10000)).thenApply(response -> {
 				RepoDataModel repoDetails = (RepoDataModel)response;
 				String randomKey = getSaltString();
@@ -452,8 +451,7 @@ public class HomeController {
 		// System.out.println(this.sessionMapUserData.get(request.session().get(userName).get()));
 
 		CompletionStage<Result> resultCompletionStage;
-		if (!request.session().get(userName).isPresent()
-				|| this.sessionMapUserData.get(request.session().get(userName).get()) == null) {
+		if (!request.session().get(userName).isPresent() || this.sessionMapUserData.get(request.session().get(userName).get()) == null) {
 			return FutureConverters.toJava(ask(userDataActor, new UserDataReqDetails(userName), 10000)).thenApply(response -> {
 				UserDetails userDetails = (UserDetails)response;
 				String randomKey = getSaltString();

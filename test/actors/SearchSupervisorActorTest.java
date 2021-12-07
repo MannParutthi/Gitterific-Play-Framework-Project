@@ -23,8 +23,22 @@ import play.mvc.WebSocket;
 import play.test.Helpers;
 import play.test.WithApplication;
 
+/**
+ * Test Class for SearchSupervisorActor
+ * 
+ * @author Harman Preet Kaur
+ * @author Manan Dineshbhai Paruthi
+ * @author Yashwanth Gundlapally
+ * @author Kevinkumar Patel
+ *
+ */
 public class SearchSupervisorActorTest extends WithApplication{
 
+	/**
+	 * Test method for testing SupervisorActor
+	 * 
+	 * @return void
+	 */
 	@Test
 	public void test_SupervisorActor() {
 		final ActorSystem actorSystem = ActorSystem.create();
@@ -42,18 +56,6 @@ public class SearchSupervisorActorTest extends WithApplication{
 	} finally {
 		TestKit.shutdownActorSystem(actorSystem);
 		}
-	}
-	
-	@Test
-	public void test_ws() {
-			
-		Result result = null;
-			
-		Http.RequestBuilder request1 = Helpers.fakeRequest().method("GET").uri("/ws");
-			
-		result = Helpers.route(app, request1);
-		
-		assertNotNull(request1);    
 	}
 }
 

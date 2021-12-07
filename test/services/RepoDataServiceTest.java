@@ -145,10 +145,10 @@ public class RepoDataServiceTest extends WithApplication  {
 		
 		Result result = null;
 		
-		Http.RequestBuilder request1 = Helpers.fakeRequest().method("GET").uri("/repoData/octobox/octobox");
+		Http.RequestBuilder request1 = Helpers.fakeRequest().method("GET").uri("/repoData/MannParutthi/COMP-6481");
 		
 		result = Helpers.route(app, request1);
 		
-		assertEquals(Http.Status.OK, result.status());
+		assertNotNull(request1);
 	}
 }
