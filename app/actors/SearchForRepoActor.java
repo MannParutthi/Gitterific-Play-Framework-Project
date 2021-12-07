@@ -28,6 +28,15 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Actor for fetching the Search Results
+ * 
+ * @author Harman Preet Kaur
+ * @author Manan Dineshbhai Paruthi
+ * @author Yashwanth Gundlapally
+ * @author Kevinkumar Patel
+ *
+ */
 public class SearchForRepoActor extends AbstractActorWithTimers {
 	private Set<ActorRef> userActors;
 	private String key;
@@ -45,6 +54,13 @@ public class SearchForRepoActor extends AbstractActorWithTimers {
         }
     }
 	
+	/**
+     * 
+	 * This method return the Props for SearchResultsActor
+	 * 
+	 * @param SearchForReposService
+	 * @return akka.actor.Props
+	 */
 	static public Props getProps(SearchForReposService s) {
 		return Props.create(SearchForRepoActor.class, () -> new SearchForRepoActor(s));
 	}
@@ -56,12 +72,22 @@ public class SearchForRepoActor extends AbstractActorWithTimers {
 		this.searchForReposService = s;
 	 }
 
+	/**
+	 * This method is used to get the time
+	 * 
+	 * @return void
+	 */
 	@Override
 	public void preStart() {
 		Logger.info("SearchForRepoActor {} started", self());
 		getTimers().startPeriodicTimer("Timer", new Tick(), Duration.create(15, TimeUnit.SECONDS));
 	}
 
+	/**
+     * Overriding the createReceive method for SearchResults functionality
+     * 
+     * @return akka.Actor.AbstractActor.Receive
+     */
 	@Override
 	public Receive createReceive() {
 		return receiveBuilder()
@@ -71,12 +97,23 @@ public class SearchForRepoActor extends AbstractActorWithTimers {
 				.build();
 	}
 	
-	private void getMessage(String key) {
+	/**
+	 * This method returns the key
+	 * 
+	 * @return void
+	 * @param key
+	 */
+	public void getMessage(String key) {
 		System.out.println("msg is here "+key);
 		this.key = key;
 	}
 	
-	private void notifyClients() {
+	/**
+	 * This method notifies when there are new results
+	 * 
+	 * @return void
+	 */
+	public void notifyClients() {
 		System.out.println("inside notify ==> ");
 		try {
 			if(key != null) {

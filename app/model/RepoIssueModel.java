@@ -42,10 +42,21 @@ public class RepoIssueModel {
 		this.url = url;
 	}
 
+	/**
+	 * This method returns the state
+	 * 
+	 * @return String
+	 */
 	public String getState() {
 		return state;
 	}
-
+	
+	/**
+	 * This method sets the state
+	 * 
+	 * @param state
+	 * @return void
+	 */
 	public void setState(String state) {
 		this.state = state;
 	}

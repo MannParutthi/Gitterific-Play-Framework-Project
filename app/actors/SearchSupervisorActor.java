@@ -12,6 +12,15 @@ import model.SearchRepoModel;
 import play.Logger;
 import play.libs.Json;
 
+/**
+ * This class is used for Supervisor Actor
+ * 
+ * @author Harman Preet Kaur
+ * @author Manan Dineshbhai Paruthi
+ * @author Yashwanth Gundlapally
+ * @author Kevinkumar Patel
+ *
+ */
 public class SearchSupervisorActor extends AbstractActor {
 	private final ActorRef ws;
     
@@ -27,15 +36,31 @@ public class SearchSupervisorActor extends AbstractActor {
     	Logger.debug("New SearchSupervisorActor {} for WebSocket {}; SearchForRepoActor= {}", self(), wsOut);
     }
 
+    /**
+     * This method return the Props for SupervisorActor
+     * 
+     * @param wsout
+     * @return
+     */
     public static Props props(ActorRef wsout) {
         return Props.create(SearchSupervisorActor.class, wsout);
     }
     
+    /**
+     * This method is used to pre start the Supervisor Actor
+     * 
+     * @return void
+     */
     @Override
     public void preStart() {
        	context().actorSelection("/user/searchForRepoActor/").tell(new SearchForRepoActor.RegisterMsg(), self());
     }
 
+    /**
+     * Overriding the createReceive method for SupervisorActor functionality
+     *
+     * @return akka.Actor.AbstractActor.Receive
+     */
 	@Override
 	public Receive createReceive() {
 		return receiveBuilder()
@@ -43,7 +68,13 @@ public class SearchSupervisorActor extends AbstractActor {
 				.build();
 	}
 	
-	private void sendData(NewData newData) {
+	/**
+	 * This method is used to Send Data
+	 * 
+	 * @param newData
+	 * @return void
+	 */
+	public void sendData(NewData newData) {
         final ObjectNode response = Json.newObject();
         for (int i=0; i< newData.data.size(); i++) {
         	response.put(String.valueOf(i), newData.data.get(i).getJson());

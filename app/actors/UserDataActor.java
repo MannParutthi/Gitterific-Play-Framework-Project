@@ -13,6 +13,12 @@ import model.UserDetails;
 import play.libs.ws.WSClient;
 import services.UserDataService;
 
+/**
+ * This is the class for UserDataActor
+ * 
+ * @author Harman Preet Kaur
+ *
+ */
 public class UserDataActor extends AbstractActor {
 	
 	static public class UserDataReqDetails {
@@ -29,10 +35,22 @@ public class UserDataActor extends AbstractActor {
 		this.userDataService = userDataService;
 	}
 
+	/**
+     * 
+	 * This method return the Props for UserDataActor
+	 * 
+	 * @param UserDataService
+	 * @return akka.actor.Props
+	 */
 	public static Props getProps( UserDataService s) {
 		return Props.create(UserDataActor.class, () -> new UserDataActor(s));
 	}
 
+	/**
+     * Overriding the createReceive method for UserDataActor functionality
+     * 
+     * @return akka.Actor.AbstractActor.Receive
+     */
 	@Override
 	public Receive createReceive() {
 		 return receiveBuilder()
@@ -40,7 +58,13 @@ public class UserDataActor extends AbstractActor {
 			        .build();
 	}
 	
-	private void sendUserData(UserDataReqDetails reqData) {
+	/**
+	 * This method is used to Send Data
+	 * 
+	 * @param newData
+	 * @return void
+	 */
+	public void sendUserData(UserDataReqDetails reqData) {
 		try {
 		CompletionStage<UserDetails> response = userDataService.getUserData(reqData.userName);
 		System.out.println("response --> "+response);

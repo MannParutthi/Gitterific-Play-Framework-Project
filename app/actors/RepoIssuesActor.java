@@ -14,6 +14,12 @@ import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
+/**
+ * Actor class for RepoIssues
+ * 
+ * @author Kevinkumar Patel
+ *
+ */
 public class RepoIssuesActor extends AbstractActor {
 
     private RepoAnalyzer analyzer;
@@ -22,6 +28,13 @@ public class RepoIssuesActor extends AbstractActor {
         this.analyzer = analyzer;
     }
 
+    /**
+     * 
+	 * This method return the Props for RepoDataActor
+	 * 
+	 * @param RepoDataService
+	 * @return akka.actor.Props
+	 */
     public static Props props() {
         return Props.create(RepoIssuesActor.class);
     }
@@ -42,8 +55,13 @@ public class RepoIssuesActor extends AbstractActor {
             this.analyzer = analyzer;
         }
     }
-
-    @Override
+    
+    /**
+     * Overriding the createReceive method for RepoIssues functionality
+     * 
+     * @return akka.Actor.AbstractActor.Receive
+     */
+    @Override 
     public Receive createReceive() {
         return receiveBuilder()
                 .match(GetReport.class, this::onGetReport)
@@ -51,7 +69,12 @@ public class RepoIssuesActor extends AbstractActor {
                 .build();
     }
 
-    private void onGetReport(GetReport getReport) {
+    /**
+     * This method calls the RepoIssues
+     * 
+     * @param getReport
+     */
+    public void onGetReport(GetReport getReport) {
         CompletableFuture<String> result;
         if (getReport != null &&
                 getReport.userName != null && !getReport.userName.isBlank() &&
@@ -88,6 +111,13 @@ public class RepoIssuesActor extends AbstractActor {
 
         }
 
+        /**
+         * This method fetches the RepoIssues from api
+         * 
+         * @param userName
+         * @param repo
+         * @return List<issue>
+         */
         public static List<Issue> fetchRepoIssues(String userName, String repo) {
             List<Issue> issues = null;
             try {
@@ -98,7 +128,13 @@ public class RepoIssuesActor extends AbstractActor {
             }
             return issues;
         }
-
+        
+        /**
+         * This method generates the list of issues
+         * 
+         * @param issues
+         * @return String
+         */
         public static String generateReport(List<Issue> issues) {
             if (issues == null)
                 return "Error";
