@@ -43,10 +43,21 @@ public class RepoContributorModel {
 		this.url = url;
 	}
 
+	/**
+	 * This method returns the number of contributions
+	 * 
+	 * @return int
+	 */
 	public int getNoOfContributions() {
 		return noOfContributions;
 	}
 
+	/**
+	 * This method sets the contributions count
+	 * 
+	 * @param noOfContributions
+	 * @return void
+	 */
 	public void setNoOfContributions(int noOfContributions) {
 		this.noOfContributions = noOfContributions;
 	}

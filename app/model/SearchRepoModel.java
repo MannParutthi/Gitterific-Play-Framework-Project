@@ -77,12 +77,22 @@ public class SearchRepoModel {
 		this.topics = strings;
 	}
 	
+	/**
+	 * This method returns the SearchRepoModel object data
+	 * 
+	 * @return String
+	 */
 	@Override
 	public String toString() {
 		return "SearchRepoModel [userName=" + userName + ", repoName=" + repoName + ", topics="
 				+ Arrays.toString(topics) + "]";
 	}
 	
+	/**
+	 * This method return Json for the given topics
+	 * 
+	 * @return JsonNode
+	 */
 	public JsonNode getJson() {
 		ObjectNode jsonData = Json.newObject();
 		jsonData.put("user", getUserName());
@@ -94,6 +104,4 @@ public class SearchRepoModel {
 		jsonData.put("topics", allTopics);
 		return jsonData;
 	}
-	
-	
 }

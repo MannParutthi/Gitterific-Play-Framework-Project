@@ -13,6 +13,12 @@ import model.RepoDataModel;
 import play.libs.ws.WSClient;
 import services.RepoDataService;
 
+/**
+ * Actor class for RepoData Task
+ * 
+ * @author Manan Dineshbhai Paruthi
+ *
+ */
 public class RepoDataActor extends AbstractActor {
 	
 	static public class RepoDataReqDetails {
@@ -30,10 +36,21 @@ public class RepoDataActor extends AbstractActor {
 		this.repoDataService = repoDataService;
 	}
 
-	public static Props getProps( RepoDataService s) {
+	/**
+	 * This method return the Props for RepoDataActor
+	 * 
+	 * @param RepoDataService
+	 * @return akka.actor.Props
+	 */
+	public static Props getProps(RepoDataService s) {
 		return Props.create(RepoDataActor.class, () -> new RepoDataActor(s));
 	}
 
+	/**
+     * Overriding the createReceive method for RepoDataActor functionality
+     * 
+     * @return akka.Actor.AbstractActor.Receive
+     */
 	@Override
 	public Receive createReceive() {
 		 return receiveBuilder()
@@ -41,7 +58,13 @@ public class RepoDataActor extends AbstractActor {
 			        .build();
 	}
 	
-	private void sendRepoData(RepoDataReqDetails reqData) {
+	/**
+	 * This method is used to Send Data
+	 * 
+	 * @param newData
+	 * @return void
+	 */
+	public void sendRepoData(RepoDataReqDetails reqData) {
 		try {
 		CompletionStage<RepoDataModel> response = repoDataService.getRepoData(reqData.userName, reqData.repoName);
 		System.out.println("response --> "+response);
@@ -54,5 +77,4 @@ public class RepoDataActor extends AbstractActor {
 			sender().tell(new RepoDataModel(), self());
 		}
 	}
-
 }

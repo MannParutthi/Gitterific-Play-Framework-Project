@@ -45,26 +45,60 @@ public class RepoCommitModel {
 		this.url = url;
 	}
 
+	
+	/**
+	 * Returns the message
+	 * 
+	 * @return String
+	 */
 	public String getMessage() {
 		return message;
 	}
 
+	/**
+	 * Sets the message
+	 * 
+	 * @param message
+	 * @return void
+	 */
 	public void setMessage(String message) {
 		this.message = message;
 	}
-
+	
+	/**
+	 * Returns the email
+	 * 
+	 * @return String
+	 */
 	public String getEmail() {
 		return email;
 	}
 
+	/**
+	 * Sets the email
+	 * 
+	 * @param email
+	 * @return void
+	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
+	/**
+	 * Returns the Date
+	 * 
+	 * @return String
+	 */
 	public String getDate() {
 		return date;
 	}
 
+	/**
+	 * Sets the Date 
+	 * 
+	 * @param date
+	 * @return void
+	 */
 	public void setDate(String date) {
 		this.date = date;
 	}

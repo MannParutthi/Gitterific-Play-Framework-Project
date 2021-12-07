@@ -79,7 +79,7 @@ public class SearchForReposService {
 	 * This method is used to convert the JSON Object into List
 	 * 
 	 * @param json
-	 * @return List<SearchRepoModel> Returns the list of SearchRepoModel
+	 * @return List<SearchRepoModel> 
 	 */
 	public List<SearchRepoModel> getSearchRepoModels(JsonNode json) {
 		List<SearchRepoModel> searchRepoList = new ArrayList<>();

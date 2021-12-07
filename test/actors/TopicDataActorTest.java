@@ -1,5 +1,6 @@
 package actors;
 
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.when;
 
 import java.time.Duration;
@@ -23,8 +24,22 @@ import play.test.Helpers;
 import play.test.WithApplication;
 import services.TopicDataService;
 
+
+/**
+ * This is the Test class for TopicDataActor
+ * 
+ * @author Yashwanth Gundlapally
+ *
+ */
 public class TopicDataActorTest extends WithApplication{
 	
+	/**
+	 * This is the test case for TopicDataActor
+	 * 
+	 * @return void
+	 * @throws InterruptedException
+	 * @throws ExecutionException
+	 */
 	@Test
 	public void test_Topic() throws InterruptedException, ExecutionException {
 		final HomeController topicController = Mockito.mock(HomeController.class);
@@ -57,6 +72,7 @@ public class TopicDataActorTest extends WithApplication{
                 topicActor.tell("", getRef());
                 within(Duration.ofSeconds(3), () -> {  
                     expectNoMessage();
+                    assertNotNull(request1);
                     return null;
                 });
             }};

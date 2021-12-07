@@ -429,9 +429,4 @@ public class UserDetails {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-	
-	/**
-	 * This method returns the user plan
-	 * @return UserPlan  Returns the user plan
-	 */
 }

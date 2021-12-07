@@ -92,6 +92,17 @@ public class UserDataService {
 		
 	}
 	
+	/**
+	 * This method returns the JsonNode for the given URI
+	 * 
+	 * @param url
+	 * @param limit
+	 * @return
+	 * @throws InterruptedException
+	 * @throws ExecutionException
+	 * 
+	 * @return JsonNode
+	 */
 	public JsonNode getJsonData(String url, int limit) throws InterruptedException, ExecutionException {
 		if(limit == -1) {
 			return ws.url(url).get().thenApply((WSResponse r) -> { return r.asJson(); }).toCompletableFuture().get();

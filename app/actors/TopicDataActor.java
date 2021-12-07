@@ -14,6 +14,13 @@ import model.TopicDataModel;
 import play.libs.ws.WSClient;
 import services.TopicDataService;
 
+/**
+ * This is the class for TopicDataActor
+ * 
+ * 
+ * @author Yashwanth Gundlapally
+ *
+ */
 public class TopicDataActor extends AbstractActor {
 	
 	static public class TopicDataReqDetails {
@@ -30,10 +37,23 @@ public class TopicDataActor extends AbstractActor {
 		this.topicDataService = topicDataService;
 	}
 
+	 /**
+     * 
+	 * This method return the Props for TopicDataActor
+	 * 
+	 * @param TopicDataService
+	 * @return akka.actor.Props
+	 */
 	public static Props getProps(TopicDataService s) {
 		return Props.create(TopicDataActor.class, () -> new TopicDataActor(s));
 	}
 
+	
+	/**
+     * Overriding the createReceive method for TopicDataActor functionality
+     * 
+     * @return akka.Actor.AbstractActor.Receive
+     */
 	@Override
 	public Receive createReceive() {
 		 return receiveBuilder()
@@ -41,7 +61,13 @@ public class TopicDataActor extends AbstractActor {
 			        .build();
 	}
 	
-	private void sendTopicData(TopicDataReqDetails topicData) {
+	/**
+	 * This method is used to Send Data
+	 * 
+	 * @param newData
+	 * @return void
+	 */
+	public void sendTopicData(TopicDataReqDetails topicData) {
 		try {
 		CompletionStage<List<TopicDataModel>> response = topicDataService.getRepositoryData(topicData.topicName);
 		System.out.println("response --> "+response);

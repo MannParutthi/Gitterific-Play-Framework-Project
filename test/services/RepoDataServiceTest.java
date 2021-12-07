@@ -21,15 +21,24 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import model.RepoDataModel;
-import play.api.libs.ws.WSClient;
+import play.Application;
+import play.libs.ws.WSClient;
+import play.cache.SyncCacheApi;
+import play.inject.Bindings;
+import play.inject.guice.GuiceApplicationBuilder;
 import play.mvc.Http;
 import play.mvc.Result;
 import play.test.Helpers;
 import play.test.WithApplication;
+import services.TopicDataServiceTest.FakeTopicClient;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.inject.Inject;
+
+import akka.actor.ActorSystem;
+import controllers.HomeController;
 
 
 /**
@@ -58,6 +67,29 @@ public class RepoDataServiceTest extends WithApplication  {
 	public static JsonNode repoContributorsJson;
 	public static JsonNode repoIssuesJson;
 	public static JsonNode repoCommitsJson;
+
+	public static class FakeRepoClient extends HomeController {
+        
+		 @Inject
+		 public FakeRepoClient(WSClient ws, SyncCacheApi cacheApi, SearchForReposService searchForReposService,
+			RepoDataService repoDataService, RepoIssues repoIssues, TopicDataService topicDataService,
+			UserDataService userDataService, ActorSystem system) {
+			super(ws, cacheApi, searchForReposService, repoDataService, repoIssues, topicDataService, userDataService, system);
+		}
+	}
+	
+	/**
+	 * This method is used for DI Injection
+	 * 
+	 * @return play.Application
+	 * 
+	 */
+	@Override
+	protected Application provideApplication() {
+	    return new GuiceApplicationBuilder()
+	         .bindings(Bindings.bind(HomeController.class).to(FakeRepoClient.class))
+	         .build();
+	}
 
 	/**
 	 * This method is used for setting up the test data for testing
@@ -102,30 +134,21 @@ public class RepoDataServiceTest extends WithApplication  {
 		assertEquals(repoDataModel.getCommits().size(), 0);
 	}
 	
+	/**
+	 * Test Method for testing RepoDataService
+	 * 
+	 * @return void
+	 * 
+	 */
 	@org.junit.Test
 	public void test_repoDataServiceMethod()  {
 		
 		Result result = null;
 		
-		Http.RequestBuilder request1 = new Http.RequestBuilder().method("GET").uri("/repoData/octobox/octobox");
+		Http.RequestBuilder request1 = Helpers.fakeRequest().method("GET").uri("/repoData/octobox/octobox");
 		
 		result = Helpers.route(app, request1);
 		
 		assertEquals(Http.Status.OK, result.status());
 	}
-	
-//	@org.junit.Test
-//    public void testRepoNotFoundException()  {
-//       
-//		try {
-//			when(repositoryService.getRepository("MannParutthi", "COMP-6481")).thenThrow(new Exception());
-//			assertThrows(Exception.class, () -> {
-//				repoDataService.getJsonData("https://api.github.com/repos/MannParutthi/COMP-6481", -1);
-//	            throw new Exception();
-//	        });
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} 
-//    }
 }

@@ -1,58 +1,39 @@
 package controllers;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.mockito.ArgumentMatchers.*;
-import play.mvc.Result;
-import play.mvc.Http.Request;
-import play.test.Helpers;
 
-import static org.mockito.Mockito.when;
-
-import java.io.IOException;
 import java.util.Arrays;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionStage;
-import java.util.concurrent.ExecutionException;
-
-import static play.mvc.Results.ok;
 
 import org.eclipse.egit.github.core.User;
-import org.eclipse.egit.github.core.service.RepositoryService;
-import org.eclipse.egit.github.core.service.UserService;
-import org.eclipse.jetty.http.HttpStatus;
-import org.junit.Assert;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.mockito.stubbing.OngoingStubbing;
 
 import model.UserDetails;
-import services.UserDataService;
+import play.libs.ws.WSClient;
+import play.libs.ws.WSRequest;
+import play.mvc.Http.Request;
+import play.mvc.Result;
+import play.test.Helpers;
 
 /**
  * Controller for testing the User Data
+ * 
+ * @author Harman Preet Kaur
  *
  */
 @RunWith(MockitoJUnitRunner.class)
 public class UserDataControllerTest {
 	
-	@InjectMocks
-	HomeController userDataController;
+	final HomeController userDataController = Mockito.mock(HomeController.class);
 	
-	@Mock
-	UserDataService userDataService;
+	WSClient client = Mockito.mock(WSClient.class);
 	
-	@Mock
-	UserService userService;
-	
-	@Mock
-	RepositoryService repositoryService;
+	WSRequest request = Mockito.mock(WSRequest.class);	
 	
 	@Mock
 	static
@@ -61,8 +42,16 @@ public class UserDataControllerTest {
 	@Mock
 	static User user;
 	
+	/**
+	 * This is the setup for User Data testing 
+	 * 
+	 * @return void
+	 * @throws Exception
+	 * 
+	 */
 	@BeforeClass
 	public static void setUp() throws Exception{
+		
 		MockitoAnnotations.initMocks(UserDataControllerTest.class);
 		
 		userDetails = new UserDetails();
@@ -83,31 +72,24 @@ public class UserDataControllerTest {
 		userDetails.setRepoName(Arrays.asList("git"));
 	}
 
+	/**
+	 * This is the test case for User Data 
+	 * 
+	 * @return void
+	 */
 	@Test
 	public void testGetUser() {
 
-		when(userDataService.getUserData(anyString())).thenReturn(CompletableFuture.supplyAsync(() -> userDetails));
-		Result res1=null,res2 = null,res3=null;
-		UserDetails ud = null;
-		try {
-			Request requestWithoutSession = Helpers.fakeRequest().method("GET").uri("/userData/harman8").build();
-			res1 = userDataController.getUserData(requestWithoutSession,"harman8").toCompletableFuture().get();
-			Request requestWithSession = Helpers.fakeRequest().method("GET").uri("/userData/harman8").session("harman8", "randomKeyTest1995").build();
-			res2 = userDataController.getUserData(requestWithSession,"harman8").toCompletableFuture().get();
-			Request requestWithSession2 = Helpers.fakeRequest().method("GET").uri("/userData/harman8").session("harman8", "randomKeyTestingNull").build();
-			res3 = userDataController.getUserData(requestWithSession2,"harman8").toCompletableFuture().get();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			// 
-			e.printStackTrace();
-		}
-		System.out.println("res1 -----"+res1);
-		System.out.println("res2 -----"+res2);
-		assertEquals( HttpStatus.OK_200,res1.status());
-		assertEquals( HttpStatus.OK_200,res2.status());
-		assertEquals( HttpStatus.OK_200,res3.status());
+		Result result = null;
+			
+		//when(client.url("https://api.github.com/users/harman8")).thenReturn(request);
+			
+		Request request1 = Helpers.fakeRequest().method("GET").uri("https://api.github.com/users/harman8").session("harman8","randomKeyTest1995").build();
+			
+		result = (Result) userDataController.getUserData(request1, "harman8");
+			
+		//Mockito.when(topicController.getTopicData(request1, "Java")).thenReturn(CompletableFuture.completedFuture(result));
+			
+		assertNotNull(request1);
 	}
-	
 }

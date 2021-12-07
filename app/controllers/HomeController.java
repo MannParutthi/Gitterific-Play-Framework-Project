@@ -306,6 +306,35 @@ public class HomeController {
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		return timestamp.toString();
 	}
+	
+	private void test() {
+		if(count == 0) {
+			prevSearchData = new ArrayList<LinkedHashMap<String, List<SearchRepoModel>>>();
+			List<SearchRepoModel> sp = new ArrayList<SearchRepoModel>();
+			LinkedHashMap<String, List<SearchRepoModel>> l1 = new LinkedHashMap<String, List<SearchRepoModel>>();
+			
+			SearchRepoModel spm = new SearchRepoModel();
+			spm.setRepoName("CS-Notes");
+			spm.setUserName("CyC2018");
+			String[] str = new String[] {"algorithm" , "computer-science" , "cpp" , "interview" , "java" , "leetcode" , "python" , "system-design"};
+			spm.setTopics(str);
+			sp.add(spm);
+			l1.put("Java", sp);
+			prevSearchData.add(l1);
+			
+			LinkedHashMap<String, List<SearchRepoModel>> l2 = new LinkedHashMap<String, List<SearchRepoModel>>();
+			List<SearchRepoModel> sp1 = new ArrayList<SearchRepoModel>();
+			SearchRepoModel spm1 = new SearchRepoModel();
+			spm.setRepoName("CS-Notes-1");
+			spm.setUserName("CyC2018-1");
+			String[] str1 = new String[] {"algorithms" , "Computer-Sciences" , "c++" , "interviews" , "Java" , "Leetcode" , "Python" , "System-Design"};
+			spm1.setTopics(str1);
+			sp1.add(spm);
+			l2.put("Java", sp1);
+			prevSearchData.add(l2);
+			count = 1;
+		}
+	}
 
 	/**
 	 * This method is used to get the Randomkey that is used in session management
@@ -387,34 +416,9 @@ public class HomeController {
 	 * @return CompletionStage<Result> Returns the Repository Data for the given Username
 	 */
 	public CompletionStage<Result> getTopicData(Http.Request request, String topicName) {
-		topicDataModelMap.put("TestingBranchYashwanth", DummyResponseForTesting.getTopicData());
+		topicDataModelMap.put("TestingBranchYashwanth", DummyResponseForTesting.getTopicData());// for testing
 		topicDataModelMap.put("TestingTopicDataModel", null);// for testing
-		if(count == 0) {
-			prevSearchData = new ArrayList<LinkedHashMap<String, List<SearchRepoModel>>>();
-			List<SearchRepoModel> sp = new ArrayList<SearchRepoModel>();
-			LinkedHashMap<String, List<SearchRepoModel>> l1 = new LinkedHashMap<String, List<SearchRepoModel>>();
-			
-			SearchRepoModel spm = new SearchRepoModel();
-			spm.setRepoName("CS-Notes");
-			spm.setUserName("CyC2018");
-			String[] str = new String[] {"algorithm" , "computer-science" , "cpp" , "interview" , "java" , "leetcode" , "python" , "system-design"};
-			spm.setTopics(str);
-			sp.add(spm);
-			l1.put("Java", sp);
-			prevSearchData.add(l1);
-			
-			LinkedHashMap<String, List<SearchRepoModel>> l2 = new LinkedHashMap<String, List<SearchRepoModel>>();
-			List<SearchRepoModel> sp1 = new ArrayList<SearchRepoModel>();
-			SearchRepoModel spm1 = new SearchRepoModel();
-			spm.setRepoName("CS-Notes-1");
-			spm.setUserName("CyC2018-1");
-			String[] str1 = new String[] {"algorithms" , "Computer-Sciences" , "c++" , "interviews" , "Java" , "Leetcode" , "Python" , "System-Design"};
-			spm1.setTopics(str1);
-			sp1.add(spm);
-			l2.put("Java", sp1);
-			prevSearchData.add(l2);
-			count = 1;
-		}
+		test();
 		CompletionStage<Result> result = null;
 		if (!request.session().get(topicName).isPresent() || this.sessionMapUserData.get(request.session().get(topicName).get()) == null) {
 			return FutureConverters.toJava(ask(topicDataActor, new TopicDataReqDetails(topicName), 10000)).thenApply(response -> {
@@ -470,4 +474,6 @@ public class HomeController {
 		}
 		return resultCompletionStage;
 	}
+	
+	
 }
