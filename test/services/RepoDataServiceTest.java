@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import org.eclipse.egit.github.core.Contributor;
 import org.eclipse.egit.github.core.Issue;
@@ -73,7 +74,7 @@ public class RepoDataServiceTest extends WithApplication  {
 		 @Inject
 		 public FakeRepoClient(WSClient ws, SyncCacheApi cacheApi, SearchForReposService searchForReposService,
 			RepoDataService repoDataService, RepoIssues repoIssues, TopicDataService topicDataService,
-			UserDataService userDataService, ActorSystem system) {
+			UserDataService userDataService, ActorSystem system) throws InterruptedException , ExecutionException  {
 			super(ws, cacheApi, searchForReposService, repoDataService, repoIssues, topicDataService, userDataService, system);
 		}
 	}

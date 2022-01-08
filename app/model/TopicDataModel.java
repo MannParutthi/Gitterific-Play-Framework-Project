@@ -16,7 +16,7 @@ public class TopicDataModel {
 	 * @return String
 	 */
 	public String getName() {
-		if(name != null)
+		if(name != "null")
 			return name;
 		return "NA";
 	}
@@ -36,7 +36,7 @@ public class TopicDataModel {
 	 * @return String
 	 */
 	public String getDisplay_name() {
-		if(display_name != null)
+		if(display_name != "null")
 			return display_name;
 		return "NA";
 	}
@@ -57,7 +57,7 @@ public class TopicDataModel {
 	 * @return String
 	 */
 	public String getShort_description() {
-		if(short_description != null)
+		if(short_description != "null")
 			return short_description;
 		return "NA";
 	}
@@ -77,7 +77,7 @@ public class TopicDataModel {
 	 * @return String
 	 */
 	public String getDescription() {		
-		if(description != null)
+		if(description != "null")
 			return description;
 		return "NA";
 	}
@@ -98,7 +98,7 @@ public class TopicDataModel {
 	 * @return String
 	 */
 	public String getCreated_by() {
-		if(created_by != null)
+		if(created_by != "null")
 			return created_by;
 		return "NA";
 	}
@@ -119,7 +119,7 @@ public class TopicDataModel {
 	 * @return String
 	 */
 	public String getReleased() {
-		if(released != null)
+		if(released != "null")
 			return released;
 		return "NA";
 	}
@@ -140,7 +140,7 @@ public class TopicDataModel {
 	 * @return String
 	 */
 	public String getCreated_at() {
-		if(created_at != null)
+		if(created_at != "null")
 			return created_at;
 		return "NA";
 	}
@@ -161,7 +161,7 @@ public class TopicDataModel {
 	 * @return String
 	 */
 	public String getUpdated_at() {
-		if(updated_at != null)
+		if(updated_at != "null")
 			return updated_at;
 		return "NA";
 	}
@@ -182,7 +182,7 @@ public class TopicDataModel {
 	 * @return String
 	 */
 	public String getFeatured() {
-		if(featured != null)
+		if(featured != "null")
 			return featured;
 		return "NA";
 	}
@@ -203,7 +203,7 @@ public class TopicDataModel {
 	 * @return String
 	 */
 	public String getCurated() {
-		if(curated != null)
+		if(curated != "null")
 			return curated;
 		return "NA";
 	}
@@ -224,7 +224,7 @@ public class TopicDataModel {
 	 * @return String
 	 */
 	public String getScore() {
-		if(score != null)
+		if(score != "null")
 			return score;
 		return "NA";
 	}

@@ -29,15 +29,15 @@
 					}
  				</div>
  				<div class="container">
- 					<h2><b>Latest 10 Repositories for @topicSearchKeyword</b></h2><br/> 
+ 					<p><b>Latest 10 Repositories for @topicSearchKeyword</b></p><br/> 
 					<ol type="1">
 						@for(data <- topicData) {
 						<li>
 							<ul>
-								<li><h1><b>Repository Name</b>: @data.getName()</h1></li>
-								<li><h1><b>Description</b>: @data.getDescription()</h1></li>
-								<li><h1><b>Released On</b>: @data.getReleased()</h1></li>
-								<li><h1><b>Updated At</b>: @data.getUpdated_at()</h1></li>							
+								<li><h1>Repository Name: @data.getName()</h1></li>
+								<li><h1>Description: @data.getDescription()</h1></li>
+								<li><h1>Released On: @data.getReleased()</h1></li>
+								<li><h1>Updated At: @data.getUpdated_at()</h1></li>							
 							</ul>
 							<br/>
 						</li>

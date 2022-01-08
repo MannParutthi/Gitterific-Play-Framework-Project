@@ -10,7 +10,8 @@
 			<body data-ws-url="@routes.HomeController.ws.webSocketURL(request)">
 				<div id="time"></div>
 				<div class="container">
-					@for(mapOfSearchAndResult <- arrayListOfResult) {
+					@for((mapOfSearchAndResult, idx) <- arrayListOfResult.zipWithIndex) {
+						<div id=@("ele" + idx)>
 						@for((keyword,repoList) <- mapOfSearchAndResult) {
 						<p>Search Term : @keyword </p>
 							<ul>
@@ -29,6 +30,7 @@
 							</ul>
 							<hr>
 						}
+						</div>
 					}
  				</div>
   			</body>

@@ -1,17 +1,30 @@
 package controllers;
 
-import javax.inject.Inject;
+import static akka.pattern.Patterns.ask;
+import static play.mvc.Results.ok;
 
-import actors.RepoIssuesActor;
-import org.eclipse.egit.github.core.SearchRepository;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
+import java.util.concurrent.ExecutionException;
+
+import javax.inject.Inject;
 
 import actors.RepoDataActor;
 import actors.RepoDataActor.RepoDataReqDetails;
+import actors.RepoIssuesActor;
+import actors.SearchForRepoActor;
+import actors.SearchForRepoActor.RequestMsg;
+import actors.SearchSupervisorActor;
+import actors.Supervisor;
 import actors.TopicDataActor;
 import actors.TopicDataActor.TopicDataReqDetails;
-import actors.SearchForRepoActor;
-import actors.SearchSupervisorActor;
-import actors.SearchForRepoActor.RequestMsg;
 import actors.UserDataActor;
 import actors.UserDataActor.UserDataReqDetails;
 import akka.actor.ActorRef;
@@ -21,35 +34,22 @@ import model.RepoDataModel;
 import model.SearchRepoModel;
 import model.TopicDataModel;
 import model.UserDetails;
-import play.mvc.*;
-import scala.compat.java8.FutureConverters;
-import static akka.pattern.Patterns.ask;
-
-import services.*;
-import views.SearchDTO;
-import play.i18n.MessagesApi;
-import play.cache.Cached;
 import play.cache.SyncCacheApi;
-import play.data.Form;
 import play.data.FormFactory;
+import play.i18n.MessagesApi;
 import play.libs.streams.ActorFlow;
-import play.libs.ws.*;
-
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Random;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionStage;
-import java.util.concurrent.TimeUnit;
-
-import static play.mvc.Results.ok;
-import controllers.DummyResponseForTesting;
-import java.time.Duration;
+import play.libs.ws.WSClient;
+import play.mvc.Http;
+import play.mvc.Result;
+import play.mvc.Results;
+import play.mvc.WebSocket;
+import scala.compat.java8.FutureConverters;
+import services.RepoDataService;
+import services.RepoIssues;
+import services.SearchForReposService;
+import services.TopicDataService;
+import services.UserDataService;
+import views.SearchDTO;
 
 /**
  * HomeController is the Controller that handles the HTTP requests for searching for information on given topic, for fetching the repository data,
@@ -63,11 +63,11 @@ import java.time.Duration;
  * 
  */
 
-public class HomeController {
-	
+public class HomeController  {
+
 	@Inject private ActorSystem actorSystem;
-    @Inject private Materializer materializer;
-	ActorRef repoDataActor, searchForRepoActor, topicDataActor,userDataActor;
+	@Inject private Materializer materializer;
+	ActorRef repoDataActor, searchForRepoActor, topicDataActor,userDataActor, supervisor;
 
 	private SyncCacheApi cacheApi;
 
@@ -85,12 +85,13 @@ public class HomeController {
 	private final UserDataService userDataService;
 	private HashMap<String, UserDetails> sessionMapUserData;
 
+	private boolean flag_tag = false;
 	@Inject
 	private FormFactory formFactory;
 
 	@Inject
 	private MessagesApi messagesApi;
-	
+
 	private int count = 0;
 
 	/**
@@ -103,10 +104,21 @@ public class HomeController {
 	@Inject
 	public HomeController(WSClient ws, SyncCacheApi cacheApi, SearchForReposService searchForReposService,
 			RepoDataService repoDataService, RepoIssues repoIssues, TopicDataService topicDataService,
-			UserDataService userDataService, ActorSystem system) {
+			UserDataService userDataService, ActorSystem system) throws InterruptedException, ExecutionException{	
+
+		if(!flag_tag) {
+			supervisor = system.actorOf(Supervisor.getProps(), "supervisorStrategyActor");
+			flag_tag = true;
+		}
+		CompletionStage<ActorRef> searchActorImpl = FutureConverters
+				.toJava((ask(supervisor, SearchForRepoActor.getProps(searchForReposService), 5000)))
+				.thenApply(response -> {
+					return (ActorRef) response;
+				});
+
+		searchForRepoActor = searchActorImpl.toCompletableFuture().get();
+
 		repoDataActor = system.actorOf(RepoDataActor.getProps( repoDataService));
-		searchForRepoActor = system.actorOf(SearchForRepoActor.getProps(searchForReposService), "searchForRepoActor");
-		
 		topicDataActor = system.actorOf(TopicDataActor.getProps( topicDataService));
 		userDataActor = system.actorOf(UserDataActor.getProps( userDataService));
 		this.cacheApi = cacheApi;
@@ -122,11 +134,11 @@ public class HomeController {
 		this.userDataService = userDataService;
 		sessionMapUserData = new HashMap<String, UserDetails>();
 	}
-	
+
 	public WebSocket ws() {
-        return WebSocket.Json.accept(request -> ActorFlow.actorRef(SearchSupervisorActor::props, actorSystem, materializer));
-    }
-	
+		return WebSocket.Json.accept(request -> ActorFlow.actorRef(SearchSupervisorActor::props, actorSystem, materializer));
+	}
+
 	/**
 	 * This method sets the Repo Issues
 	 * 
@@ -220,7 +232,7 @@ public class HomeController {
 	public Result index(Http.Request request) {
 		return Results.ok(views.html.index.render(request, formFactory.form(SearchDTO.class), messagesApi.preferred(request)));
 	}
-	
+
 
 	/**
 	 * This method is used for caching the data in the search results page
@@ -228,7 +240,7 @@ public class HomeController {
 	 * @param request Http Request for session managing
 	 * @return CompletionStage<Result> Returns the Search Results
 	 */
-//	@Cached(key="search")
+	//	@Cached(key="search")
 	public CompletionStage<Result> getSearchResults(Http.Request request) {
 
 		String newSessionKey = getSaltString();
@@ -247,7 +259,7 @@ public class HomeController {
 			prevSearchData = this.prevSearchSessionData.get(request.session().get("savedData").get());
 		}
 
-//		Form<SearchDTO> form = formFactory.form(SearchDTO.class).bindFromRequest(request);
+		//		Form<SearchDTO> form = formFactory.form(SearchDTO.class).bindFromRequest(request);
 		String searchKeyword = request.queryString("searchTerm").get();
 		FutureConverters.toJava(ask(searchForRepoActor, new RequestMsg(searchKeyword), 10000));
 		CompletionStage<Result> resultCompletionStage;
@@ -306,13 +318,13 @@ public class HomeController {
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		return timestamp.toString();
 	}
-	
+
 	private void test() {
 		if(count == 0) {
 			prevSearchData = new ArrayList<LinkedHashMap<String, List<SearchRepoModel>>>();
 			List<SearchRepoModel> sp = new ArrayList<SearchRepoModel>();
 			LinkedHashMap<String, List<SearchRepoModel>> l1 = new LinkedHashMap<String, List<SearchRepoModel>>();
-			
+
 			SearchRepoModel spm = new SearchRepoModel();
 			spm.setRepoName("CS-Notes");
 			spm.setUserName("CyC2018");
@@ -321,7 +333,7 @@ public class HomeController {
 			sp.add(spm);
 			l1.put("Java", sp);
 			prevSearchData.add(l1);
-			
+
 			LinkedHashMap<String, List<SearchRepoModel>> l2 = new LinkedHashMap<String, List<SearchRepoModel>>();
 			List<SearchRepoModel> sp1 = new ArrayList<SearchRepoModel>();
 			SearchRepoModel spm1 = new SearchRepoModel();
@@ -372,8 +384,8 @@ public class HomeController {
 				String randomKey = getSaltString();
 				this.sessionMapRepoData.put(randomKey, repoDetails);
 				System.out.println("repoDataaaaa ==> " + repoDetails);
-				
-				 return ok(views.html.repoData.render(repoDetails)).addingToSession(request, userName + repoName,
+
+				return ok(views.html.repoData.render(repoDetails)).addingToSession(request, userName + repoName,
 						randomKey);
 			});
 		} else {
@@ -397,14 +409,14 @@ public class HomeController {
 		ActorSystem actorSystem = ActorSystem.create("ActorSystem");
 		ActorRef repoIssuesActor = actorSystem.actorOf(RepoIssuesActor.props(), "repoIssuesActor");
 		return FutureConverters.toJava(
-						ask(repoIssuesActor, new RepoIssuesActor.GetReport(userName, repo), 5000))
+				ask(repoIssuesActor, new RepoIssuesActor.GetReport(userName, repo), 5000))
 				.thenApplyAsync(report -> (CompletableFuture<String>) report)
 				.toCompletableFuture()
 				.thenApplyAsync(CompletableFuture::join)
 				.thenApply(output -> ok(views.html.repoIssueShow.render(output)));
 		// DO NOT DELETE ANY LINES BELOW (previous part 1 code)
-//		return repoIssues.getIssueReportFromRepo(userName,repo)
-//				.thenApplyAsync(output -> ok(views.html.repoIssueShow.render(output)));
+		//		return repoIssues.getIssueReportFromRepo(userName,repo)
+		//				.thenApplyAsync(output -> ok(views.html.repoIssueShow.render(output)));
 	}
 
 	/**
@@ -424,7 +436,7 @@ public class HomeController {
 				List<TopicDataModel> topicsList = (List<TopicDataModel>)response;
 				String randomKey = getSaltString();
 				topicDataModelMap.put(randomKey, topicsList);
-			return ok(views.html.topicData.render(topicsList, prevSearchData, topicName)).addingToSession(request, topicName, randomKey);
+				return ok(views.html.topicData.render(topicsList, prevSearchData, topicName)).addingToSession(request, topicName, randomKey);
 			});
 		} else {
 			String key = request.session().get(topicName).get();
@@ -457,11 +469,11 @@ public class HomeController {
 				String randomKey = getSaltString();
 				this.sessionMapUserData.put(randomKey, userDetails);
 				System.out.println("user------  " + userDetails);
-				
-				 return ok(views.html.userData.render(userDetails)).addingToSession(request, userName,
+
+				return ok(views.html.userData.render(userDetails)).addingToSession(request, userName,
 						randomKey);
 			});
-			
+
 
 		} else {
 			System.out.println("Here-----------------------");
@@ -472,6 +484,6 @@ public class HomeController {
 		}
 		return resultCompletionStage;
 	}
-	
-	
+
+
 }

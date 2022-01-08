@@ -53,7 +53,8 @@ public class SearchSupervisorActor extends AbstractActor {
      */
     @Override
     public void preStart() {
-       	context().actorSelection("/user/searchForRepoActor/").tell(new SearchForRepoActor.RegisterMsg(), self());
+       	context().actorSelection("/user/supervisorStrategyActor/SearchForRepoActor/").tell(new SearchForRepoActor.RegisterMsg(), self());
+    	//context().actorSelection("/user/SearchForRepoActor/").tell(new SearchForRepoActor.RegisterMsg(), self());
     }
 
     /**

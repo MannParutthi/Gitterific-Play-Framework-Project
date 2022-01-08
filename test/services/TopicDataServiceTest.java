@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
+import java.util.concurrent.ExecutionException;
 
 import org.eclipse.egit.github.core.SearchRepository;
 import org.eclipse.egit.github.core.service.RepositoryService;
@@ -54,7 +55,7 @@ public class TopicDataServiceTest extends WithApplication {
 		 @Inject
 		 public FakeTopicClient(WSClient ws, SyncCacheApi cacheApi, SearchForReposService searchForReposService,
 				RepoDataService repoDataService, RepoIssues repoIssues, TopicDataService topicDataService,
-				UserDataService userDataService, ActorSystem system) {
+				UserDataService userDataService, ActorSystem system) throws InterruptedException , ExecutionException {
 			super(ws, cacheApi, searchForReposService, repoDataService, repoIssues, topicDataService, userDataService, system);
 		}
 	}
@@ -110,17 +111,17 @@ public class TopicDataServiceTest extends WithApplication {
 		topicDataModel.setScore(json.get("score").asText());
 		topicDataModel.setShort_description(json.get("short_description").asText());
 		topicDataModel.setUpdated_at(json.get("updated_at").asText());
-		topicDataModel1.setDescription(null);
-		topicDataModel1.setCreated_at(null);
-		topicDataModel1.setCreated_by(null);
-		topicDataModel1.setCurated(null);
-		topicDataModel1.setDisplay_name(null);
-		topicDataModel1.setFeatured(null);
-		topicDataModel1.setName(null);
-		topicDataModel1.setReleased(null);
-		topicDataModel1.setScore(null);
-		topicDataModel1.setShort_description(null);
-		topicDataModel1.setUpdated_at(null);
+		topicDataModel1.setDescription("null");
+		topicDataModel1.setCreated_at("null");
+		topicDataModel1.setCreated_by("null");
+		topicDataModel1.setCurated("null");
+		topicDataModel1.setDisplay_name("null");
+		topicDataModel1.setFeatured("null");
+		topicDataModel1.setName("null");
+		topicDataModel1.setReleased("null");
+		topicDataModel1.setScore("null");
+		topicDataModel1.setShort_description("null");
+		topicDataModel1.setUpdated_at("null");
 		
 		assertEquals(topicDataModel.getCreated_at(), "2016-12-17T02:09:00Z");
 		assertEquals(topicDataModel.getCreated_by(), "Facebook");

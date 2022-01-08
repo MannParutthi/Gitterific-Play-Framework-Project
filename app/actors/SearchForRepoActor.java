@@ -80,7 +80,7 @@ public class SearchForRepoActor extends AbstractActorWithTimers {
 	@Override
 	public void preStart() {
 		Logger.info("SearchForRepoActor {} started", self());
-		getTimers().startPeriodicTimer("Timer", new Tick(), Duration.create(15, TimeUnit.SECONDS));
+		getTimers().startPeriodicTimer("Timer", new Tick(), Duration.create(10, TimeUnit.SECONDS));
 	}
 
 	/**

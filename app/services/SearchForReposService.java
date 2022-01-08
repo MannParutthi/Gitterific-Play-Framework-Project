@@ -71,7 +71,7 @@ public class SearchForReposService {
 	 * @return CompletableFuture<JsonNode> Returns the converted JSON data
 	 */
 	public CompletableFuture<JsonNode> getRequestData(String keyword) {
-		return ws.url("https://api.github.com/search/repositories?q=topic:" + keyword)
+		return ws.url("https://api.github.com/search/repositories?q=topic:" + keyword+ "&sort=updated")
 				.get().toCompletableFuture().thenApplyAsync(WSResponse::asJson);
 	}
 
